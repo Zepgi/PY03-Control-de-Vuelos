@@ -6,7 +6,7 @@
 ### Integrantes
 
    - Eyden Su Díaz               [2023025837]
-   - Mary Paz Alvarez Navarrete  []
+   - Mary Paz Alvarez Navarrete  [2023138604]
    - Jose Andres Solano Vargas   []
 
 
