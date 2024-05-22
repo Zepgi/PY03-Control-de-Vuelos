@@ -3,6 +3,12 @@
 # Proyecto #3: Control de Vuelos
 
 
+### Integrantes
 
-## Enlaces:
+   - Eyden Su Díaz               [2023025837]
+   - Mary Paz Alvarez Navarrete  []
+   - Jose Andres Solano Vargas   []
+
+
+### Enlaces:
 Diagrama Entidad-Relación: https://miro.com/app/board/uXjVKEoHDCo=/
