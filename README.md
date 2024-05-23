@@ -11,5 +11,5 @@
 
 
 ### Enlaces:
-   - Diagrama Entidad-Relación: https://miro.com/app/board/uXjVKEoHDCo=/
-   - Documentación Externa: https://docs.google.com/document/d/1sgJ3yYIVOrOvktQdirT4pLuIgdcnIhtEjMjYBZVYCr8/edit
+- [Diagrama Entidad-Relación](https://miro.com/app/board/uXjVKEoHDCo=/)
+- [Documentación Externa](https://docs.google.com/document/d/1sgJ3yYIVOrOvktQdirT4pLuIgdcnIhtEjMjYBZVYCr8/edit)
