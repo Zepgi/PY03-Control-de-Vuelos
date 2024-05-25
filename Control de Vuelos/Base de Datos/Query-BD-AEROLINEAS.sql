@@ -38,11 +38,45 @@ CREATE TABLE Pilotos
 	PRIMARY KEY(idPiloto));
 GO
 
--- IMPLEMENTAR POR MARY PAZ
-CREATE TABLE Ciudades();
-
+CREATE TABLE Roles
+	(idRol INT IDENTITY(1,1) NOT NULL,
+	codigoRol INT UNIQUE NOT NULL,
+	nombreRol VARCHAR(100)NOT NULL,
+	PRIMARY KEY(IdRol));
 GO
----------------------------
+
+CREATE TABLE Usuarios 
+	(idUsuario INT IDENTITY(1,1) NOT NULL,
+	cedulaUsuario VARCHAR(150) UNIQUE NOT NULL,
+	codigoRol INT NOT NULL,
+	nombre VARCHAR(150) NOT NULL,
+	apellidoPat VARCHAR(150) NOT NULL,
+	apellidoMat VARCHAR(150) NOT NULL,
+	fechaNacim DATE NOT NULL,
+	numTel VARCHAR(30) NOT NULL,
+	genero VARCHAR(10) NOT NULL,
+	estado VARCHAR(50) NOT NULL,
+	PRIMARY KEY(idUsuario),
+	FOREIGN KEY(codigoRol) REFERENCES Roles(codigoRol));
+GO
+
+CREATE TABLE CuentaUsuario
+	(iCuenta INT IDENTITY(1,1) NOT NULL,
+	idUsuario INT NOT NULL,
+	email VARCHAR(300) NOT NULL,
+	contrasenia VARCHAR(100) NOT NULL,
+	PRIMARY KEY(idCuenta),
+	FOREIGN KEY(idUsuario) REFERENCES Usuarios(idUsuario));
+GO
+
+CREATE TABLE Cuidades
+	(idCuidad INT IDENTITY(1,1) NOT NULL,
+	codigoCuidad VARCHAR(150) UNIQUE NOT NULL,
+	pais VARCHAR(300) NOT NULL,
+	canton VARCHAR(300) NOT NULL,
+	distrito VARCHAR(300) NOT NULL,
+	PRIMARY KEY(idCuidad));
+GO
 
 CREATE TABLE Vuelos(
 	PRIMARY KEY(idVuelo),
