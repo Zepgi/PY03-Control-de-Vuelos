@@ -22,7 +22,7 @@ GO
 
 CREATE TABLE AvionesAerolinea
 	(id				INT	IDENTITY(1,1)	NOT NULL,
-	matricula		VARCHAR(50)			NOT NULL,
+	matricula		VARCHAR(50)	UNIQUE	NOT NULL,
 	idAerolinea		INT,
 	PRIMARY KEY(id),
 	FOREIGN KEY (matricula)		REFERENCES Aviones(matricula),
@@ -31,9 +31,9 @@ GO
 
 CREATE TABLE Pilotos
 	(idPiloto		INT	IDENTITY(1,1)	NOT NULL,
-	cedulaPiloto	VARCHAR(150)	NOT NULL	UNIQUE,
-	apellidoPat		VARCHAR(150)	NOT NULL,
-	apellidoMat		VARCHAR(150)	NOT NULL,
-	nombre			VARCHAR(150)	NOT NULL,
+	cedulaPiloto	VARCHAR(150)		NOT NULL	UNIQUE,
+	apellidoPat		VARCHAR(150)		NOT NULL,
+	apellidoMat		VARCHAR(150)		NOT NULL,
+	nombre			VARCHAR(150)		NOT NULL,
 	PRIMARY KEY(idPiloto));
 GO
