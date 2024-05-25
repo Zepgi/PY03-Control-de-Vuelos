@@ -37,3 +37,36 @@ CREATE TABLE Pilotos
 	nombre			VARCHAR(150)		NOT NULL,
 	PRIMARY KEY(idPiloto));
 GO
+
+
+CREATE TABLE Pasajeros(
+ PRIMARY KEY(idPasajero),
+ idPasajero INT IDENTITY(1,1) NOT NULL,
+ cedulaPasajero VARCHAR(20) UNIQUE NOT NULL,
+ nombre VARCHAR(20) NOT NULL,
+ apellidoMat VARCHAR(20) NOT NULL,
+ apellidoPat VARCHAR(20) NOT NULL,
+ ciudad VARCHAR(100) NOT NULL);
+
+GO
+
+CREATE TABLE ListaPasajeros(
+primary key(id),
+id INT IDENTITY(1,1) NOT NULL,
+idVuelo INT NOT NULL,
+cedulaPasajero VARCHAR(20) UNIQUE NOT NULL,
+confirmado BIT NOT NULL);
+
+GO
+
+CREATE TABLE Vuelos(
+PRIMARY KEY(idVuelo),
+idVuelo INT IDENTITY(1,1) NOT NULL,
+idAvion INT NOT NULL,
+cedulaPiloto VARCHAR(30) UNIQUE NOT NULL,
+fechaHoraPartida DATETIME NOT NULL,
+fechaHoraLlegada DATETIME NOT NULL,
+ciudadPartida VARCHAR(100) NOT NULL,
+ciudadDestino VARCHAR(100) NOT NULL);
+
+GO
