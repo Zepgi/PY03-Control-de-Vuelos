@@ -38,10 +38,11 @@ CREATE TABLE Pilotos
 	PRIMARY KEY(idPiloto));
 GO
 
+-- IMPLEMENTAR POR MARY PAZ
 CREATE TABLE Ciudades();
 
 GO
-
+---------------------------
 
 CREATE TABLE Vuelos(
 	PRIMARY KEY(idVuelo),
