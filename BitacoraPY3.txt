@@ -1,0 +1,4 @@
+22/05/24
+Se creo el grupo de whatsApp y el repositorio de github. 
+24/05/24
+Se creo el cronograma del proyecto. Nos reunimos para hablar de la organización del proyecto. Durante la reunion se  discutio el cronograma, se dividieron las partes, se creo el diagrama Entidad-Relacion y se creo la base de datos.
