@@ -1,4 +1,5 @@
-﻿CREATE DATABASE AEROLINEAS;
+﻿------- BD -------
+CREATE DATABASE AEROLINEAS;
 GO
 
 USE AEROLINEAS;
@@ -42,7 +43,7 @@ CREATE TABLE Roles
 	(idRol INT IDENTITY(1,1) NOT NULL,
 	codigoRol INT UNIQUE NOT NULL,
 	nombreRol VARCHAR(100)NOT NULL,
-	PRIMARY KEY(IdRol));
+	PRIMARY KEY(idRol));
 GO
 
 CREATE TABLE Usuarios 
@@ -55,7 +56,7 @@ CREATE TABLE Usuarios
 	fechaNacim DATE NOT NULL,
 	numTel VARCHAR(30) NOT NULL,
 	genero VARCHAR(10) NOT NULL,
-	estado VARCHAR(50) NOT NULL,
+	estado BIT NOT NULL,
 	PRIMARY KEY(idUsuario),
 	FOREIGN KEY(codigoRol) REFERENCES Roles(codigoRol));
 GO
@@ -116,4 +117,21 @@ CREATE TABLE ListaPasajeros(
 	FOREIGN KEY (cedulaPasajero) REFERENCES Pasajeros(cedulaPasajero));
 
 GO
+------------------------------------------
 
+---------- INSERCIONES DE DATOS ----------
+
+INSERT INTO Roles
+	(codigoRol, nombreRol)
+VALUES
+	('ADM101', 'Administrador'),
+	('RSV302', 'Encargado Reservas');
+GO
+
+-- Usuarios para pruebas
+INSERT INTO Usuarios
+	(cedulaUsuario, codigoRol, nombre, apellidoPat, apellidoMat, fechaNacim, numTel, genero, estado)
+VALUES
+	(1, 'ADM101', 'Eyden', 'Su', 'Díaz', '2004-17-09', 1, 'Masculino', 1),
+	(2, 'RSV302', 'Juana', 'Montes', 'Sanchez', '1995-12-2', 1, 'Femenino', 1);
+GO
