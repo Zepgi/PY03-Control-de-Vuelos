@@ -135,3 +135,38 @@ VALUES
 	(1, 'ADM101', 'Eyden', 'Su', 'Díaz', '2004-09-17', '1', 'M', 1),
 	(2, 'RSV302', 'Juana', 'Montes', 'Sanchez', '1995-12-2', '1', 'F', 1);
 GO
+
+INSERT INTO CuentaUsuario
+	(idUsuario, email, contrasenia)
+VALUES
+	(1, '1', '1'),
+	(2, '2', '2');
+GO
+
+------------ STORED PROCEDURES ------------
+
+CREATE PROC Verificar_Credenciales 
+    (@email VARCHAR(300), @contrasenia VARCHAR(100))
+AS
+BEGIN
+    BEGIN TRY
+        SELECT U.cedulaUsuario
+        FROM Usuarios U
+        INNER JOIN CuentaUsuario CU ON CU.idUsuario = U.idUsuario
+        WHERE CU.email = @email AND CU.contrasenia = @contrasenia
+        GROUP BY U.cedulaUsuario;
+    END TRY
+    BEGIN CATCH
+        DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
