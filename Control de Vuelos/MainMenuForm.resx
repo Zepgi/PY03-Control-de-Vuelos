@@ -117,38 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="airline_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Imagenes e Iconos\airline_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btMin.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAADRJREFUWEft0jENADEQA0HjCJrnD+qS5jnEUmak7V04AAAAANzzlcsu1z9wZlZz
+        /xMBHpUcG6/h8HIH+kQAAAAASUVORK5CYII=
+</value>
   </data>
-  <data name="close_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Imagenes e Iconos\close_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="btMantenimiento.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAINJREFUSEvtkUEKgDAMBOvLfI5Hv6I3X2vdgeSgtlCp4iUDC7amsxVTEAQ/knMe
+        lNGWVZhh1pZtmHxVdmW27Rt6N9nMprSXMKwsChRLtOdyeFYAHFCKJXrukzscVE4lyjtyB4HC/wDELmev
+        T+4gUvxLoP/mVxAqlLwvd6zkG3kQVEjpAK5U2SRxDumYAAAAAElFTkSuQmCC
+</value>
   </data>
-  <data name="config_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Imagenes e Iconos\config_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="expand_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Imagenes e Iconos\expand_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="home_page_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Imagenes e Iconos\home-page_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="logout_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Imagenes e Iconos\logout_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="minimize_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Imagenes e Iconos\minimize_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pilot_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Imagenes e Iconos\pilot_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="plane_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Imagenes e Iconos\plane_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stats_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Imagenes e Iconos\stats_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="trip_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Imagenes e Iconos\trip_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bExit.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAYBJREFUSEvtlj1OAzEQhRcSKQSJLhVdSmrgGoiG0HANCgQlCpeIQgccgSMQeu5B
+        v398jt4i0K7N+ieiyZOeHNsz83aerFGyLf4FVVUdwKO6rvd0FA1qTag5ZR3oqA0jWpblK+scjnUcDMT2
+        qbeg1p2znumUwHv4WRTFjfMr/4BEn+AHoifsd3TVDYJGiF6TsOL3pfNLLSDnkPylRGeI7urKDdMpvCDx
+        DT74iKvTJTnP8LS3aAMSvG2XaGOvv2gDknvbzl2YvTaYTqHTdnUabq8NFLLaLtF4e22gaMt2mNZeG0yn
+        iM8kPmd9hGnttQGBb9vhZuztwk974Tv7oCHjBTpbv174gpgZg0FDxgsS/fV6YbLZ3gmErK+XffRs74Q6
+        dQ4H0ylMZ7tEew0H7tLYjpD3cCAuznZ1GjR7TafQ33aJRs1ecvxsJ2BC8EKiUbOX/LXtrKs8z8+pNdRV
+        GwRN4S1BxzGiDagxoN4ZvIIjHbehwDGr+4+ZB6g1dIpusVlk2Rf2dcgrs6P+IwAAAABJRU5ErkJggg==
+</value>
   </data>
 </root>

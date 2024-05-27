@@ -48,14 +48,100 @@
   <ItemGroup>
     <Content Include="Base de Datos\Query-BD-AEROLINEAS.sql" />
     <Compile Include="DatabaseConnection.cs" />
-    <Compile Include="LoginView.cs">
+    <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginView.Designer.cs">
-      <DependentUpon>LoginView.cs</DependentUpon>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainMenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainMenuForm.Designer.cs">
+      <DependentUpon>MainMenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PanelAerolineas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PanelAerolineas.Designer.cs">
+      <DependentUpon>PanelAerolineas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PanelAviones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PanelAviones.Designer.cs">
+      <DependentUpon>PanelAviones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PanelInicio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PanelInicio.Designer.cs">
+      <DependentUpon>PanelInicio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PanelMantenimiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PanelMantenimiento.Designer.cs">
+      <DependentUpon>PanelMantenimiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PanelPilotos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PanelPilotos.Designer.cs">
+      <DependentUpon>PanelPilotos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PanelReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PanelReportes.Designer.cs">
+      <DependentUpon>PanelReportes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PanelVuelos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PanelVuelos.Designer.cs">
+      <DependentUpon>PanelVuelos.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Imagenes e Iconos\airline_icon.png" />
+    <Content Include="Imagenes e Iconos\close_icon.png" />
+    <Content Include="Imagenes e Iconos\config_icon.png" />
+    <Content Include="Imagenes e Iconos\expand_icon.png" />
+    <Content Include="Imagenes e Iconos\home-page_icon.png" />
+    <Content Include="Imagenes e Iconos\logout_icon.png" />
+    <Content Include="Imagenes e Iconos\minimize_icon.png" />
+    <Content Include="Imagenes e Iconos\pilot_icon.png" />
+    <Content Include="Imagenes e Iconos\plane_icon.png" />
+    <Content Include="Imagenes e Iconos\stats_icon.png" />
+    <Content Include="Imagenes e Iconos\trip_icon.png" />
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainMenuForm.resx">
+      <DependentUpon>MainMenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PanelAerolineas.resx">
+      <DependentUpon>PanelAerolineas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PanelAviones.resx">
+      <DependentUpon>PanelAviones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PanelInicio.resx">
+      <DependentUpon>PanelInicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PanelMantenimiento.resx">
+      <DependentUpon>PanelMantenimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PanelPilotos.resx">
+      <DependentUpon>PanelPilotos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PanelReportes.resx">
+      <DependentUpon>PanelReportes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PanelVuelos.resx">
+      <DependentUpon>PanelVuelos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -64,6 +150,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

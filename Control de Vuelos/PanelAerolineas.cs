@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Control_de_Vuelos {
-	public partial class LoginView : Form {
-		public LoginView() {
+	public partial class PanelAerolineas : Form {
+		public PanelAerolineas() {
 			InitializeComponent();
 		}
 	}
