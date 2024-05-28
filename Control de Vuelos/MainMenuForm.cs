@@ -16,10 +16,11 @@ namespace Control_de_Vuelos {
 		bool subMenuMan;
 		string idUser;
 		LoginForm view;
+
 		public MainMenuForm(LoginForm pView, string pIdUser) {
 			this.view = pView;
 			this.idUser = pIdUser;
-			subMenuMan = false;
+			this.subMenuMan = false;
 			InitializeComponent();
 		}
 
@@ -40,9 +41,9 @@ namespace Control_de_Vuelos {
 		private void btn_MouseEnter(object sender, EventArgs e) {
 			Button btn = (Button)sender;
 			pMenu.Controls.Add(p);
-			p.BackColor = Color.FromArgb(90, 210, 2);
-			p.Size = new Size(179, 5);
-			p.Location = new Point(btn.Location.X, btn.Location.Y + 30);
+			p.BackColor = Color.FromArgb(19, 216, 143);
+			p.Size = new Size(180, 6);
+			p.Location = new Point(btn.Location.X, btn.Location.Y + 40);
 		}
 
 		private void btn_MouseLeave(object sender, EventArgs e) {
