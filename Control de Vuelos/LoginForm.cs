@@ -22,14 +22,14 @@ namespace Control_de_Vuelos {
 		}
 
 		public void createLines(object sender, PaintEventArgs e) {
-			Pen blackPen = new Pen(Color.Black, 1);
+			Pen pen = new Pen(Color.White, 1);
 			PointF pnt1 = new PointF(35, this.txtAccount.Location.Y+22);
 			PointF pnt2 = new PointF(265, this.txtAccount.Location.Y+22);
-			e.Graphics.DrawLine(blackPen, pnt1, pnt2);
+			e.Graphics.DrawLine(pen, pnt1, pnt2);
 
 			PointF pnt4 = new PointF(35, this.txtPassword.Location.Y+22);
 			PointF pnt3 = new PointF(265, this.txtPassword.Location.Y+22);
-			e.Graphics.DrawLine(blackPen, pnt3, pnt4);
+			e.Graphics.DrawLine(pen, pnt3, pnt4);
 		}
 
 		private void btLogin_Click(object sender, EventArgs e) {
@@ -72,14 +72,12 @@ namespace Control_de_Vuelos {
 		private void txtAccount_Click(object sender, EventArgs e) {
 			if (this.txtAccount.Text == "Usuario") {
 				this.txtAccount.Text = "";
-				this.txtAccount.ForeColor = Color.Black;
 			}
 		}
 
 		private void txtAccount_Leave(object sender, EventArgs e) {
 			if (this.txtAccount.Text == "") {
 				this.txtAccount.Text = "Usuario";
-				this.txtAccount.ForeColor = Color.Silver;
 			}
 		}
 
@@ -87,7 +85,6 @@ namespace Control_de_Vuelos {
 			if (this.txtPassword.Text == "Contraseña") {
 				this.txtPassword.Text = "";
 				this.txtPassword.UseSystemPasswordChar = true;
-				this.txtPassword.ForeColor = Color.Black;
 			}
 		}
 
@@ -95,7 +92,6 @@ namespace Control_de_Vuelos {
 			if (this.txtPassword.Text == "") {
 				this.txtPassword.UseSystemPasswordChar = false;
 				this.txtPassword.Text = "Contraseña";
-				this.txtPassword.ForeColor = Color.Silver;
 			}
 		}
 	}

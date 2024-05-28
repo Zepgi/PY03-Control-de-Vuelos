@@ -105,6 +105,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Imagenes e Iconos\airline_icon.png" />
+    <Content Include="Imagenes e Iconos\bg_login.png" />
     <Content Include="Imagenes e Iconos\close_icon.png" />
     <Content Include="Imagenes e Iconos\config_icon.png" />
     <Content Include="Imagenes e Iconos\expand_icon.png" />
