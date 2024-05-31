@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -57,7 +58,28 @@ namespace Control_de_Vuelos {
 
 				if (idResult != null) {
 					this.Hide();
-					MainMenuForm mainMenu = new MainMenuForm(this, idResult.ToString());
+
+					string idUsuario = idResult.ToString();
+					List<int> permisos = new List<int>();
+					int idAerolinea = 0;
+
+					SqlCommand listaPermisos = new SqlCommand("SELECT idPermiso, idAerolinea " +
+															"FROM getPermisos(@idUsuario)", conn.ConnectDB);
+					listaPermisos.Parameters.AddWithValue("@idUsuario", idUsuario);
+
+					SqlDataAdapter adapter = new SqlDataAdapter(listaPermisos);
+					DataTable dataTable = new DataTable();
+					adapter.Fill(dataTable);
+
+					foreach (DataRow row in dataTable.Rows) {
+						permisos.Add(Convert.ToInt32(row["idPermiso"]));
+						if (row["idAerolinea"] == DBNull.Value) {
+							continue;
+						}
+						idAerolinea = Convert.ToInt32(row["idAerolinea"]);
+					}
+
+					MainMenuForm mainMenu = new MainMenuForm(this, idResult.ToString(), permisos, idAerolinea);
 					mainMenu.Show();
 				} else {
 					MessageBox.Show("Cuenta o contraseña incorrectos. Inténtelo de nuevo.", "Error de inicio de sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);

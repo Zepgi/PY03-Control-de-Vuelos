@@ -141,7 +141,7 @@
 			this.btPilotos.TabIndex = 8;
 			this.btPilotos.Text = "Pilotos";
 			this.btPilotos.UseVisualStyleBackColor = true;
-			this.btPilotos.Click += new System.EventHandler(this.btPilotos_Click);
+			this.btPilotos.Click += new System.EventHandler(this.bt_Click);
 			this.btPilotos.MouseEnter += new System.EventHandler(this.pMantenimiento_MouseEnter);
 			this.btPilotos.MouseLeave += new System.EventHandler(this.pMantenimiento_MouseLeave);
 			// 
@@ -160,7 +160,7 @@
 			this.btAviones.TabIndex = 7;
 			this.btAviones.Text = "Aviones";
 			this.btAviones.UseVisualStyleBackColor = true;
-			this.btAviones.Click += new System.EventHandler(this.btAviones_Click);
+			this.btAviones.Click += new System.EventHandler(this.bt_Click);
 			this.btAviones.MouseEnter += new System.EventHandler(this.pMantenimiento_MouseEnter);
 			this.btAviones.MouseLeave += new System.EventHandler(this.pMantenimiento_MouseLeave);
 			// 
@@ -206,7 +206,7 @@
 			this.btAerolineas.TabIndex = 6;
 			this.btAerolineas.Text = "Aerolineas";
 			this.btAerolineas.UseVisualStyleBackColor = true;
-			this.btAerolineas.Click += new System.EventHandler(this.btAerolineas_Click);
+			this.btAerolineas.Click += new System.EventHandler(this.bt_Click);
 			this.btAerolineas.MouseEnter += new System.EventHandler(this.btn_MouseEnter);
 			this.btAerolineas.MouseLeave += new System.EventHandler(this.btn_MouseLeave);
 			// 
@@ -226,7 +226,7 @@
 			this.btReportes.TabIndex = 5;
 			this.btReportes.Text = "Reportes";
 			this.btReportes.UseVisualStyleBackColor = true;
-			this.btReportes.Click += new System.EventHandler(this.btReportes_Click);
+			this.btReportes.Click += new System.EventHandler(this.bt_Click);
 			this.btReportes.MouseEnter += new System.EventHandler(this.btn_MouseEnter);
 			this.btReportes.MouseLeave += new System.EventHandler(this.btn_MouseLeave);
 			// 
@@ -247,7 +247,7 @@
 			this.btMantenimiento.TabIndex = 4;
 			this.btMantenimiento.Text = "Mantenimiento";
 			this.btMantenimiento.UseVisualStyleBackColor = true;
-			this.btMantenimiento.Click += new System.EventHandler(this.btMantenimiento_Click);
+			this.btMantenimiento.Click += new System.EventHandler(this.bt_Click);
 			this.btMantenimiento.MouseEnter += new System.EventHandler(this.btMantenimiento_MouseEnter);
 			this.btMantenimiento.MouseLeave += new System.EventHandler(this.btMantenimiento_MouseLeave);
 			// 
@@ -267,7 +267,7 @@
 			this.btVuelos.TabIndex = 2;
 			this.btVuelos.Text = "Vuelos";
 			this.btVuelos.UseVisualStyleBackColor = true;
-			this.btVuelos.Click += new System.EventHandler(this.btVuelos_Click);
+			this.btVuelos.Click += new System.EventHandler(this.bt_Click);
 			this.btVuelos.MouseEnter += new System.EventHandler(this.btn_MouseEnter);
 			this.btVuelos.MouseLeave += new System.EventHandler(this.btn_MouseLeave);
 			// 
@@ -287,7 +287,7 @@
 			this.btInicio.TabIndex = 1;
 			this.btInicio.Text = "Inicio";
 			this.btInicio.UseVisualStyleBackColor = true;
-			this.btInicio.Click += new System.EventHandler(this.btInicio_Click);
+			this.btInicio.Click += new System.EventHandler(this.bt_Click);
 			this.btInicio.MouseEnter += new System.EventHandler(this.btn_MouseEnter);
 			this.btInicio.MouseLeave += new System.EventHandler(this.btn_MouseLeave);
 			// 

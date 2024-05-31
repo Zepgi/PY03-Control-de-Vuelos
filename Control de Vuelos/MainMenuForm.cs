@@ -15,14 +15,40 @@ namespace Control_de_Vuelos {
 		Panel p = new Panel();
 		bool subMenuMan;
 		string idUser;
+		List<int> permisos;
+		int idAerolinea;
 		LoginForm view;
 
-		public MainMenuForm(LoginForm pView, string pIdUser) {
+		public MainMenuForm(LoginForm pView, string pIdUser, List<int> pPermisos, int pIdAerolinea) {
 			this.view = pView;
 			this.idUser = pIdUser;
+			this.idAerolinea = pIdAerolinea;
+			this.permisos = pPermisos;
 			this.subMenuMan = false;
 			InitializeComponent();
+			this.btMantenimiento.Enabled = false;
+			this.btAerolineas.Enabled	 = false;
+			this.btReportes.Enabled		 = false;
+			this.btVuelos.Enabled		 = false;
+			gestionarPermisos();
 		}
+
+		private void gestionarPermisos() {
+
+			if (permisos.IndexOf(1) != -1) {
+				this.btAerolineas.Enabled = true;
+			}
+			if (permisos.IndexOf(2) != -1) {
+				this.btVuelos.Enabled = true;
+			}
+			if (permisos.IndexOf(3) != -1) {
+				this.btMantenimiento.Enabled = true;
+			}
+			if (permisos.IndexOf(4) != -1) {
+				this.btReportes.Enabled = true;
+			}
+		}
+		
 
 		private void btMin_Click(object sender, MouseEventArgs e) {
 			this.WindowState = FormWindowState.Minimized;
@@ -40,6 +66,9 @@ namespace Control_de_Vuelos {
 
 		private void btn_MouseEnter(object sender, EventArgs e) {
 			Button btn = (Button)sender;
+			if (!btn.Enabled) {
+				return;
+			}
 			pMenu.Controls.Add(p);
 			p.BackColor = Color.FromArgb(19, 216, 143);
 			p.Size = new Size(180, 6);
@@ -60,6 +89,10 @@ namespace Control_de_Vuelos {
 		}
 
 		private void btMantenimiento_MouseEnter(object sender, EventArgs e) {
+			Button btn = (Button)sender;
+			if (!btn.Enabled) {
+				return;
+			}
 			btn_MouseEnter(sender, e);
 			subMenuMan = true;
 			pMantenimiento.Visible = true;
@@ -78,32 +111,37 @@ namespace Control_de_Vuelos {
 			}
 		}
 
-		private void btAerolineas_Click(object sender, EventArgs e) {
-			loadPanel(new PanelAerolineas());
-		}
+		private void bt_Click(object sender, EventArgs e) {
+			Button btn = sender as Button;
 
-		private void btReportes_Click(object sender, EventArgs e) {
-			loadPanel(new PanelReportes());
-		}
-
-		private void btMantenimiento_Click(object sender, EventArgs e) {
-			loadPanel(new PanelMantenimiento());
-		}
-
-		private void btInicio_Click(object sender, EventArgs e) {
-			loadPanel(new PanelInicio());
-		}
-
-		private void btAviones_Click(object sender, EventArgs e) {
-			loadPanel(new PanelAviones());
-		}
-
-		private void btPilotos_Click(object sender, EventArgs e) {
-			loadPanel(new PanelPilotos());
-		}
-
-		private void btVuelos_Click(object sender, EventArgs e) {
-			loadPanel(new PanelVuelos());
+			if (btn != null) {
+				switch (btn.Name) {
+					case "btAerolineas":
+						loadPanel(new PanelAerolineas());
+						break;
+					case "btReportes":
+						loadPanel(new PanelReportes());
+						break;
+					case "btMantenimiento":
+						loadPanel(new PanelMantenimiento());
+						break;
+					case "btInicio":
+						loadPanel(new PanelInicio());
+						break;
+					case "btAviones":
+						loadPanel(new PanelAviones());
+						break;
+					case "btPilotos":
+						loadPanel(new PanelPilotos());
+						break;
+					case "btVuelos":
+						loadPanel(new PanelVuelos());
+						break;
+					default:
+						MessageBox.Show("Botón no reconocido.");
+						break;
+				}
+			}
 		}
 
 		public void loadPanel(object panel) {
