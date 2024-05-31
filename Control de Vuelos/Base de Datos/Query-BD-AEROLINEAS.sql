@@ -256,11 +256,11 @@ END;
 GO
 
 CREATE FUNCTION getPermisos(@idUsuario INT)
-RETURNS @result TABLE (idPermiso INT)
+RETURNS @result TABLE (idPermiso INT, idAerolinea INT)
 AS
 BEGIN
     INSERT INTO @result
-    SELECT idPermiso
+    SELECT idPermiso, idAerolinea
     FROM ListaPermisos
     WHERE idUsuario = @idUsuario;
     RETURN;
