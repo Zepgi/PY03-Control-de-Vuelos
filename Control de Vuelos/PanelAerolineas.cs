@@ -13,5 +13,10 @@ namespace Control_de_Vuelos {
 		public PanelAerolineas() {
 			InitializeComponent();
 		}
-	}
+
+        private void PanelAerolineas_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
 }
