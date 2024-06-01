@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Base de Datos\Query-BD-AEROLINEAS.sql" />
-    <Compile Include="Conexion.cs" />
     <Compile Include="DatabaseConnection.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
