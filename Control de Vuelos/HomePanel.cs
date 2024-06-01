@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Control_de_Vuelos {
-	public partial class PanelVuelos : Form {
-		public PanelVuelos() {
+	public partial class HomePanel : Form {
+		public HomePanel() {
 			InitializeComponent();
 		}
 	}

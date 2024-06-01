@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Control_de_Vuelos {
-	public partial class PanelInicio : Form {
-		public PanelInicio() {
+	public partial class FlightsPanel : Form {
+		public FlightsPanel() {
 			InitializeComponent();
 		}
 	}
