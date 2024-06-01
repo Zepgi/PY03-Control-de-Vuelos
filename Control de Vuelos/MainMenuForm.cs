@@ -30,6 +30,7 @@ namespace Control_de_Vuelos {
 			this.btAerolineas.Enabled	 = false;
 			this.btReportes.Enabled		 = false;
 			this.btVuelos.Enabled		 = false;
+			loadPanel(new HomePanel());
 			gestionarPermisos();
 		}
 
@@ -126,7 +127,7 @@ namespace Control_de_Vuelos {
 						loadPanel(new PanelMantenimiento());
 						break;
 					case "btInicio":
-						loadPanel(new PanelInicio());
+						loadPanel(new HomePanel());
 						break;
 					case "btAviones":
 						loadPanel(new PanelAviones());
@@ -135,7 +136,7 @@ namespace Control_de_Vuelos {
 						loadPanel(new PanelPilotos());
 						break;
 					case "btVuelos":
-						loadPanel(new PanelVuelos());
+						loadPanel(new FlightsPanel());
 						break;
 					default:
 						MessageBox.Show("Botón no reconocido.");

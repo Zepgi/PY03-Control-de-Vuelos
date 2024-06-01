@@ -78,11 +78,11 @@
     <Compile Include="PanelAviones.Designer.cs">
       <DependentUpon>PanelAviones.cs</DependentUpon>
     </Compile>
-    <Compile Include="PanelInicio.cs">
+    <Compile Include="HomePanel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PanelInicio.Designer.cs">
-      <DependentUpon>PanelInicio.cs</DependentUpon>
+    <Compile Include="HomePanel.Designer.cs">
+      <DependentUpon>HomePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="PanelMantenimiento.cs">
       <SubType>Form</SubType>
@@ -102,11 +102,11 @@
     <Compile Include="PanelReportes.Designer.cs">
       <DependentUpon>PanelReportes.cs</DependentUpon>
     </Compile>
-    <Compile Include="PanelVuelos.cs">
+    <Compile Include="FlightsPanel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PanelVuelos.Designer.cs">
-      <DependentUpon>PanelVuelos.cs</DependentUpon>
+    <Compile Include="FlightsPanel.Designer.cs">
+      <DependentUpon>FlightsPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -134,8 +134,8 @@
     <EmbeddedResource Include="PanelAviones.resx">
       <DependentUpon>PanelAviones.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PanelInicio.resx">
-      <DependentUpon>PanelInicio.cs</DependentUpon>
+    <EmbeddedResource Include="HomePanel.resx">
+      <DependentUpon>HomePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PanelMantenimiento.resx">
       <DependentUpon>PanelMantenimiento.cs</DependentUpon>
@@ -146,8 +146,8 @@
     <EmbeddedResource Include="PanelReportes.resx">
       <DependentUpon>PanelReportes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PanelVuelos.resx">
-      <DependentUpon>PanelVuelos.cs</DependentUpon>
+    <EmbeddedResource Include="FlightsPanel.resx">
+      <DependentUpon>FlightsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

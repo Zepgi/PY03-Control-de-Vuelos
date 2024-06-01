@@ -31,11 +31,11 @@ namespace Control_de_Vuelos {
 			this.btLogin = new Guna.UI2.WinForms.Guna2Button();
 			this.lbLogin = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
-			this.pInput = new Guna.UI2.WinForms.Guna2ShadowPanel();
+			this.pInputArea = new Guna.UI2.WinForms.Guna2ShadowPanel();
 			this.pLogin = new System.Windows.Forms.Panel();
 			this.txtAccount = new System.Windows.Forms.TextBox();
 			this.txtPassword = new System.Windows.Forms.TextBox();
-			this.pInput.SuspendLayout();
+			this.pInputArea.SuspendLayout();
 			this.pLogin.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -84,22 +84,22 @@ namespace Control_de_Vuelos {
 			this.label1.TabIndex = 5;
 			this.label1.Text = "[LOGO]";
 			// 
-			// pInput
+			// pInputArea
 			// 
-			this.pInput.BackColor = System.Drawing.Color.Transparent;
-			this.pInput.Controls.Add(this.btLogin);
-			this.pInput.Controls.Add(this.lbLogin);
-			this.pInput.Controls.Add(this.pLogin);
-			this.pInput.Controls.Add(this.label1);
-			this.pInput.FillColor = System.Drawing.Color.White;
-			this.pInput.Location = new System.Drawing.Point(420, 145);
-			this.pInput.Name = "pInput";
-			this.pInput.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-			this.pInput.ShadowDepth = 60;
-			this.pInput.ShadowShift = 10;
-			this.pInput.ShadowStyle = Guna.UI2.WinForms.Guna2ShadowPanel.ShadowMode.ForwardDiagonal;
-			this.pInput.Size = new System.Drawing.Size(420, 500);
-			this.pInput.TabIndex = 8;
+			this.pInputArea.BackColor = System.Drawing.Color.Transparent;
+			this.pInputArea.Controls.Add(this.btLogin);
+			this.pInputArea.Controls.Add(this.lbLogin);
+			this.pInputArea.Controls.Add(this.pLogin);
+			this.pInputArea.Controls.Add(this.label1);
+			this.pInputArea.FillColor = System.Drawing.Color.White;
+			this.pInputArea.Location = new System.Drawing.Point(420, 145);
+			this.pInputArea.Name = "pInputArea";
+			this.pInputArea.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+			this.pInputArea.ShadowDepth = 60;
+			this.pInputArea.ShadowShift = 10;
+			this.pInputArea.ShadowStyle = Guna.UI2.WinForms.Guna2ShadowPanel.ShadowMode.ForwardDiagonal;
+			this.pInputArea.Size = new System.Drawing.Size(420, 500);
+			this.pInputArea.TabIndex = 8;
 			// 
 			// pLogin
 			// 
@@ -120,7 +120,7 @@ namespace Control_de_Vuelos {
 			this.txtAccount.Name = "txtAccount";
 			this.txtAccount.Size = new System.Drawing.Size(300, 25);
 			this.txtAccount.TabIndex = 1;
-			this.txtAccount.Text = "Usuario";
+			this.txtAccount.Text = "Cuenta";
 			this.txtAccount.Enter += new System.EventHandler(this.txtAccount_Click);
 			this.txtAccount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.pressedEnter_Listener);
 			this.txtAccount.Leave += new System.EventHandler(this.txtAccount_Leave);
@@ -149,12 +149,12 @@ namespace Control_de_Vuelos {
 			this.BackgroundImage = global::Control_de_Vuelos.Properties.Resources.bg_login;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
 			this.ClientSize = new System.Drawing.Size(1222, 798);
-			this.Controls.Add(this.pInput);
+			this.Controls.Add(this.pInputArea);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Name = "LoginForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.pInput.ResumeLayout(false);
-			this.pInput.PerformLayout();
+			this.pInputArea.ResumeLayout(false);
+			this.pInputArea.PerformLayout();
 			this.pLogin.ResumeLayout(false);
 			this.pLogin.PerformLayout();
 			this.ResumeLayout(false);
@@ -165,7 +165,7 @@ namespace Control_de_Vuelos {
 		private Guna2Button  btLogin;
 		private System.Windows.Forms.Label lbLogin;
 		private System.Windows.Forms.Label label1;
-		private Guna2ShadowPanel pInput;
+		private Guna2ShadowPanel pInputArea;
 		private System.Windows.Forms.Panel pLogin;
 		private System.Windows.Forms.TextBox txtAccount;
 		private System.Windows.Forms.TextBox txtPassword;

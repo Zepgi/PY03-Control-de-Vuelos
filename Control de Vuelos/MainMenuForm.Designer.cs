@@ -25,14 +25,6 @@
 		private void InitializeComponent() {
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenuForm));
 			this.pMenu = new System.Windows.Forms.Panel();
-			this.pMain = new System.Windows.Forms.Panel();
-			this.pRight = new System.Windows.Forms.Panel();
-			this.pLeft = new System.Windows.Forms.Panel();
-			this.pBottom = new System.Windows.Forms.Panel();
-			this.pMantenimiento = new System.Windows.Forms.Panel();
-			this.panel2 = new System.Windows.Forms.Panel();
-			this.btPilotos = new System.Windows.Forms.Button();
-			this.btAviones = new System.Windows.Forms.Button();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.btMin = new System.Windows.Forms.Button();
 			this.btAerolineas = new System.Windows.Forms.Button();
@@ -41,9 +33,17 @@
 			this.btVuelos = new System.Windows.Forms.Button();
 			this.btInicio = new System.Windows.Forms.Button();
 			this.bExit = new System.Windows.Forms.Button();
+			this.pMain = new System.Windows.Forms.Panel();
+			this.pRight = new System.Windows.Forms.Panel();
+			this.pLeft = new System.Windows.Forms.Panel();
+			this.pBottom = new System.Windows.Forms.Panel();
+			this.pMantenimiento = new System.Windows.Forms.Panel();
+			this.btPilotos = new System.Windows.Forms.Button();
+			this.btAviones = new System.Windows.Forms.Button();
+			this.panel2 = new System.Windows.Forms.Panel();
 			this.pMenu.SuspendLayout();
-			this.pMantenimiento.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			this.pMantenimiento.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// pMenu
@@ -63,106 +63,6 @@
 			this.pMenu.Name = "pMenu";
 			this.pMenu.Size = new System.Drawing.Size(1920, 106);
 			this.pMenu.TabIndex = 0;
-			// 
-			// pMain
-			// 
-			this.pMain.Location = new System.Drawing.Point(10, 106);
-			this.pMain.MaximumSize = new System.Drawing.Size(1220, 727);
-			this.pMain.MinimumSize = new System.Drawing.Size(1220, 727);
-			this.pMain.Name = "pMain";
-			this.pMain.Size = new System.Drawing.Size(1220, 727);
-			this.pMain.TabIndex = 4;
-			// 
-			// pRight
-			// 
-			this.pRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-			this.pRight.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-			this.pRight.Location = new System.Drawing.Point(1270, -97);
-			this.pRight.Name = "pRight";
-			this.pRight.Size = new System.Drawing.Size(10, 997);
-			this.pRight.TabIndex = 2;
-			// 
-			// pLeft
-			// 
-			this.pLeft.BackColor = System.Drawing.SystemColors.HotTrack;
-			this.pLeft.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-			this.pLeft.Location = new System.Drawing.Point(0, -97);
-			this.pLeft.Name = "pLeft";
-			this.pLeft.Size = new System.Drawing.Size(10, 997);
-			this.pLeft.TabIndex = 1;
-			// 
-			// pBottom
-			// 
-			this.pBottom.BackColor = System.Drawing.SystemColors.HotTrack;
-			this.pBottom.Dock = System.Windows.Forms.DockStyle.Right;
-			this.pBottom.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-			this.pBottom.Location = new System.Drawing.Point(1230, 0);
-			this.pBottom.Name = "pBottom";
-			this.pBottom.Size = new System.Drawing.Size(10, 845);
-			this.pBottom.TabIndex = 2;
-			// 
-			// pMantenimiento
-			// 
-			this.pMantenimiento.BackColor = System.Drawing.SystemColors.HotTrack;
-			this.pMantenimiento.Controls.Add(this.btPilotos);
-			this.pMantenimiento.Controls.Add(this.btAviones);
-			this.pMantenimiento.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.pMantenimiento.ForeColor = System.Drawing.Color.White;
-			this.pMantenimiento.Location = new System.Drawing.Point(757, 106);
-			this.pMantenimiento.Name = "pMantenimiento";
-			this.pMantenimiento.Size = new System.Drawing.Size(224, 100);
-			this.pMantenimiento.TabIndex = 3;
-			this.pMantenimiento.Visible = false;
-			this.pMantenimiento.MouseEnter += new System.EventHandler(this.pMantenimiento_MouseEnter);
-			this.pMantenimiento.MouseLeave += new System.EventHandler(this.pMantenimiento_MouseLeave);
-			// 
-			// panel2
-			// 
-			this.panel2.BackColor = System.Drawing.SystemColors.HotTrack;
-			this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panel2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-			this.panel2.Location = new System.Drawing.Point(0, 835);
-			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(1230, 10);
-			this.panel2.TabIndex = 3;
-			// 
-			// btPilotos
-			// 
-			this.btPilotos.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.btPilotos.FlatAppearance.BorderSize = 0;
-			this.btPilotos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
-			this.btPilotos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btPilotos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btPilotos.Image = global::Control_de_Vuelos.Properties.Resources.pilot_icon;
-			this.btPilotos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btPilotos.Location = new System.Drawing.Point(0, 50);
-			this.btPilotos.Name = "btPilotos";
-			this.btPilotos.Size = new System.Drawing.Size(224, 50);
-			this.btPilotos.TabIndex = 8;
-			this.btPilotos.Text = "Pilotos";
-			this.btPilotos.UseVisualStyleBackColor = true;
-			this.btPilotos.Click += new System.EventHandler(this.bt_Click);
-			this.btPilotos.MouseEnter += new System.EventHandler(this.pMantenimiento_MouseEnter);
-			this.btPilotos.MouseLeave += new System.EventHandler(this.pMantenimiento_MouseLeave);
-			// 
-			// btAviones
-			// 
-			this.btAviones.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.btAviones.FlatAppearance.BorderSize = 0;
-			this.btAviones.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
-			this.btAviones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btAviones.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btAviones.Image = global::Control_de_Vuelos.Properties.Resources.plane_icon;
-			this.btAviones.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btAviones.Location = new System.Drawing.Point(0, 0);
-			this.btAviones.Name = "btAviones";
-			this.btAviones.Size = new System.Drawing.Size(224, 50);
-			this.btAviones.TabIndex = 7;
-			this.btAviones.Text = "Aviones";
-			this.btAviones.UseVisualStyleBackColor = true;
-			this.btAviones.Click += new System.EventHandler(this.bt_Click);
-			this.btAviones.MouseEnter += new System.EventHandler(this.pMantenimiento_MouseEnter);
-			this.btAviones.MouseLeave += new System.EventHandler(this.pMantenimiento_MouseLeave);
 			// 
 			// pictureBox1
 			// 
@@ -307,6 +207,106 @@
 			this.bExit.UseVisualStyleBackColor = true;
 			this.bExit.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btExit_Click);
 			// 
+			// pMain
+			// 
+			this.pMain.Location = new System.Drawing.Point(10, 106);
+			this.pMain.MaximumSize = new System.Drawing.Size(1220, 727);
+			this.pMain.MinimumSize = new System.Drawing.Size(1220, 727);
+			this.pMain.Name = "pMain";
+			this.pMain.Size = new System.Drawing.Size(1220, 727);
+			this.pMain.TabIndex = 4;
+			// 
+			// pRight
+			// 
+			this.pRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+			this.pRight.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+			this.pRight.Location = new System.Drawing.Point(1270, -97);
+			this.pRight.Name = "pRight";
+			this.pRight.Size = new System.Drawing.Size(10, 997);
+			this.pRight.TabIndex = 2;
+			// 
+			// pLeft
+			// 
+			this.pLeft.BackColor = System.Drawing.SystemColors.HotTrack;
+			this.pLeft.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+			this.pLeft.Location = new System.Drawing.Point(0, -97);
+			this.pLeft.Name = "pLeft";
+			this.pLeft.Size = new System.Drawing.Size(10, 997);
+			this.pLeft.TabIndex = 1;
+			// 
+			// pBottom
+			// 
+			this.pBottom.BackColor = System.Drawing.SystemColors.HotTrack;
+			this.pBottom.Dock = System.Windows.Forms.DockStyle.Right;
+			this.pBottom.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+			this.pBottom.Location = new System.Drawing.Point(1230, 0);
+			this.pBottom.Name = "pBottom";
+			this.pBottom.Size = new System.Drawing.Size(10, 845);
+			this.pBottom.TabIndex = 2;
+			// 
+			// pMantenimiento
+			// 
+			this.pMantenimiento.BackColor = System.Drawing.SystemColors.HotTrack;
+			this.pMantenimiento.Controls.Add(this.btPilotos);
+			this.pMantenimiento.Controls.Add(this.btAviones);
+			this.pMantenimiento.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.pMantenimiento.ForeColor = System.Drawing.Color.White;
+			this.pMantenimiento.Location = new System.Drawing.Point(757, 106);
+			this.pMantenimiento.Name = "pMantenimiento";
+			this.pMantenimiento.Size = new System.Drawing.Size(224, 100);
+			this.pMantenimiento.TabIndex = 3;
+			this.pMantenimiento.Visible = false;
+			this.pMantenimiento.MouseEnter += new System.EventHandler(this.pMantenimiento_MouseEnter);
+			this.pMantenimiento.MouseLeave += new System.EventHandler(this.pMantenimiento_MouseLeave);
+			// 
+			// btPilotos
+			// 
+			this.btPilotos.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.btPilotos.FlatAppearance.BorderSize = 0;
+			this.btPilotos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+			this.btPilotos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btPilotos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btPilotos.Image = global::Control_de_Vuelos.Properties.Resources.pilot_icon;
+			this.btPilotos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.btPilotos.Location = new System.Drawing.Point(0, 50);
+			this.btPilotos.Name = "btPilotos";
+			this.btPilotos.Size = new System.Drawing.Size(224, 50);
+			this.btPilotos.TabIndex = 8;
+			this.btPilotos.Text = "Pilotos";
+			this.btPilotos.UseVisualStyleBackColor = true;
+			this.btPilotos.Click += new System.EventHandler(this.bt_Click);
+			this.btPilotos.MouseEnter += new System.EventHandler(this.pMantenimiento_MouseEnter);
+			this.btPilotos.MouseLeave += new System.EventHandler(this.pMantenimiento_MouseLeave);
+			// 
+			// btAviones
+			// 
+			this.btAviones.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.btAviones.FlatAppearance.BorderSize = 0;
+			this.btAviones.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+			this.btAviones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btAviones.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btAviones.Image = global::Control_de_Vuelos.Properties.Resources.plane_icon;
+			this.btAviones.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.btAviones.Location = new System.Drawing.Point(0, 0);
+			this.btAviones.Name = "btAviones";
+			this.btAviones.Size = new System.Drawing.Size(224, 50);
+			this.btAviones.TabIndex = 7;
+			this.btAviones.Text = "Aviones";
+			this.btAviones.UseVisualStyleBackColor = true;
+			this.btAviones.Click += new System.EventHandler(this.bt_Click);
+			this.btAviones.MouseEnter += new System.EventHandler(this.pMantenimiento_MouseEnter);
+			this.btAviones.MouseLeave += new System.EventHandler(this.pMantenimiento_MouseLeave);
+			// 
+			// panel2
+			// 
+			this.panel2.BackColor = System.Drawing.SystemColors.HotTrack;
+			this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.panel2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+			this.panel2.Location = new System.Drawing.Point(0, 835);
+			this.panel2.Name = "panel2";
+			this.panel2.Size = new System.Drawing.Size(1230, 10);
+			this.panel2.TabIndex = 3;
+			// 
 			// MainMenuForm
 			// 
 			this.AllowDrop = true;
@@ -326,8 +326,8 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "MainMenuView";
 			this.pMenu.ResumeLayout(false);
-			this.pMantenimiento.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			this.pMantenimiento.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}

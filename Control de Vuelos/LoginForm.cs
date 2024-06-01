@@ -93,14 +93,14 @@ namespace Control_de_Vuelos {
 		}
 
 		private void txtAccount_Click(object sender, EventArgs e) {
-			if (this.txtAccount.Text == "Usuario") {
+			if (this.txtAccount.Text == "Cuenta") {
 				this.txtAccount.Text = "";
 			}
 		}
 
 		private void txtAccount_Leave(object sender, EventArgs e) {
 			if (this.txtAccount.Text == "") {
-				this.txtAccount.Text = "Usuario";
+				this.txtAccount.Text = "Cuenta";
 			}
 		}
 
