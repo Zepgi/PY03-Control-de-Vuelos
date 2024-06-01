@@ -255,15 +255,27 @@ BEGIN
 END;
 GO
 
-CREATE FUNCTION getPermisos(@idUsuario INT)
-RETURNS @result TABLE (idPermiso INT, idAerolinea INT)
+CREATE PROC Get_Permisos
+	(@idUsuario INT)
 AS
 BEGIN
-    INSERT INTO @result
-    SELECT idPermiso, idAerolinea
-    FROM ListaPermisos
-    WHERE idUsuario = @idUsuario;
-    RETURN;
+	BEGIN TRY
+        SELECT idPermiso, idAerolinea
+		FROM ListaPermisos
+		WHERE idUsuario = @idUsuario;
+    END TRY
+    BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
 END;
 GO
 
@@ -321,6 +333,33 @@ GO
 
 ------------ FIN STORED PROCEDURES AEROLINEAS ------------
 
+------------ STORED PROCEDURES PARA BUSQUEDAS ------------
+
+CREATE PROC Buscar_Usuario
+	(@idUsuario INT)
+AS
+BEGIN
+    BEGIN TRY
+        SELECT idUsuario, cedulaUsuario, CONCAT(nombre, ' ', apellidoPat, ' ', apellidoMat) nombreCompleto, fechaNacim, numTel, genero, estado
+		FROM Usuarios
+		WHERE idUsuario = @idUsuario
+    END TRY
+    BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+---------------------------------------------------------------------
 
 
 DROP PROCEDURE Obtener_Aerolineas;
