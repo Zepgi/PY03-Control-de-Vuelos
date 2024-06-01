@@ -14,9 +14,13 @@ namespace Control_de_Vuelos
 {
     public partial class PanelAerolineas : Form
     {
-        public PanelAerolineas()
+        DatabaseConnection conexion;
+
+		public PanelAerolineas()
         {
-            InitializeComponent();
+            conexion = new DatabaseConnection();
+
+			InitializeComponent();
             // Vincula el evento CellClick al DataGridView
             dataGridViewAerolineas.CellClick += dataGridViewAerolineas_CellClick;
         }
@@ -63,21 +67,20 @@ namespace Control_de_Vuelos
                 string lemaAerolinea = textBoxLemaAerolinea.Text.Trim();
 
                 // Actualizar los datos en la base de datos utilizando el stored procedure
-                Conexion conexion = new Conexion();
-                if (conexion.SQLConexionBD.State == ConnectionState.Open)
+                if (conexion.ConnectDB.State == ConnectionState.Open)
                 {
-                    conexion.SQLConexionBD.Close();
+                    conexion.close();
                 }
 
-                using (SqlCommand cmd = new SqlCommand("Crear_Aerolinea", conexion.SQLConexionBD))
+                using (SqlCommand cmd = new SqlCommand("Crear_Aerolinea", conexion.ConnectDB))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@nombre", nombreAerolineas);
                     cmd.Parameters.AddWithValue("@lema", lemaAerolinea);
 
-                    conexion.SQLConexionBD.Open();
+                    conexion.open();
                     cmd.ExecuteNonQuery();
-                    conexion.SQLConexionBD.Close();
+                    conexion.close();
 
                     MessageBox.Show("La aerolínea se ha registrado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -104,8 +107,7 @@ namespace Control_de_Vuelos
         {
             try
             {
-                Conexion conexion = new Conexion();
-                using (SqlCommand cmd = new SqlCommand("ObtenerAerolineas", conexion.SQLConexionBD))
+                using (SqlCommand cmd = new SqlCommand("ObtenerAerolineas", conexion.ConnectDB))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     SqlDataAdapter adaptador = new SqlDataAdapter(cmd);
@@ -158,7 +160,9 @@ namespace Control_de_Vuelos
         }
         private void buttonModificarAerolinea_Click(object sender, EventArgs e)
         {
-
+            this.buttonEliminarAerolinea.Visible = false;
+            
+            
             // Verifica si alguna fila está seleccionada en el DataGridView
             if (dataGridViewAerolineas.SelectedRows.Count > 0)
             {
@@ -166,7 +170,7 @@ namespace Control_de_Vuelos
                 DataGridViewRow row = dataGridViewAerolineas.SelectedRows[0];
 
                 // Obtiene el ID de la aerolínea seleccionada
-                int idAerolinea = Convert.ToInt32(row.Cells["idAerolinea"].Value);
+                int idAerolinea = Convert.ToInt32(row.Cells["Codigo"].Value);
 
                 MessageBox.Show("id: " + idAerolinea);
                 // Obtiene los nuevos datos de los TextBox
