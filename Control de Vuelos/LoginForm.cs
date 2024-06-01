@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
@@ -23,12 +24,12 @@ namespace Control_de_Vuelos {
 		}
 
 		public void createLines(object sender, PaintEventArgs e) {
-			Pen pen = new Pen(Color.White, 1);
-			PointF pnt1 = new PointF(35, this.txtAccount.Location.Y+22);
+			Pen pen = new Pen(Color.Black, 1);
+			PointF pnt1 = new PointF(20, this.txtAccount.Location.Y+22);
 			PointF pnt2 = new PointF(265, this.txtAccount.Location.Y+22);
 			e.Graphics.DrawLine(pen, pnt1, pnt2);
 
-			PointF pnt4 = new PointF(35, this.txtPassword.Location.Y+22);
+			PointF pnt4 = new PointF(20, this.txtPassword.Location.Y+22);
 			PointF pnt3 = new PointF(265, this.txtPassword.Location.Y+22);
 			e.Graphics.DrawLine(pen, pnt3, pnt4);
 		}
@@ -114,6 +115,13 @@ namespace Control_de_Vuelos {
 			if (this.txtPassword.Text == "") {
 				this.txtPassword.UseSystemPasswordChar = false;
 				this.txtPassword.Text = "Contraseña";
+			}
+		}
+
+		private void pressedEnter_Listener(object sender, KeyPressEventArgs e) {
+			if (e.KeyChar == (char) Keys.Enter) {
+				btLogin_Click(sender, EventArgs.Empty);
+				e.Handled = true;
 			}
 		}
 	}
