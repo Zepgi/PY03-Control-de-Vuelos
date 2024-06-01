@@ -24,6 +24,8 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.label1 = new System.Windows.Forms.Label();
+			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -36,17 +38,30 @@
 			this.label1.TabIndex = 3;
 			this.label1.Text = "Haz ingresado al panel de vuelos";
 			// 
+			// dataGridView1
+			// 
+			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridView1.Location = new System.Drawing.Point(492, 84);
+			this.dataGridView1.Name = "dataGridView1";
+			this.dataGridView1.RowHeadersWidth = 51;
+			this.dataGridView1.RowTemplate.Height = 24;
+			this.dataGridView1.Size = new System.Drawing.Size(703, 592);
+			this.dataGridView1.TabIndex = 4;
+			// 
 			// PanelVuelos
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+			this.BackColor = System.Drawing.Color.White;
 			this.ClientSize = new System.Drawing.Size(1220, 727);
+			this.Controls.Add(this.dataGridView1);
 			this.Controls.Add(this.label1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.MaximumSize = new System.Drawing.Size(1220, 727);
 			this.MinimumSize = new System.Drawing.Size(1220, 727);
 			this.Name = "PanelVuelos";
 			this.Text = "PanelVuelos";
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -55,5 +70,6 @@
 		#endregion
 
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.DataGridView dataGridView1;
 	}
 }
