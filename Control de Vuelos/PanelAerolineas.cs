@@ -23,6 +23,8 @@ namespace Control_de_Vuelos
 			InitializeComponent();
             // Vincula el evento CellClick al DataGridView
             dataGridViewAerolineas.CellClick += dataGridViewAerolineas_CellClick;
+            this.buttonEliminarAerolinea.Visible = false;
+            this.buttonModificarAerolinea.Visible = false;
         }
 
         private void PanelAerolineas_Load(object sender, EventArgs e)
@@ -160,9 +162,6 @@ namespace Control_de_Vuelos
         }
         private void buttonModificarAerolinea_Click(object sender, EventArgs e)
         {
-            this.buttonEliminarAerolinea.Visible = false;
-            
-            
             // Verifica si alguna fila está seleccionada en el DataGridView
             if (dataGridViewAerolineas.SelectedRows.Count > 0)
             {
@@ -172,28 +171,26 @@ namespace Control_de_Vuelos
                 // Obtiene el ID de la aerolínea seleccionada
                 int idAerolinea = Convert.ToInt32(row.Cells["Codigo"].Value);
 
-                MessageBox.Show("id: " + idAerolinea);
                 // Obtiene los nuevos datos de los TextBox
                 string nuevoNombre = textBoxNombreAerolinea.Text.Trim();
                 string nuevoLema = textBoxLemaAerolinea.Text.Trim();
 
                 // Actualiza los datos en la base de datos utilizando el stored procedure
-                Conexion conexion = new Conexion();
-                if (conexion.SQLConexionBD.State == ConnectionState.Open)
+                if (conexion.ConnectDB.State == ConnectionState.Open)
                 {
-                    conexion.SQLConexionBD.Close();
+                    conexion.close();
                 }
 
-                using (SqlCommand cmd = new SqlCommand("Actualizar_Aerolinea", conexion.SQLConexionBD))
+                using (SqlCommand cmd = new SqlCommand("Actualizar_Aerolinea", conexion.ConnectDB))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@idAerolinea", idAerolinea);
                     cmd.Parameters.AddWithValue("@nombre", nuevoNombre);
                     cmd.Parameters.AddWithValue("@lema", nuevoLema);
 
-                    conexion.SQLConexionBD.Open();
+                    conexion.open();
                     cmd.ExecuteNonQuery();
-                    conexion.SQLConexionBD.Close();
+                    conexion.close();
 
                     MessageBox.Show("La aerolínea se ha actualizado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -207,7 +204,13 @@ namespace Control_de_Vuelos
                 // Limpia los TextBox y los deshabilita
                 textBoxNombreAerolinea.Clear();
                 textBoxLemaAerolinea.Clear();
-               
+
+
+                //Vistas de los botones
+                this.buttonEliminarAerolinea.Visible = false;
+                this.buttonModificarAerolinea.Visible = false;
+                this.buttonCrearAerolinea.Visible = true;
+                this.buttonModificarVista.Visible = true;
             }
             else
             {
@@ -215,8 +218,10 @@ namespace Control_de_Vuelos
             }
         }
 
+
         private void buttonEliminarAerolinea_Click(object sender, EventArgs e)
         {
+            
             // Verifica si alguna fila está seleccionada en el DataGridView
             if (dataGridViewAerolineas.SelectedRows.Count > 0)
             {
@@ -233,21 +238,20 @@ namespace Control_de_Vuelos
                     try
                     {
                         // Conexión a la base de datos
-                        Conexion conexion = new Conexion();
-                        if (conexion.SQLConexionBD.State == ConnectionState.Open)
+                        if (conexion.ConnectDB.State == ConnectionState.Open)
                         {
-                            conexion.SQLConexionBD.Close();
+                            conexion.close();
                         }
 
                         // Ejecutar el procedimiento almacenado para eliminar la aerolínea
-                        using (SqlCommand cmd = new SqlCommand("Eliminar_Aerolinea", conexion.SQLConexionBD))
+                        using (SqlCommand cmd = new SqlCommand("Eliminar_Aerolinea", conexion.ConnectDB))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.AddWithValue("@idAerolinea", idAerolinea);
 
-                            conexion.SQLConexionBD.Open();
+                            conexion.open();
                             cmd.ExecuteNonQuery();
-                            conexion.SQLConexionBD.Close();
+                            conexion.close();
 
                             MessageBox.Show("La aerolínea se ha eliminado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -264,14 +268,36 @@ namespace Control_de_Vuelos
                     {
                         MessageBox.Show("Error al eliminar la aerolínea: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+
+
+                    //Vistas de los botones
+                    this.buttonEliminarAerolinea.Visible = false;
+                    this.buttonModificarAerolinea.Visible = false;
+                    this.buttonCrearAerolinea.Visible = true;
+                    this.buttonModificarVista.Visible = true;
                 }
             }
             else
             {
                 MessageBox.Show("Por favor, seleccione una aerolínea de la lista.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            //Vistas de los botones
+            this.buttonEliminarAerolinea.Visible = false;
+            this.buttonModificarAerolinea.Visible = false;
+            this.buttonCrearAerolinea.Visible = true;
+            this.buttonModificarVista.Visible = true;
         }
 
+
+
+        private void buttonModificarVista_Click(object sender, EventArgs e)
+        {
+            this.buttonEliminarAerolinea.Visible = true;
+            this.buttonModificarAerolinea.Visible = true;
+            this.buttonCrearAerolinea.Visible = false;
+            this.buttonModificarVista.Visible = false;
+        }
     }
 
 
