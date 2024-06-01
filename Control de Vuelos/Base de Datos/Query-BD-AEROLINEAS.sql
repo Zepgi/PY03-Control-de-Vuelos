@@ -286,6 +286,7 @@ BEGIN
     SELECT idAerolinea, nombre, lema, estado 
     FROM Aerolineas;
 END;
+GO
 
 ---------- Actualizar_Aerolinea-------------
 CREATE PROCEDURE Actualizar_Aerolinea
@@ -300,7 +301,7 @@ BEGIN
         lema = @lema
     WHERE idAerolinea = @idAerolinea;
 END;
-
+GO
 
 --Eliminar aerolineas-------------
 CREATE PROCEDURE Eliminar_Aerolinea
@@ -316,7 +317,7 @@ BEGIN
     -- Eliminar la aerolínea utilizando el ID proporcionado
     DELETE FROM Aerolineas WHERE idAerolinea = @idAerolinea;
 END;
-
+GO
 
 ------------ FIN STORED PROCEDURES AEROLINEAS ------------
 
