@@ -1,4 +1,4 @@
-﻿------- BD -------
+------- BD -------
 CREATE DATABASE AEROLINEAS;
 GO
 
@@ -266,3 +266,65 @@ BEGIN
     RETURN;
 END;
 GO
+
+------------ INICIO STORED PROCEDURES AEROLINEAS ------------
+CREATE PROC Crear_Aerolinea
+	(@nombre VARCHAR(100), @lema VARCHAR(MAX))
+AS
+	BEGIN
+	-- INSERTA UN NUEVO REGISTRO EN LA TABLA AEROLINEAS
+	INSERT INTO Aerolineas VALUES(@nombre, @lema, 1); -- 1 activo
+END;
+GO
+
+---------- ObtenerAerolineas-------------
+CREATE PROCEDURE ObtenerAerolineas
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT idAerolinea, nombre, lema, estado 
+    FROM Aerolineas;
+END;
+
+---------- Actualizar_Aerolinea-------------
+CREATE PROCEDURE Actualizar_Aerolinea
+    @idAerolinea INT,
+    @nombre VARCHAR(100),
+    @lema VARCHAR(MAX)
+AS
+BEGIN
+    -- Actualizar la aerolínea con el ID especificado
+    UPDATE Aerolineas
+    SET nombre = @nombre,
+        lema = @lema
+    WHERE idAerolinea = @idAerolinea;
+END;
+
+
+--Eliminar aerolineas-------------
+CREATE PROCEDURE Eliminar_Aerolinea
+    @idAerolinea INT
+AS
+BEGIN
+    -- SET NOCOUNT ON evita que se muestre el número de filas afectadas
+    SET NOCOUNT ON;
+
+    -- Eliminar las filas relacionadas en ListaPermisos que hacen referencia a la aerolínea
+    DELETE FROM ListaPermisos WHERE idAerolinea = @idAerolinea;
+
+    -- Eliminar la aerolínea utilizando el ID proporcionado
+    DELETE FROM Aerolineas WHERE idAerolinea = @idAerolinea;
+END;
+
+
+------------ FIN STORED PROCEDURES AEROLINEAS ------------
+
+
+
+DROP PROCEDURE Obtener_Aerolineas;
+
+
+DELETE Aerolineas
+DELETE ListaPermisos
+SELECT * FROM Aerolineas
