@@ -64,8 +64,8 @@ namespace Control_de_Vuelos {
 					List<int> permisos = new List<int>();
 					int idAerolinea = 0;
 
-					SqlCommand listaPermisos = new SqlCommand("SELECT idPermiso, idAerolinea " +
-															"FROM getPermisos(@idUsuario)", conn.ConnectDB);
+					SqlCommand listaPermisos = new SqlCommand("Get_Permisos", conn.ConnectDB);
+					listaPermisos.CommandType = CommandType.StoredProcedure;
 					listaPermisos.Parameters.AddWithValue("@idUsuario", idUsuario);
 
 					SqlDataAdapter adapter = new SqlDataAdapter(listaPermisos);

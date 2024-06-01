@@ -17,7 +17,7 @@ namespace Control_de_Vuelos {
 		string idUser;
 		List<int> permisos;
 		int idAerolinea;
-		LoginForm view;
+		readonly LoginForm view;
 
 		public MainMenuForm(LoginForm pView, string pIdUser, List<int> pPermisos, int pIdAerolinea) {
 			this.view = pView;
@@ -30,7 +30,7 @@ namespace Control_de_Vuelos {
 			this.btAerolineas.Enabled	 = false;
 			this.btReportes.Enabled		 = false;
 			this.btVuelos.Enabled		 = false;
-			loadPanel(new HomePanel());
+			loadPanel(new HomePanel(idAerolinea, idUser));
 			gestionarPermisos();
 		}
 
@@ -61,6 +61,7 @@ namespace Control_de_Vuelos {
 
 			if (resultado == DialogResult.Yes) {
 				this.Close();
+				this.view.Close();
 				Application.Exit();
 			}
 		}
@@ -127,7 +128,7 @@ namespace Control_de_Vuelos {
 						loadPanel(new PanelMantenimiento());
 						break;
 					case "btInicio":
-						loadPanel(new HomePanel());
+						loadPanel(new HomePanel(idAerolinea, idUser));
 						break;
 					case "btAviones":
 						loadPanel(new PanelAviones());
