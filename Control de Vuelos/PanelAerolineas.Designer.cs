@@ -23,55 +23,59 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-            this.buttonCrearAerolinea = new System.Windows.Forms.Button();
-            this.dataGridViewAerolineas = new System.Windows.Forms.DataGridView();
+            this.buttonCreateAirline = new System.Windows.Forms.Button();
+            this.dataGridViewAirlines = new System.Windows.Forms.DataGridView();
             this.textBoxNombreAerolinea = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxLemaAerolinea = new System.Windows.Forms.TextBox();
-            this.buttonModificarAerolinea = new System.Windows.Forms.Button();
-            this.buttonEliminarAerolinea = new System.Windows.Forms.Button();
-            this.buttonModificarVista = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAerolineas)).BeginInit();
+            this.buttonModifyAirline = new System.Windows.Forms.Button();
+            this.buttonDeleteAirline = new System.Windows.Forms.Button();
+            this.buttonModifyView = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAirlines)).BeginInit();
             this.SuspendLayout();
             // 
-            // buttonCrearAerolinea
+            // buttonCreateAirline
             // 
-            this.buttonCrearAerolinea.BackColor = System.Drawing.Color.Chartreuse;
-            this.buttonCrearAerolinea.Location = new System.Drawing.Point(570, 539);
-            this.buttonCrearAerolinea.Name = "buttonCrearAerolinea";
-            this.buttonCrearAerolinea.Size = new System.Drawing.Size(277, 35);
-            this.buttonCrearAerolinea.TabIndex = 4;
-            this.buttonCrearAerolinea.Text = "Crear aerolinea";
-            this.buttonCrearAerolinea.UseVisualStyleBackColor = false;
-            this.buttonCrearAerolinea.Click += new System.EventHandler(this.buttonCrearAerolinea_Click);
+            this.buttonCreateAirline.BackColor = System.Drawing.Color.Chartreuse;
+            this.buttonCreateAirline.Location = new System.Drawing.Point(456, 431);
+            this.buttonCreateAirline.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonCreateAirline.Name = "buttonCreateAirline";
+            this.buttonCreateAirline.Size = new System.Drawing.Size(222, 28);
+            this.buttonCreateAirline.TabIndex = 4;
+            this.buttonCreateAirline.Text = "Crear aerolinea";
+            this.buttonCreateAirline.UseVisualStyleBackColor = false;
+            this.buttonCreateAirline.Click += new System.EventHandler(this.buttonCreateAirline_Click);
             // 
-            // dataGridViewAerolineas
+            // dataGridViewAirlines
             // 
-            this.dataGridViewAerolineas.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dataGridViewAerolineas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAerolineas.Location = new System.Drawing.Point(26, 102);
-            this.dataGridViewAerolineas.Name = "dataGridViewAerolineas";
-            this.dataGridViewAerolineas.RowHeadersWidth = 51;
-            this.dataGridViewAerolineas.RowTemplate.Height = 24;
-            this.dataGridViewAerolineas.Size = new System.Drawing.Size(463, 472);
-            this.dataGridViewAerolineas.TabIndex = 17;
+            this.dataGridViewAirlines.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridViewAirlines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAirlines.Location = new System.Drawing.Point(21, 82);
+            this.dataGridViewAirlines.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridViewAirlines.Name = "dataGridViewAirlines";
+            this.dataGridViewAirlines.RowHeadersWidth = 51;
+            this.dataGridViewAirlines.RowTemplate.Height = 24;
+            this.dataGridViewAirlines.Size = new System.Drawing.Size(370, 378);
+            this.dataGridViewAirlines.TabIndex = 17;
             // 
             // textBoxNombreAerolinea
             // 
-            this.textBoxNombreAerolinea.Location = new System.Drawing.Point(521, 242);
+            this.textBoxNombreAerolinea.Location = new System.Drawing.Point(417, 194);
+            this.textBoxNombreAerolinea.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxNombreAerolinea.Name = "textBoxNombreAerolinea";
-            this.textBoxNombreAerolinea.Size = new System.Drawing.Size(175, 22);
+            this.textBoxNombreAerolinea.Size = new System.Drawing.Size(141, 20);
             this.textBoxNombreAerolinea.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(716, 102);
+            this.label2.Location = new System.Drawing.Point(573, 82);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(210, 29);
+            this.label2.Size = new System.Drawing.Size(167, 24);
             this.label2.TabIndex = 6;
             this.label2.Text = "Zona de Aerolinea";
             // 
@@ -79,9 +83,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(978, 183);
+            this.label4.Location = new System.Drawing.Point(782, 146);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(193, 25);
+            this.label4.Size = new System.Drawing.Size(156, 20);
             this.label4.TabIndex = 8;
             this.label4.Text = "Lema de la aerolinea";
             // 
@@ -89,93 +94,99 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(516, 183);
+            this.label3.Location = new System.Drawing.Point(413, 146);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(213, 25);
+            this.label3.Size = new System.Drawing.Size(172, 20);
             this.label3.TabIndex = 7;
             this.label3.Text = "Nombre de la aerolinea";
             // 
             // textBoxLemaAerolinea
             // 
-            this.textBoxLemaAerolinea.Location = new System.Drawing.Point(983, 242);
+            this.textBoxLemaAerolinea.Location = new System.Drawing.Point(786, 194);
+            this.textBoxLemaAerolinea.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxLemaAerolinea.Name = "textBoxLemaAerolinea";
-            this.textBoxLemaAerolinea.Size = new System.Drawing.Size(175, 22);
+            this.textBoxLemaAerolinea.Size = new System.Drawing.Size(141, 20);
             this.textBoxLemaAerolinea.TabIndex = 9;
             // 
-            // buttonModificarAerolinea
+            // buttonModifyAirline
             // 
-            this.buttonModificarAerolinea.BackColor = System.Drawing.Color.Chartreuse;
-            this.buttonModificarAerolinea.Location = new System.Drawing.Point(853, 539);
-            this.buttonModificarAerolinea.Name = "buttonModificarAerolinea";
-            this.buttonModificarAerolinea.Size = new System.Drawing.Size(277, 35);
-            this.buttonModificarAerolinea.TabIndex = 18;
-            this.buttonModificarAerolinea.Text = "Modificar aerolinea";
-            this.buttonModificarAerolinea.UseVisualStyleBackColor = false;
-            this.buttonModificarAerolinea.Click += new System.EventHandler(this.buttonModificarAerolinea_Click);
+            this.buttonModifyAirline.BackColor = System.Drawing.Color.Chartreuse;
+            this.buttonModifyAirline.Location = new System.Drawing.Point(682, 431);
+            this.buttonModifyAirline.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonModifyAirline.Name = "buttonModifyAirline";
+            this.buttonModifyAirline.Size = new System.Drawing.Size(222, 28);
+            this.buttonModifyAirline.TabIndex = 18;
+            this.buttonModifyAirline.Text = "Modificar aerolinea";
+            this.buttonModifyAirline.UseVisualStyleBackColor = false;
+            this.buttonModifyAirline.Click += new System.EventHandler(this.buttonModifyAirline_Click);
             // 
-            // buttonEliminarAerolinea
+            // buttonDeleteAirline
             // 
-            this.buttonEliminarAerolinea.BackColor = System.Drawing.Color.Red;
-            this.buttonEliminarAerolinea.ForeColor = System.Drawing.Color.White;
-            this.buttonEliminarAerolinea.Location = new System.Drawing.Point(570, 539);
-            this.buttonEliminarAerolinea.Name = "buttonEliminarAerolinea";
-            this.buttonEliminarAerolinea.Size = new System.Drawing.Size(277, 35);
-            this.buttonEliminarAerolinea.TabIndex = 19;
-            this.buttonEliminarAerolinea.Text = "Eliminar";
-            this.buttonEliminarAerolinea.UseVisualStyleBackColor = false;
-            this.buttonEliminarAerolinea.Click += new System.EventHandler(this.buttonEliminarAerolinea_Click);
+            this.buttonDeleteAirline.BackColor = System.Drawing.Color.Red;
+            this.buttonDeleteAirline.ForeColor = System.Drawing.Color.White;
+            this.buttonDeleteAirline.Location = new System.Drawing.Point(456, 432);
+            this.buttonDeleteAirline.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonDeleteAirline.Name = "buttonDeleteAirline";
+            this.buttonDeleteAirline.Size = new System.Drawing.Size(222, 28);
+            this.buttonDeleteAirline.TabIndex = 19;
+            this.buttonDeleteAirline.Text = "Eliminar";
+            this.buttonDeleteAirline.UseVisualStyleBackColor = false;
+            this.buttonDeleteAirline.Click += new System.EventHandler(this.buttonDeleteAirline_Click);
             // 
-            // buttonModificarVista
+            // buttonModifyView
             // 
-            this.buttonModificarVista.BackColor = System.Drawing.Color.Chartreuse;
-            this.buttonModificarVista.Location = new System.Drawing.Point(853, 539);
-            this.buttonModificarVista.Name = "buttonModificarVista";
-            this.buttonModificarVista.Size = new System.Drawing.Size(277, 35);
-            this.buttonModificarVista.TabIndex = 20;
-            this.buttonModificarVista.Text = "Modificar ";
-            this.buttonModificarVista.UseVisualStyleBackColor = false;
-            this.buttonModificarVista.Click += new System.EventHandler(this.buttonModificarVista_Click);
+            this.buttonModifyView.BackColor = System.Drawing.Color.Chartreuse;
+            this.buttonModifyView.Location = new System.Drawing.Point(682, 432);
+            this.buttonModifyView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonModifyView.Name = "buttonModifyView";
+            this.buttonModifyView.Size = new System.Drawing.Size(222, 28);
+            this.buttonModifyView.TabIndex = 20;
+            this.buttonModifyView.Text = "Modificar ";
+            this.buttonModifyView.UseVisualStyleBackColor = false;
+            this.buttonModifyView.Click += new System.EventHandler(this.buttonModifyView_Click);
             // 
             // PanelAerolineas
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1220, 727);
-            this.Controls.Add(this.buttonModificarVista);
-            this.Controls.Add(this.buttonEliminarAerolinea);
-            this.Controls.Add(this.buttonModificarAerolinea);
-            this.Controls.Add(this.dataGridViewAerolineas);
+            this.ClientSize = new System.Drawing.Size(976, 582);
+            this.Controls.Add(this.buttonModifyView);
+            this.Controls.Add(this.buttonDeleteAirline);
+            this.Controls.Add(this.buttonModifyAirline);
+            this.Controls.Add(this.dataGridViewAirlines);
             this.Controls.Add(this.textBoxLemaAerolinea);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxNombreAerolinea);
-            this.Controls.Add(this.buttonCrearAerolinea);
+            this.Controls.Add(this.buttonCreateAirline);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1220, 727);
+            this.MaximumSize = new System.Drawing.Size(976, 582);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(1220, 727);
+            this.MinimumSize = new System.Drawing.Size(976, 582);
             this.Name = "PanelAerolineas";
             this.Text = "PanelAerolineas";
             this.Load += new System.EventHandler(this.PanelAerolineas_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAerolineas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAirlines)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
 		}
 
 		#endregion
-        private System.Windows.Forms.Button buttonCrearAerolinea;
-        private System.Windows.Forms.DataGridView dataGridViewAerolineas;
+        private System.Windows.Forms.Button buttonCreateAirline;
+        private System.Windows.Forms.DataGridView dataGridViewAirlines;
         private System.Windows.Forms.TextBox textBoxNombreAerolinea;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxLemaAerolinea;
-        private System.Windows.Forms.Button buttonModificarAerolinea;
-        private System.Windows.Forms.Button buttonEliminarAerolinea;
-        private System.Windows.Forms.Button buttonModificarVista;
+        private System.Windows.Forms.Button buttonModifyAirline;
+        private System.Windows.Forms.Button buttonDeleteAirline;
+        private System.Windows.Forms.Button buttonModifyView;
     }
 }
