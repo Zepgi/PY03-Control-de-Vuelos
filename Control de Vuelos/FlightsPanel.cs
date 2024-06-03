@@ -13,5 +13,9 @@ namespace Control_de_Vuelos {
 		public FlightsPanel() {
 			InitializeComponent();
 		}
+
+		private void label3_Click(object sender, EventArgs e) {
+
+		}
 	}
 }
