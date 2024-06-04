@@ -24,8 +24,8 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.tbFlights = new System.Windows.Forms.DataGridView();
-			this.btAddFlight = new Guna.UI2.WinForms.Guna2Button();
-			this.btModFlight = new Guna.UI2.WinForms.Guna2Button();
+			this.btPassengers = new Guna.UI2.WinForms.Guna2Button();
+			this.btFlights = new Guna.UI2.WinForms.Guna2Button();
 			this.btAddPassenger = new Guna.UI2.WinForms.Guna2Button();
 			this.pInputArea = new System.Windows.Forms.Panel();
 			this.lbPilot = new System.Windows.Forms.Label();
@@ -58,49 +58,49 @@
 			this.tbFlights.Size = new System.Drawing.Size(550, 590);
 			this.tbFlights.TabIndex = 4;
 			// 
-			// btAddFlight
+			// btPassengers
 			// 
-			this.btAddFlight.Animated = true;
-			this.btAddFlight.AutoRoundedCorners = true;
-			this.btAddFlight.BackColor = System.Drawing.Color.Transparent;
-			this.btAddFlight.BorderColor = System.Drawing.Color.White;
-			this.btAddFlight.BorderRadius = 22;
-			this.btAddFlight.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
-			this.btAddFlight.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
-			this.btAddFlight.ForeColor = System.Drawing.Color.White;
-			this.btAddFlight.Location = new System.Drawing.Point(40, 70);
-			this.btAddFlight.Name = "btAddFlight";
-			this.btAddFlight.PressedColor = System.Drawing.Color.Teal;
-			this.btAddFlight.ShadowDecoration.BorderRadius = 0;
-			this.btAddFlight.ShadowDecoration.Depth = 0;
-			this.btAddFlight.ShadowDecoration.Enabled = true;
-			this.btAddFlight.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
-			this.btAddFlight.Size = new System.Drawing.Size(226, 46);
-			this.btAddFlight.TabIndex = 6;
-			this.btAddFlight.Text = "Registrar Vuelo";
-			this.btAddFlight.Click += new System.EventHandler(this.button_Click);
+			this.btPassengers.Animated = true;
+			this.btPassengers.AutoRoundedCorners = true;
+			this.btPassengers.BackColor = System.Drawing.Color.Transparent;
+			this.btPassengers.BorderColor = System.Drawing.Color.White;
+			this.btPassengers.BorderRadius = 22;
+			this.btPassengers.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+			this.btPassengers.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
+			this.btPassengers.ForeColor = System.Drawing.Color.White;
+			this.btPassengers.Location = new System.Drawing.Point(40, 70);
+			this.btPassengers.Name = "btPassengers";
+			this.btPassengers.PressedColor = System.Drawing.Color.Teal;
+			this.btPassengers.ShadowDecoration.BorderRadius = 0;
+			this.btPassengers.ShadowDecoration.Depth = 0;
+			this.btPassengers.ShadowDecoration.Enabled = true;
+			this.btPassengers.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
+			this.btPassengers.Size = new System.Drawing.Size(226, 46);
+			this.btPassengers.TabIndex = 6;
+			this.btPassengers.Text = "Pasajeros";
+			this.btPassengers.Click += new System.EventHandler(this.button_Click);
 			// 
-			// btModFlight
+			// btFlights
 			// 
-			this.btModFlight.Animated = true;
-			this.btModFlight.AutoRoundedCorners = true;
-			this.btModFlight.BackColor = System.Drawing.Color.Transparent;
-			this.btModFlight.BorderColor = System.Drawing.Color.White;
-			this.btModFlight.BorderRadius = 22;
-			this.btModFlight.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
-			this.btModFlight.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
-			this.btModFlight.ForeColor = System.Drawing.Color.White;
-			this.btModFlight.Location = new System.Drawing.Point(314, 70);
-			this.btModFlight.Name = "btModFlight";
-			this.btModFlight.PressedColor = System.Drawing.Color.Teal;
-			this.btModFlight.ShadowDecoration.BorderRadius = 30;
-			this.btModFlight.ShadowDecoration.Depth = 0;
-			this.btModFlight.ShadowDecoration.Enabled = true;
-			this.btModFlight.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
-			this.btModFlight.Size = new System.Drawing.Size(226, 46);
-			this.btModFlight.TabIndex = 7;
-			this.btModFlight.Text = "Modificar Vuelo";
-			this.btModFlight.Click += new System.EventHandler(this.button_Click);
+			this.btFlights.Animated = true;
+			this.btFlights.AutoRoundedCorners = true;
+			this.btFlights.BackColor = System.Drawing.Color.Transparent;
+			this.btFlights.BorderColor = System.Drawing.Color.White;
+			this.btFlights.BorderRadius = 22;
+			this.btFlights.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+			this.btFlights.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
+			this.btFlights.ForeColor = System.Drawing.Color.White;
+			this.btFlights.Location = new System.Drawing.Point(314, 70);
+			this.btFlights.Name = "btFlights";
+			this.btFlights.PressedColor = System.Drawing.Color.Teal;
+			this.btFlights.ShadowDecoration.BorderRadius = 30;
+			this.btFlights.ShadowDecoration.Depth = 0;
+			this.btFlights.ShadowDecoration.Enabled = true;
+			this.btFlights.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
+			this.btFlights.Size = new System.Drawing.Size(226, 46);
+			this.btFlights.TabIndex = 7;
+			this.btFlights.Text = "Vuelos";
+			this.btFlights.Click += new System.EventHandler(this.button_Click);
 			// 
 			// btAddPassenger
 			// 
@@ -120,7 +120,7 @@
 			this.btAddPassenger.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
 			this.btAddPassenger.Size = new System.Drawing.Size(226, 46);
 			this.btAddPassenger.TabIndex = 8;
-			this.btAddPassenger.Text = "Registrar Pasajeros";
+			this.btAddPassenger.Text = "Registrar Pasajeros/Vuelos";
 			this.btAddPassenger.Click += new System.EventHandler(this.button_Click);
 			// 
 			// pInputArea
@@ -369,7 +369,7 @@
 			this.btConfirmPassenger.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
 			this.btConfirmPassenger.Size = new System.Drawing.Size(226, 46);
 			this.btConfirmPassenger.TabIndex = 10;
-			this.btConfirmPassenger.Text = "Confirmar Pasajeros";
+			this.btConfirmPassenger.Text = "Confirmar Pasajeros / ";
 			this.btConfirmPassenger.Click += new System.EventHandler(this.button_Click);
 			// 
 			// FlightsPanel
@@ -381,8 +381,8 @@
 			this.Controls.Add(this.btConfirmPassenger);
 			this.Controls.Add(this.btAddPassenger);
 			this.Controls.Add(this.pInputArea);
-			this.Controls.Add(this.btModFlight);
-			this.Controls.Add(this.btAddFlight);
+			this.Controls.Add(this.btFlights);
+			this.Controls.Add(this.btPassengers);
 			this.Controls.Add(this.tbFlights);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.MaximumSize = new System.Drawing.Size(1220, 727);
@@ -398,8 +398,8 @@
 
 		#endregion
 		private System.Windows.Forms.DataGridView tbFlights;
-		private Guna.UI2.WinForms.Guna2Button btAddFlight;
-		private Guna.UI2.WinForms.Guna2Button btModFlight;
+		private Guna.UI2.WinForms.Guna2Button btPassengers;
+		private Guna.UI2.WinForms.Guna2Button btFlights;
 		private Guna.UI2.WinForms.Guna2Button btAddPassenger;
 		private System.Windows.Forms.Panel pInputArea;
 		private Guna.UI2.WinForms.Guna2Button btConfirmPassenger;

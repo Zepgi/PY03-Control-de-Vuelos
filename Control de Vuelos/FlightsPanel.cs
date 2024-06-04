@@ -5,15 +5,24 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Control_de_Vuelos {
 	public partial class FlightsPanel : Form {
-		public FlightsPanel() {
+
+		List<int> permissions;
+		int idAirline;
+		string idUser;
+		public FlightsPanel(int pIdAirline, string pIdUser, List<int> pPermissions) {
+			this.idAirline = pIdAirline;
+			this.idUser = pIdUser;
+			this.permissions = pPermissions;
 			InitializeComponent();
 			this.hideFlightRegister();
+			//this.setView();
 		}
 
 		private void hideFlightRegister() {
@@ -53,7 +62,7 @@ namespace Control_de_Vuelos {
 		private void button_Click(object sender, EventArgs e) {
 			this.lbSelectOpt.Visible = false;
 			Guna2Button b = (Guna2Button)sender;
-			if (b.Name.ToString().Equals("btAddFlight")) {
+			if (b.Text.Equals("Registrar Vuelo")) {
 				this.showFlightRegister();
 			} else {
 				this.hideFlightRegister();
