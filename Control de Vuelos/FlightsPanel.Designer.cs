@@ -33,9 +33,6 @@
 			this.lbSelectOpt = new System.Windows.Forms.Label();
 			this.btRightOption = new Guna.UI2.WinForms.Guna2Button();
 			this.tbFlights = new Guna.UI2.WinForms.Guna2DataGridView();
-			this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.pInputArea.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tbFlights)).BeginInit();
 			this.SuspendLayout();
@@ -147,6 +144,9 @@
 			// 
 			// tbFlights
 			// 
+			this.tbFlights.AllowUserToAddRows = false;
+			this.tbFlights.AllowUserToDeleteRows = false;
+			this.tbFlights.AllowUserToResizeColumns = false;
 			dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
 			this.tbFlights.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
 			this.tbFlights.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
@@ -158,11 +158,7 @@
 			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
 			this.tbFlights.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-			this.tbFlights.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.tbFlights.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3});
+			this.tbFlights.ColumnHeadersHeight = 55;
 			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
 			dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
 			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -172,13 +168,13 @@
 			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
 			this.tbFlights.DefaultCellStyle = dataGridViewCellStyle3;
 			this.tbFlights.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-			this.tbFlights.Location = new System.Drawing.Point(638, 70);
+			this.tbFlights.Location = new System.Drawing.Point(574, 70);
 			this.tbFlights.Name = "tbFlights";
 			this.tbFlights.ReadOnly = true;
 			this.tbFlights.RowHeadersVisible = false;
 			this.tbFlights.RowHeadersWidth = 51;
 			this.tbFlights.RowTemplate.Height = 24;
-			this.tbFlights.Size = new System.Drawing.Size(550, 590);
+			this.tbFlights.Size = new System.Drawing.Size(620, 590);
 			this.tbFlights.TabIndex = 11;
 			this.tbFlights.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
 			this.tbFlights.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -191,8 +187,8 @@
 			this.tbFlights.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
 			this.tbFlights.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.tbFlights.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-			this.tbFlights.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.tbFlights.ThemeStyle.HeaderStyle.Height = 19;
+			this.tbFlights.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+			this.tbFlights.ThemeStyle.HeaderStyle.Height = 55;
 			this.tbFlights.ThemeStyle.ReadOnly = true;
 			this.tbFlights.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
 			this.tbFlights.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
@@ -201,27 +197,6 @@
 			this.tbFlights.ThemeStyle.RowsStyle.Height = 24;
 			this.tbFlights.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
 			this.tbFlights.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-			// 
-			// Column1
-			// 
-			this.Column1.HeaderText = "Column1";
-			this.Column1.MinimumWidth = 6;
-			this.Column1.Name = "Column1";
-			this.Column1.ReadOnly = true;
-			// 
-			// Column2
-			// 
-			this.Column2.HeaderText = "Column2";
-			this.Column2.MinimumWidth = 6;
-			this.Column2.Name = "Column2";
-			this.Column2.ReadOnly = true;
-			// 
-			// Column3
-			// 
-			this.Column3.HeaderText = "Column3";
-			this.Column3.MinimumWidth = 6;
-			this.Column3.Name = "Column3";
-			this.Column3.ReadOnly = true;
 			// 
 			// FlightsPanel
 			// 
@@ -255,8 +230,5 @@
 		private Guna.UI2.WinForms.Guna2Button btRightOption;
 		private System.Windows.Forms.Label lbSelectOpt;
 		private Guna.UI2.WinForms.Guna2DataGridView tbFlights;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
 	}
 }

@@ -94,6 +94,7 @@ GO
 CREATE TABLE Vuelos(
 	PRIMARY KEY(idVuelo),
 	idVuelo				INT IDENTITY(1,1)	NOT NULL,
+	codigoVuelo			VARCHAR(100)		NOT NULL,
 	idAerolinea			INT NOT NULL,
 	idAvion				INT	NOT NULL,
 	cedulaPiloto		VARCHAR(150) UNIQUE	NOT NULL,
@@ -286,7 +287,7 @@ CREATE PROC Get_Flights
 	(@idAerolinea INT)
 AS
 BEGIN
-	SELECT idVuelo, idAvion, CONCAT ( P.apellidoPat, ' ', P.apellidoMat, ' ', P.nombre), fechaHoraPartida, fechaHoraLlegada, C.ciudad, C2.ciudad, V.estado
+	SELECT codigoVuelo Vuelo, A.matricula 'Avión' , CONCAT (P.apellidoPat, ' ', P.apellidoMat, ' ', P.nombre) Piloto, fechaHoraPartida 'Salida', fechaHoraLlegada 'Llegada', C.ciudad 'Ciudad de Partida', C2.ciudad 'Ciudad de Destino' , V.estado Estado
 	FROM Vuelos V
 	INNER JOIN Pilotos P ON
 	V.cedulaPiloto =  P.cedulaPiloto
@@ -294,15 +295,17 @@ BEGIN
 	C.codigoCiudad = V.codigoCiudadDestino
 	INNER JOIN Ciudades C2 ON
 	C2.codigoCiudad = V.codigoCiudadPartida
+	INNER JOIN Aviones A ON
+	A.idAvion = V.idAvion
 	WHERE @idAerolinea = idAerolinea
-	GROUP BY idVuelo, idAvion, CONCAT ( P.apellidoPat, ' ', P.apellidoMat, ' ', P.nombre), fechaHoraPartida, fechaHoraLlegada, C.ciudad, C2.ciudad, V.estado;
+	GROUP BY codigoVuelo, A.matricula, CONCAT ( P.apellidoPat, ' ', P.apellidoMat, ' ', P.nombre), fechaHoraPartida, fechaHoraLlegada, C.ciudad, C2.ciudad, V.estado;
 END;
 GO
 
 CREATE PROC Get_Passengers
 AS
 BEGIN
-	SELECT cedulaPasajero, CONCAT(apellidoMat, ' ', apellidoMat, ' ', nombre), C.ciudad
+	SELECT cedulaPasajero 'Cédula', CONCAT(apellidoMat, ' ', apellidoMat, ' ', nombre) 'Nombre Completo', C.ciudad 'Ciudad de Residencia'
 	FROM Pasajeros P
 	INNER JOIN Ciudades C ON
 	P.codigoCiudad = C.codigoCiudad

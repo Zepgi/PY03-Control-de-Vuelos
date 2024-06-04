@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
@@ -18,7 +19,9 @@ namespace Control_de_Vuelos {
 		List<int> permissions;
 		int idAirline;
 		string idUser;
+		DatabaseConnection conn;
 		public FlightsPanel(int pIdAirline, string pIdUser, List<int> pPermissions) {
+			this.conn = new DatabaseConnection();
 			this.idAirline = pIdAirline;
 			this.idUser = pIdUser;
 			this.permissions = pPermissions;
@@ -37,26 +40,45 @@ namespace Control_de_Vuelos {
 				this.loadPanel(new ManageFlightsPanel());
 				this.btRightOption.Text = "Agregar Vuelo";
 				this.btLeftOption.Text = "Modificar Vuelo";
-				//setTableData("Vuelos");
+				setTableData("Vuelos");
 
 			} else {
 				this.loadPanel(new ManagePassengersPanel());
 				this.btRightOption.Text = "Agregar Pasajero";
 				this.btLeftOption.Text = "Modificar Pasajero";
-				//setTableData("Pasajeros");
+				setTableData("Pasajeros");
 			}
 		}
 
-		/* private void setTableData(string pOption) {
-		 * string option = pOption;
-		 * string sp = "";
-		 * if (option.Equals("Vuelos") {
-		 *		sp = "Get_Flights";
-		 * else {
-		 *		sp = "Get_Passengers";
-		 *  }
-		 *  INSERTAR DATOS EN LA TABLA (tbFlights) es GUNA2
-		*/
+		private void setTableData(string pOption) {
+			string sp = "";
+			if (pOption.Equals("Vuelos")) {
+				sp = "Get_Flights";
+			} else {
+				sp = "Get_Passengers";
+			}
+
+			DataTable dt = new DataTable();
+			try {
+				conn.open();
+				SqlCommand cmd = new SqlCommand(sp, conn.ConnectDB);
+				cmd.CommandType = CommandType.StoredProcedure;
+
+				if (pOption.Equals("Vuelos")) {
+					cmd.Parameters.AddWithValue("@idAerolinea", this.idAirline);
+				}
+
+				SqlDataAdapter da = new SqlDataAdapter(cmd);
+				da.Fill(dt);
+				this.tbFlights.DataSource = dt;
+			} catch (Exception ex) {
+				MessageBox.Show("Error: " + ex.Message);
+			} finally {
+				if (conn.ConnectDB.State == ConnectionState.Open) {
+					conn.close();
+				}
+			}
+		}
 
 
 		private void setView() {
