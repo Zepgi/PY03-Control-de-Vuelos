@@ -284,6 +284,7 @@ CREATE PROC Crear_Aerolinea
     (@nombre VARCHAR(100), @lema VARCHAR(MAX))
 AS
 BEGIN
+	BEGIN TRY
     -- Verificar si el nombre de la aerolínea ya existe
     IF EXISTS (SELECT 1 FROM Aerolineas WHERE nombre = @nombre)
     BEGIN
@@ -293,6 +294,19 @@ BEGIN
 
     -- Insertar un nuevo registro en la tabla Aerolineas
     INSERT INTO Aerolineas (nombre, lema, estado) VALUES(@nombre, @lema, 1); -- 1 activo
+	END TRY
+	BEGIN CATCH
+	DECLARE @ErrorMessage NVARCHAR(4000)
+	DECLARE @ErrorSeverity INT;
+	DECLARE @ErrorState INT;
+
+	SELECT 
+            @ErrorMessage  = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+	RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
 END;
 GO
 
@@ -300,6 +314,7 @@ GO
 CREATE PROCEDURE ObtenerAerolineas
 AS
 BEGIN
+
     SET NOCOUNT ON;
 
     SELECT idAerolinea, nombre, lema, estado 
@@ -313,6 +328,7 @@ CREATE PROCEDURE Actualizar_Aerolinea
     @lema VARCHAR(MAX)
 AS
 BEGIN
+	BEGIN TRY
     -- Verificar si el nuevo nombre de la aerolínea ya existe para otra aerolínea
     IF EXISTS (SELECT 1 FROM Aerolineas WHERE nombre = @nombre AND idAerolinea <> @idAerolinea)
     BEGIN
@@ -320,14 +336,27 @@ BEGIN
         RETURN;
     END
 
-    -- Actualizar la aerolínea con el ID especificado
+    -- Actualiza la aerolínea con el ID especificado
     UPDATE Aerolineas
     SET nombre = @nombre,
         lema = @lema
     WHERE idAerolinea = @idAerolinea;
+	END TRY
+	BEGIN CATCH
+	DECLARE @ErrorMessage NVARCHAR(4000);
+	DECLARE @ErrorSeverity INT;
+	DECLARE @ErrorState INT;
+
+	SELECT
+		@ErrorMessage = ERROR_MESSAGE(),
+		@ErrorSeverity = ERROR_SEVERITY(),
+		@ErrorState = ERROR_STATE();
+		
+	RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
+	END CATCH
 END;
 GO
--- Cambiar el estado de la aerolínea a desactivado (0)
+-- Cambia el estado de la aerolínea a desactivado = (0)
 CREATE PROCEDURE Desactivar_Aerolinea
     @idAerolinea INT
 AS
