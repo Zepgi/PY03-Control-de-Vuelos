@@ -87,19 +87,22 @@ CREATE TABLE Ciudades
 	pais VARCHAR(150) NOT NULL,
 	canton VARCHAR(150) NOT NULL,
 	distrito VARCHAR(150) NOT NULL,
+	ciudad	VARCHAR(150) NOT NULL,
 	PRIMARY KEY(idCiudad));
 GO
 
 CREATE TABLE Vuelos(
 	PRIMARY KEY(idVuelo),
 	idVuelo				INT IDENTITY(1,1)	NOT NULL,
-	idAvion				INT					NOT NULL,
+	idAerolinea			INT NOT NULL,
+	idAvion				INT	NOT NULL,
 	cedulaPiloto		VARCHAR(150) UNIQUE	NOT NULL,
 	fechaHoraPartida	DATETIME			NOT NULL,
 	fechaHoraLlegada	DATETIME			NOT NULL,
 	codigoCiudadPartida	VARCHAR(150)		NOT NULL,
 	codigoCiudadDestino	VARCHAR(150)		NOT NULL,
 	estado			BIT						NOT NULL,
+	FOREIGN KEY (idAerolinea)			REFERENCES Aerolineas(idAerolinea),
 	FOREIGN KEY	(cedulaPiloto)			REFERENCES Pilotos(cedulaPiloto),
 	FOREIGN KEY	(idAvion)				REFERENCES Aviones(idAvion),
 	FOREIGN KEY	(codigoCiudadPartida)	REFERENCES Ciudades(codigoCiudad),
@@ -279,6 +282,36 @@ BEGIN
 END;
 GO
 
+CREATE PROC Get_Flights
+	(@idAerolinea INT)
+AS
+BEGIN
+	SELECT idVuelo, idAvion, CONCAT ( P.apellidoPat, ' ', P.apellidoMat, ' ', P.nombre), fechaHoraPartida, fechaHoraLlegada, C.ciudad, C2.ciudad, V.estado
+	FROM Vuelos V
+	INNER JOIN Pilotos P ON
+	V.cedulaPiloto =  P.cedulaPiloto
+	INNER JOIN Ciudades C ON
+	C.codigoCiudad = V.codigoCiudadDestino
+	INNER JOIN Ciudades C2 ON
+	C2.codigoCiudad = V.codigoCiudadPartida
+	WHERE @idAerolinea = idAerolinea
+	GROUP BY idVuelo, idAvion, CONCAT ( P.apellidoPat, ' ', P.apellidoMat, ' ', P.nombre), fechaHoraPartida, fechaHoraLlegada, C.ciudad, C2.ciudad, V.estado;
+END;
+GO
+
+CREATE PROC Get_Passengers
+AS
+BEGIN
+	SELECT cedulaPasajero, CONCAT(apellidoMat, ' ', apellidoMat, ' ', nombre), C.ciudad
+	FROM Pasajeros P
+	INNER JOIN Ciudades C ON
+	P.codigoCiudad = C.codigoCiudad
+	GROUP BY cedulaPasajero, CONCAT(apellidoMat, ' ', apellidoMat, ' ', nombre), C.ciudad
+END;
+GO
+
+
+
 ------------ INICIO STORED PROCEDURES AEROLINEAS ------------
 CREATE PROC Crear_Aerolinea
     (@nombre VARCHAR(100), @lema VARCHAR(MAX))
@@ -402,7 +435,7 @@ END;
 GO
 
 ---------------------------------------------------------------------
-
+/*
 
 DROP PROCEDURE Obtener_Aerolineas;
 
@@ -410,3 +443,4 @@ DROP PROCEDURE Obtener_Aerolineas;
 DELETE Aerolineas
 DELETE ListaPermisos
 SELECT * FROM Aerolineas
+*/

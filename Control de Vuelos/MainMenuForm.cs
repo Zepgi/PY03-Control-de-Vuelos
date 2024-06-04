@@ -137,7 +137,7 @@ namespace Control_de_Vuelos {
 						loadPanel(new PanelPilotos());
 						break;
 					case "btFlights":
-						loadPanel(new FlightsPanel(idAirline, idUser, permissions));
+						loadPanel(new z(idAirline, idUser, permissions));
 						break;
 					default:
 						MessageBox.Show("Botón no reconocido.");
