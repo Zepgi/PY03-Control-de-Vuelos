@@ -43,7 +43,7 @@ namespace Control_de_Vuelos {
 				setTableData("Vuelos");
 
 			} else {
-				this.loadPanel(new ManagePassengersPanel());
+				this.loadPanel(new ManageFlightPassengers());
 				this.btRightOption.Text = "Agregar Pasajero";
 				this.btLeftOption.Text = "Modificar Pasajero";
 				setTableData("Pasajeros");

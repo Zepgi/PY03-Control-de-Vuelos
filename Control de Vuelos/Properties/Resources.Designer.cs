@@ -163,6 +163,16 @@ namespace Control_de_Vuelos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap plane_img {
+            get {
+                object obj = ResourceManager.GetObject("plane_img", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap stats_icon {
             get {
                 object obj = ResourceManager.GetObject("stats_icon", resourceCulture);
