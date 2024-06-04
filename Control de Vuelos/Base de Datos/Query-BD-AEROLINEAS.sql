@@ -281,11 +281,18 @@ GO
 
 ------------ INICIO STORED PROCEDURES AEROLINEAS ------------
 CREATE PROC Crear_Aerolinea
-	(@nombre VARCHAR(100), @lema VARCHAR(MAX))
+    (@nombre VARCHAR(100), @lema VARCHAR(MAX))
 AS
-	BEGIN
-	-- INSERTA UN NUEVO REGISTRO EN LA TABLA AEROLINEAS
-	INSERT INTO Aerolineas VALUES(@nombre, @lema, 1); -- 1 activo
+BEGIN
+    -- Verificar si el nombre de la aerolínea ya existe
+    IF EXISTS (SELECT 1 FROM Aerolineas WHERE nombre = @nombre)
+    BEGIN
+        RAISERROR ('El nombre de la aerolínea ya existe. Por favor, elija otro nombre.', 16, 1);
+        RETURN;
+    END
+
+    -- Insertar un nuevo registro en la tabla Aerolineas
+    INSERT INTO Aerolineas (nombre, lema, estado) VALUES(@nombre, @lema, 1); -- 1 activo
 END;
 GO
 
@@ -300,13 +307,19 @@ BEGIN
 END;
 GO
 
----------- Actualizar_Aerolinea-------------
 CREATE PROCEDURE Actualizar_Aerolinea
     @idAerolinea INT,
     @nombre VARCHAR(100),
     @lema VARCHAR(MAX)
 AS
 BEGIN
+    -- Verificar si el nuevo nombre de la aerolínea ya existe para otra aerolínea
+    IF EXISTS (SELECT 1 FROM Aerolineas WHERE nombre = @nombre AND idAerolinea <> @idAerolinea)
+    BEGIN
+        RAISERROR ('El nombre de la aerolínea ya existe. Por favor, elija otro nombre.', 16, 1);
+        RETURN;
+    END
+
     -- Actualizar la aerolínea con el ID especificado
     UPDATE Aerolineas
     SET nombre = @nombre,
@@ -314,22 +327,22 @@ BEGIN
     WHERE idAerolinea = @idAerolinea;
 END;
 GO
-
---Eliminar aerolineas-------------
-CREATE PROCEDURE Eliminar_Aerolinea
+-- Cambiar el estado de la aerolínea a desactivado (0)
+CREATE PROCEDURE Desactivar_Aerolinea
     @idAerolinea INT
 AS
 BEGIN
     -- SET NOCOUNT ON evita que se muestre el número de filas afectadas
     SET NOCOUNT ON;
 
-    -- Eliminar las filas relacionadas en ListaPermisos que hacen referencia a la aerolínea
-    DELETE FROM ListaPermisos WHERE idAerolinea = @idAerolinea;
-
-    -- Eliminar la aerolínea utilizando el ID proporcionado
-    DELETE FROM Aerolineas WHERE idAerolinea = @idAerolinea;
+    -- Actualizar el estado de la aerolínea a 0 (desactivado)
+    UPDATE Aerolineas
+    SET estado = 0
+    WHERE idAerolinea = @idAerolinea;
 END;
 GO
+
+
 
 ------------ FIN STORED PROCEDURES AEROLINEAS ------------
 
