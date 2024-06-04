@@ -238,7 +238,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.White;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-			this.ClientSize = new System.Drawing.Size(500, 420);
+			this.ClientSize = new System.Drawing.Size(500, 520);
 			this.Controls.Add(this.lbPilot);
 			this.Controls.Add(this.lbPlane);
 			this.Controls.Add(this.cbArrivalCities);

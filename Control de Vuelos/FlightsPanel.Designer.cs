@@ -33,6 +33,7 @@
 			this.lbSelectOpt = new System.Windows.Forms.Label();
 			this.btRightOption = new Guna.UI2.WinForms.Guna2Button();
 			this.tbFlights = new Guna.UI2.WinForms.Guna2DataGridView();
+			this.btConfirmPassengers = new Guna.UI2.WinForms.Guna2Button();
 			this.pInputArea.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tbFlights)).BeginInit();
 			this.SuspendLayout();
@@ -47,7 +48,7 @@
 			this.btPassengers.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
 			this.btPassengers.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
 			this.btPassengers.ForeColor = System.Drawing.Color.White;
-			this.btPassengers.Location = new System.Drawing.Point(40, 70);
+			this.btPassengers.Location = new System.Drawing.Point(40, 33);
 			this.btPassengers.Name = "btPassengers";
 			this.btPassengers.PressedColor = System.Drawing.Color.Teal;
 			this.btPassengers.ShadowDecoration.BorderRadius = 0;
@@ -69,7 +70,7 @@
 			this.btFlights.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
 			this.btFlights.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
 			this.btFlights.ForeColor = System.Drawing.Color.White;
-			this.btFlights.Location = new System.Drawing.Point(282, 70);
+			this.btFlights.Location = new System.Drawing.Point(282, 33);
 			this.btFlights.Name = "btFlights";
 			this.btFlights.PressedColor = System.Drawing.Color.Teal;
 			this.btFlights.ShadowDecoration.BorderRadius = 30;
@@ -105,16 +106,16 @@
 			// 
 			this.pInputArea.BackColor = System.Drawing.Color.Transparent;
 			this.pInputArea.Controls.Add(this.lbSelectOpt);
-			this.pInputArea.Location = new System.Drawing.Point(40, 155);
+			this.pInputArea.Location = new System.Drawing.Point(40, 85);
 			this.pInputArea.Name = "pInputArea";
-			this.pInputArea.Size = new System.Drawing.Size(500, 420);
+			this.pInputArea.Size = new System.Drawing.Size(500, 520);
 			this.pInputArea.TabIndex = 9;
 			// 
 			// lbSelectOpt
 			// 
 			this.lbSelectOpt.AutoSize = true;
 			this.lbSelectOpt.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lbSelectOpt.Location = new System.Drawing.Point(100, 175);
+			this.lbSelectOpt.Location = new System.Drawing.Point(100, 225);
 			this.lbSelectOpt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.lbSelectOpt.Name = "lbSelectOpt";
 			this.lbSelectOpt.Size = new System.Drawing.Size(300, 54);
@@ -168,13 +169,13 @@
 			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
 			this.tbFlights.DefaultCellStyle = dataGridViewCellStyle3;
 			this.tbFlights.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-			this.tbFlights.Location = new System.Drawing.Point(574, 70);
+			this.tbFlights.Location = new System.Drawing.Point(574, 33);
 			this.tbFlights.Name = "tbFlights";
 			this.tbFlights.ReadOnly = true;
 			this.tbFlights.RowHeadersVisible = false;
 			this.tbFlights.RowHeadersWidth = 51;
 			this.tbFlights.RowTemplate.Height = 24;
-			this.tbFlights.Size = new System.Drawing.Size(620, 590);
+			this.tbFlights.Size = new System.Drawing.Size(620, 630);
 			this.tbFlights.TabIndex = 11;
 			this.tbFlights.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
 			this.tbFlights.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -198,12 +199,33 @@
 			this.tbFlights.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
 			this.tbFlights.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
 			// 
+			// btConfirmPassengers
+			// 
+			this.btConfirmPassengers.AutoRoundedCorners = true;
+			this.btConfirmPassengers.BackColor = System.Drawing.Color.Transparent;
+			this.btConfirmPassengers.BorderColor = System.Drawing.Color.White;
+			this.btConfirmPassengers.BorderRadius = 22;
+			this.btConfirmPassengers.FillColor = System.Drawing.SystemColors.HotTrack;
+			this.btConfirmPassengers.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
+			this.btConfirmPassengers.ForeColor = System.Drawing.Color.White;
+			this.btConfirmPassengers.Location = new System.Drawing.Point(165, 666);
+			this.btConfirmPassengers.Name = "btConfirmPassengers";
+			this.btConfirmPassengers.PressedColor = System.Drawing.Color.Teal;
+			this.btConfirmPassengers.ShadowDecoration.BorderRadius = 30;
+			this.btConfirmPassengers.ShadowDecoration.Depth = 0;
+			this.btConfirmPassengers.ShadowDecoration.Enabled = true;
+			this.btConfirmPassengers.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
+			this.btConfirmPassengers.Size = new System.Drawing.Size(226, 46);
+			this.btConfirmPassengers.TabIndex = 12;
+			this.btConfirmPassengers.Text = "Confirmar Pasajeros";
+			// 
 			// FlightsPanel
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.BackColor = System.Drawing.Color.White;
 			this.ClientSize = new System.Drawing.Size(1220, 727);
+			this.Controls.Add(this.btConfirmPassengers);
 			this.Controls.Add(this.tbFlights);
 			this.Controls.Add(this.btRightOption);
 			this.Controls.Add(this.btLeftOption);
@@ -230,5 +252,6 @@
 		private Guna.UI2.WinForms.Guna2Button btRightOption;
 		private System.Windows.Forms.Label lbSelectOpt;
 		private Guna.UI2.WinForms.Guna2DataGridView tbFlights;
+		private Guna.UI2.WinForms.Guna2Button btConfirmPassengers;
 	}
 }
