@@ -307,7 +307,7 @@ BEGIN
             @fechaHoraPartida, 
             @fechaHoraLlegada, 
             @codigoCiudadPartida,
-            @codigoCiudadDestino, 
+            @codigoCiudadDestino,
             1
         );
     END TRY
@@ -1063,13 +1063,13 @@ VALUES
 GO
 
 
-INSERT INTO Pilotos (cedulaPiloto, apellidoPat, apellidoMat, nombre, estado, idAerolinea)
+INSERT INTO Pilotos (cedulaPiloto, apellidoPat, apellidoMat, nombre, nacionalidad, estado, idAerolinea)
 VALUES
-('123456', 'Perez', 'Lopez', 'Juan', 1, 1),
-('234567', 'Garcia', 'Martinez', 'Carlos', 1, 1),
-('345678', 'Rodriguez', 'Hernandez', 'Luis', 1, 2),
-('456789', 'Fernandez', 'Gomez', 'Jorge', 1, 2),
-('567890', 'Gonzalez', 'Diaz', 'Ana', 1,2 );
+('123456', 'Perez', 'Lopez', 'Juan','CR', 1, 1),
+('234567', 'Garcia', 'Martinez', 'Carlos','CR', 1, 1),
+('345678', 'Rodriguez', 'Hernandez', 'Luis','CR', 1, 2),
+('456789', 'Fernandez', 'Gomez', 'Jorge','CR', 1, 2),
+('567890', 'Gonzalez', 'Diaz', 'Ana','CR', 1,2 );
 GO
 
 
