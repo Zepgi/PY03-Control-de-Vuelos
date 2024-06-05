@@ -264,7 +264,7 @@ namespace Control_de_Vuelos
                         }
 
                         // Execute the stored procedure to delete the airline
-                        using (SqlCommand cmd = new SqlCommand("Eliminar_Aerolineas", conexion.ConnectDB))
+                        using (SqlCommand cmd = new SqlCommand("Desactivar_Aerolinea", conexion.ConnectDB))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.AddWithValue("@idAerolinea", idAirline);

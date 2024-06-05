@@ -31,7 +31,6 @@ CREATE TABLE AvionesAerolinea
 	FOREIGN KEY (matricula)		REFERENCES Aviones(matricula),
 	FOREIGN KEY (idAerolinea)	REFERENCES Aerolineas(idAerolinea));
 GO
-
 CREATE TABLE Pilotos
 	(idPiloto		INT	IDENTITY(1,1)	NOT NULL,
 	cedulaPiloto	VARCHAR(150)		NOT NULL	UNIQUE,
@@ -39,8 +38,12 @@ CREATE TABLE Pilotos
 	apellidoMat		VARCHAR(150)		NOT NULL,
 	nombre			VARCHAR(150)		NOT NULL,
 	estado			BIT					NOT NULL,
+	idAerolinea		INT					NOT NULL,
+	FOREIGN KEY (idAerolinea) REFERENCES Aerolineas(idAerolinea),
 	PRIMARY KEY(idPiloto));
 GO
+
+
 
 CREATE TABLE Usuarios 
 	(idUsuario INT IDENTITY(1,1) NOT NULL,
@@ -87,19 +90,23 @@ CREATE TABLE Ciudades
 	pais VARCHAR(150) NOT NULL,
 	canton VARCHAR(150) NOT NULL,
 	distrito VARCHAR(150) NOT NULL,
+	ciudad	VARCHAR(150) NOT NULL,
 	PRIMARY KEY(idCiudad));
 GO
 
 CREATE TABLE Vuelos(
 	PRIMARY KEY(idVuelo),
 	idVuelo				INT IDENTITY(1,1)	NOT NULL,
-	idAvion				INT					NOT NULL,
+	codigoVuelo			VARCHAR(100)		NOT NULL,
+	idAerolinea			INT NOT NULL,
+	idAvion				INT	NOT NULL,
 	cedulaPiloto		VARCHAR(150) UNIQUE	NOT NULL,
 	fechaHoraPartida	DATETIME			NOT NULL,
 	fechaHoraLlegada	DATETIME			NOT NULL,
 	codigoCiudadPartida	VARCHAR(150)		NOT NULL,
 	codigoCiudadDestino	VARCHAR(150)		NOT NULL,
 	estado			BIT						NOT NULL,
+	FOREIGN KEY (idAerolinea)			REFERENCES Aerolineas(idAerolinea),
 	FOREIGN KEY	(cedulaPiloto)			REFERENCES Pilotos(cedulaPiloto),
 	FOREIGN KEY	(idAvion)				REFERENCES Aviones(idAvion),
 	FOREIGN KEY	(codigoCiudadPartida)	REFERENCES Ciudades(codigoCiudad),
@@ -279,13 +286,66 @@ BEGIN
 END;
 GO
 
+CREATE PROC Get_Flights
+	(@idAerolinea INT)
+AS
+BEGIN
+	SELECT codigoVuelo Vuelo, A.matricula 'Avión' , CONCAT (P.apellidoPat, ' ', P.apellidoMat, ' ', P.nombre) Piloto, fechaHoraPartida 'Salida', fechaHoraLlegada 'Llegada', C.ciudad 'Ciudad de Partida', C2.ciudad 'Ciudad de Destino' , V.estado Estado
+	FROM Vuelos V
+	INNER JOIN Pilotos P ON
+	V.cedulaPiloto =  P.cedulaPiloto
+	INNER JOIN Ciudades C ON
+	C.codigoCiudad = V.codigoCiudadDestino
+	INNER JOIN Ciudades C2 ON
+	C2.codigoCiudad = V.codigoCiudadPartida
+	INNER JOIN Aviones A ON
+	A.idAvion = V.idAvion
+	WHERE @idAerolinea = idAerolinea
+	GROUP BY codigoVuelo, A.matricula, CONCAT ( P.apellidoPat, ' ', P.apellidoMat, ' ', P.nombre), fechaHoraPartida, fechaHoraLlegada, C.ciudad, C2.ciudad, V.estado;
+END;
+GO
+
+CREATE PROC Get_Passengers
+AS
+BEGIN
+	SELECT cedulaPasajero 'Cédula', CONCAT(apellidoMat, ' ', apellidoMat, ' ', nombre) 'Nombre Completo', C.ciudad 'Ciudad de Residencia'
+	FROM Pasajeros P
+	INNER JOIN Ciudades C ON
+	P.codigoCiudad = C.codigoCiudad
+	GROUP BY cedulaPasajero, CONCAT(apellidoMat, ' ', apellidoMat, ' ', nombre), C.ciudad
+END;
+GO
+
+
+
 ------------ INICIO STORED PROCEDURES AEROLINEAS ------------
 CREATE PROC Crear_Aerolinea
-	(@nombre VARCHAR(100), @lema VARCHAR(MAX))
+    (@nombre VARCHAR(100), @lema VARCHAR(MAX))
 AS
-	BEGIN
-	-- INSERTA UN NUEVO REGISTRO EN LA TABLA AEROLINEAS
-	INSERT INTO Aerolineas VALUES(@nombre, @lema, 1); -- 1 activo
+BEGIN
+	BEGIN TRY
+    -- Verificar si el nombre de la aerolínea ya existe
+    IF EXISTS (SELECT 1 FROM Aerolineas WHERE nombre = @nombre)
+    BEGIN
+        RAISERROR ('El nombre de la aerolínea ya existe. Por favor, elija otro nombre.', 16, 1);
+        RETURN;
+    END
+
+    -- Insertar un nuevo registro en la tabla Aerolineas
+    INSERT INTO Aerolineas (nombre, lema, estado) VALUES(@nombre, @lema, 1); -- 1 activo
+	END TRY
+	BEGIN CATCH
+	DECLARE @ErrorMessage NVARCHAR(4000)
+	DECLARE @ErrorSeverity INT;
+	DECLARE @ErrorState INT;
+
+	SELECT 
+            @ErrorMessage  = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+	RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
 END;
 GO
 
@@ -293,6 +353,7 @@ GO
 CREATE PROCEDURE ObtenerAerolineas
 AS
 BEGIN
+
     SET NOCOUNT ON;
 
     SELECT idAerolinea, nombre, lema, estado 
@@ -300,38 +361,208 @@ BEGIN
 END;
 GO
 
----------- Actualizar_Aerolinea-------------
 CREATE PROCEDURE Actualizar_Aerolinea
     @idAerolinea INT,
     @nombre VARCHAR(100),
     @lema VARCHAR(MAX)
 AS
 BEGIN
-    -- Actualizar la aerolínea con el ID especificado
+	BEGIN TRY
+    -- Verificar si el nuevo nombre de la aerolínea ya existe para otra aerolínea
+    IF EXISTS (SELECT 1 FROM Aerolineas WHERE nombre = @nombre AND idAerolinea <> @idAerolinea)
+    BEGIN
+        RAISERROR ('El nombre de la aerolínea ya existe. Por favor, elija otro nombre.', 16, 1);
+        RETURN;
+    END
+
+    -- Actualiza la aerolínea con el ID especificado
     UPDATE Aerolineas
     SET nombre = @nombre,
         lema = @lema
     WHERE idAerolinea = @idAerolinea;
+	END TRY
+	BEGIN CATCH
+	DECLARE @ErrorMessage NVARCHAR(4000);
+	DECLARE @ErrorSeverity INT;
+	DECLARE @ErrorState INT;
+
+	SELECT
+		@ErrorMessage = ERROR_MESSAGE(),
+		@ErrorSeverity = ERROR_SEVERITY(),
+		@ErrorState = ERROR_STATE();
+		
+	RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
+	END CATCH
 END;
 GO
-
---Eliminar aerolineas-------------
-CREATE PROCEDURE Eliminar_Aerolinea
+-- Cambia el estado de la aerolínea a desactivado = (0)
+CREATE PROCEDURE Desactivar_Aerolinea
     @idAerolinea INT
 AS
 BEGIN
     -- SET NOCOUNT ON evita que se muestre el número de filas afectadas
     SET NOCOUNT ON;
 
-    -- Eliminar las filas relacionadas en ListaPermisos que hacen referencia a la aerolínea
-    DELETE FROM ListaPermisos WHERE idAerolinea = @idAerolinea;
-
-    -- Eliminar la aerolínea utilizando el ID proporcionado
-    DELETE FROM Aerolineas WHERE idAerolinea = @idAerolinea;
+    -- Actualizar el estado de la aerolínea a 0 (desactivado)
+    UPDATE Aerolineas
+    SET estado = 0
+    WHERE idAerolinea = @idAerolinea;
 END;
 GO
 
+
+
 ------------ FIN STORED PROCEDURES AEROLINEAS ------------
+
+
+------------ STORED PROCEDURES PARA AVIONES ------------
+CREATE PROC Crear_Aviones
+(
+    @marca VARCHAR(100),
+    @matricula VARCHAR(50),
+    @cantidadPasajeros INT,
+    @estado INT = 1  -- Valor predeterminado para el estado
+)
+AS
+BEGIN
+    BEGIN TRY
+        -- Verifica si la matricula del Avion ya existe
+        IF EXISTS(SELECT 1 FROM Aviones WHERE matricula = @matricula)
+        BEGIN
+            RAISERROR('La matricula del avion ya existe. Por favor, elija otro numero de matricula', 16, 1);
+            RETURN;
+        END
+
+        -- Verifica si la marca del avion ya existe
+        IF EXISTS(SELECT 1 FROM Aviones WHERE marca = @marca)
+        BEGIN
+            RAISERROR('La marca del avion ya existe. Por favor, elija otra marca', 16, 1);
+            RETURN;
+        END
+
+        -- Verifica que la cantidad de pasajeros sea mayor o igual a 35
+        IF @cantidadPasajeros < 35
+        BEGIN
+            RAISERROR('La capacidad de pasajeros debe ser mayor o igual a 35.', 16, 1);
+            RETURN;
+        END
+
+        -- Inserta un nuevo avion a la tabla aviones
+        INSERT INTO Aviones (matricula, marca, capacidadPasajeros, estado)
+        VALUES (@matricula, @marca, @cantidadPasajeros, @estado);
+
+    END TRY
+    BEGIN CATCH
+        DECLARE @ErrorMessage NVARCHAR(4000)
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage  = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+
+
+CREATE PROC Actualizar_Aviones
+    (@matricula VARCHAR(50), 
+    @marca VARCHAR(100), 
+    @cantidadPasajeros INT)
+AS
+BEGIN
+    BEGIN TRY
+        -- Verifica si la marca ya existe para otro avion
+        IF EXISTS (SELECT 1 FROM Aviones WHERE marca = @marca AND matricula <> @matricula)
+        BEGIN
+            RAISERROR('La marca del avion ya existe. Por favor, elija otra marca', 16, 1);
+            RETURN;
+        END
+
+        -- Verifica que la cantidad de pasajeros sea mayor o igual a 35
+        IF @cantidadPasajeros < 35
+        BEGIN
+            RAISERROR('La capacidad de pasajeros debe ser mayor o igual a 35.', 16, 1);
+            RETURN;
+        END
+
+        -- Actualiza los datos del avion excepto la matricula
+        UPDATE Aviones
+        SET marca = @marca,
+            capacidadPasajeros = @cantidadPasajeros
+        WHERE matricula = @matricula;
+
+    END TRY
+    BEGIN CATCH
+        DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+
+
+CREATE PROCEDURE ObtenerAviones
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+		matricula,
+        marca,
+        capacidadPasajeros,
+        estado
+    FROM 
+        Aviones;
+END
+GO
+
+-- Cambia el estado de la aviones a desactivado = (0)
+CREATE PROC Desactivar_Aviones
+(
+    @matricula VARCHAR(50)
+)
+AS
+BEGIN
+    BEGIN TRY
+        -- Actualiza el estado del avion a 0 para desactivarlo
+        UPDATE Aviones
+        SET estado = 0
+        WHERE matricula = @matricula;
+
+    END TRY
+    BEGIN CATCH
+        DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+
+
+
+------------ STORED FIN PROCEDURES PARA AVIONES ------------
+
+
+
+
+
+
+
 
 ------------ STORED PROCEDURES PARA BUSQUEDAS ------------
 
@@ -360,11 +591,12 @@ END;
 GO
 
 ---------------------------------------------------------------------
+/*
 
 
-DROP PROCEDURE Obtener_Aerolineas;
 
 
 DELETE Aerolineas
 DELETE ListaPermisos
 SELECT * FROM Aerolineas
+*/
