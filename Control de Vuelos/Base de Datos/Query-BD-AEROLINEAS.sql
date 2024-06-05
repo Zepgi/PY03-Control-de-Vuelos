@@ -97,10 +97,9 @@ GO
 CREATE TABLE Vuelos(
 	PRIMARY KEY(idVuelo),
 	idVuelo				INT IDENTITY(1,1)	NOT NULL,
-	codigoVuelo			VARCHAR(100)		NOT NULL,
 	idAerolinea			INT NOT NULL,
 	idAvion				INT	NOT NULL,
-	cedulaPiloto		VARCHAR(150) UNIQUE	NOT NULL,
+	cedulaPiloto		VARCHAR(150)    	NOT NULL,
 	fechaHoraPartida	DATETIME			NOT NULL,
 	fechaHoraLlegada	DATETIME			NOT NULL,
 	codigoCiudadPartida	VARCHAR(150)		NOT NULL,
@@ -175,65 +174,6 @@ BEGIN
 END;
 GO
 
-
----------- INSERCIONES DE DATOS ----------
-
-INSERT INTO Aerolineas
-	(nombre, lema, estado)
-VALUES
-	('PASE', 'decídete a PASAR.', 1),
-	('PepeAirlines', 'Si', 1);
-GO
-
--- Usuarios para pruebas
-INSERT INTO Usuarios
-	(cedulaUsuario, nombre, apellidoPat, apellidoMat, fechaNacim, numTel, genero, estado)
-VALUES
-	(1, 'Eyden', 'Su', 'Díaz', '2004-09-17', '88888888', 'M', 1),
-	(2, 'Juana', 'Montes', 'Sanchez', '1995-12-2', '88888888', 'F', 1),
-	(3, 'Pedro', 'Soto', 'Soto', '1990-12-03', '88888888', 'M', 1),
-	(4, 'Alex', 'Rodriguez', 'Gomez', '1997-03-03', '88888888', 'M', 1),
-	(5, 'Pepe', 'Arrieta', 'Lopez', '1997-03-03', '88888888', 'M', 1);
-GO
-
-INSERT INTO CuentaUsuario
-	(idUsuario, email, contrasenia)
-VALUES
-	(1, '1', '1'),
-	(2, '2', '2'),
-	(3, '3', '3'),
-	(4, '4', '4'),
-	(5, '5', '5');
-GO
-
-INSERT INTO Permisos
-	(detalle)
-VALUES
-	('Modulo aerolineas'),
-	('Modulo vuelos'),
-	('Modulo Mantenimiento'),
-	('Modulo Reportes');
-GO
-
---------- Admin general
-
-EXEC Permisos_Admin_General 1;
-GO
-
----------- Admin aerolinea
-
-EXEC Permisos_Admin_Aerolinea 2, 1;
-GO
-EXEC Permisos_Admin_Aerolinea 4, 2;
-GO
-
---------- Reservas aerolinea
-
-EXEC Permisos_Reserva_Aerolinea 3, 1;
-GO
-EXEC Permisos_Reserva_Aerolinea 5, 2;
-GO
-
 ------------ STORED PROCEDURES ------------
 
 CREATE PROC Verificar_Credenciales 
@@ -290,7 +230,7 @@ CREATE PROC Get_Flights
 	(@idAerolinea INT)
 AS
 BEGIN
-	SELECT codigoVuelo Vuelo, A.matricula 'Avión' , CONCAT (P.apellidoPat, ' ', P.apellidoMat, ' ', P.nombre) Piloto, fechaHoraPartida 'Salida', fechaHoraLlegada 'Llegada', C.ciudad 'Ciudad de Partida', C2.ciudad 'Ciudad de Destino' , V.estado Estado
+	SELECT  A.matricula 'Avión' , CONCAT (P.apellidoPat, ' ', P.apellidoMat, ' ', P.nombre) Piloto, fechaHoraPartida 'Salida', fechaHoraLlegada 'Llegada', C.ciudad 'Ciudad de Partida', C2.ciudad 'Ciudad de Destino' , V.estado Estado
 	FROM Vuelos V
 	INNER JOIN Pilotos P ON
 	V.cedulaPiloto =  P.cedulaPiloto
@@ -300,8 +240,8 @@ BEGIN
 	C2.codigoCiudad = V.codigoCiudadPartida
 	INNER JOIN Aviones A ON
 	A.idAvion = V.idAvion
-	WHERE @idAerolinea = idAerolinea
-	GROUP BY codigoVuelo, A.matricula, CONCAT ( P.apellidoPat, ' ', P.apellidoMat, ' ', P.nombre), fechaHoraPartida, fechaHoraLlegada, C.ciudad, C2.ciudad, V.estado;
+	WHERE @idAerolinea = V.idAerolinea
+	GROUP BY A.matricula, CONCAT ( P.apellidoPat, ' ', P.apellidoMat, ' ', P.nombre), fechaHoraPartida, fechaHoraLlegada, C.ciudad, C2.ciudad, V.estado;
 END;
 GO
 
@@ -316,6 +256,73 @@ BEGIN
 END;
 GO
 
+CREATE PROC Get_Cities
+AS
+BEGIN
+	SELECT idCiudad, codigoCiudad, pais, canton, distrito, ciudad
+	FROM Ciudades
+END;
+GO
+
+CREATE PROC Get_Planes
+(@idAerolinea INT)
+AS
+BEGIN
+	SELECT 	id, matricula, idAerolinea
+	FROM AvionesAerolinea 
+	WHERE idAerolinea = @idAerolinea
+END;
+GO
+
+CREATE PROC Get_Pilots
+(@idAerolinea INT)
+AS
+BEGIN
+	SELECT idPiloto, cedulaPiloto, apellidoPat, apellidoMat, nombre, estado
+	FROM Pilotos P
+	WHERE P.idAerolinea = @idAerolinea
+END;
+GO
+
+CREATE PROC Insertar_Vuelo
+(
+    @idAerolinea        INT,
+    @matricula          VARCHAR(150),
+    @cedulaPiloto       INT,
+    @fechaHoraPartida   DATETIME,
+    @fechaHoraLlegada   DATETIME,
+    @codigoCiudadPartida VARCHAR(150),
+    @codigoCiudadDestino VARCHAR(150)
+)
+AS
+BEGIN
+    BEGIN TRY
+        INSERT INTO Vuelos (idAerolinea, idAvion, cedulaPiloto, fechaHoraPartida, fechaHoraLlegada, codigoCiudadPartida, codigoCiudadDestino, estado)
+        VALUES (
+            @idAerolinea, 
+            (SELECT idAvion FROM Aviones WHERE matricula = @matricula), 
+            @cedulaPiloto, 
+            @fechaHoraPartida, 
+            @fechaHoraLlegada, 
+            @codigoCiudadPartida,
+            @codigoCiudadDestino, 
+            1
+        );
+    END TRY
+    BEGIN CATCH
+        DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
 
 
 ------------ INICIO STORED PROCEDURES AEROLINEAS ------------
@@ -591,12 +598,110 @@ END;
 GO
 
 ---------------------------------------------------------------------
-/*
+---------- INSERCIONES DE DATOS ----------
+
+INSERT INTO Aerolineas
+	(nombre, lema, estado)
+VALUES
+	('PASE', 'decídete a PASAR.', 1),
+	('PepeAirlines', 'Si', 1);
+GO
+
+-- Usuarios para pruebas
+INSERT INTO Usuarios
+	(cedulaUsuario, nombre, apellidoPat, apellidoMat, fechaNacim, numTel, genero, estado)
+VALUES
+	(1, 'Eyden', 'Su', 'Díaz', '2004-09-17', '88888888', 'M', 1),
+	(2, 'Juana', 'Montes', 'Sanchez', '1995-12-2', '88888888', 'F', 1),
+	(3, 'Pedro', 'Soto', 'Soto', '1990-12-03', '88888888', 'M', 1),
+	(4, 'Alex', 'Rodriguez', 'Gomez', '1997-03-03', '88888888', 'M', 1),
+	(5, 'Pepe', 'Arrieta', 'Lopez', '1997-03-03', '88888888', 'M', 1);
+GO
+
+INSERT INTO CuentaUsuario
+	(idUsuario, email, contrasenia)
+VALUES
+	(1, '1', '1'),
+	(2, '2', '2'),
+	(3, '3', '3'),
+	(4, '4', '4'),
+	(5, '5', '5');
+GO
+
+INSERT INTO Permisos
+	(detalle)
+VALUES
+	('Modulo aerolineas'),
+	('Modulo vuelos'),
+	('Modulo Mantenimiento'),
+	('Modulo Reportes');
+GO
+
+--------- Admin general
+
+EXEC Permisos_Admin_General 1;
+GO
+
+---------- Admin aerolinea
+
+EXEC Permisos_Admin_Aerolinea 2, 1;
+GO
+EXEC Permisos_Admin_Aerolinea 4, 2;
+GO
+
+--------- Reservas aerolinea
+
+EXEC Permisos_Reserva_Aerolinea 3, 1;
+GO
+EXEC Permisos_Reserva_Aerolinea 5, 2;
+GO
 
 
+INSERT INTO Aviones (marca, matricula, capacidadPasajeros, estado)
+VALUES
+('Boeing', 'N12345', 150, 1),
+('Airbus', 'A67890', 200, 1),
+('Embraer', 'E23456', 100, 1),
+('Bombardier', 'B78901', 80, 1),
+('Cessna', 'C34567', 50, 1);
+GO
 
 
-DELETE Aerolineas
-DELETE ListaPermisos
-SELECT * FROM Aerolineas
-*/
+INSERT INTO AvionesAerolinea (matricula, idAerolinea)
+VALUES
+('N12345', 1),
+('A67890', 1),
+('E23456', 2),
+('B78901', 2),
+('C34567', 1);
+GO
+
+
+INSERT INTO Pilotos (cedulaPiloto, apellidoPat, apellidoMat, nombre, estado, idAerolinea)
+VALUES
+('123456', 'Perez', 'Lopez', 'Juan', 1, 1),
+('234567', 'Garcia', 'Martinez', 'Carlos', 1, 1),
+('345678', 'Rodriguez', 'Hernandez', 'Luis', 1, 2),
+('456789', 'Fernandez', 'Gomez', 'Jorge', 1, 2),
+('567890', 'Gonzalez', 'Diaz', 'Ana', 1,2 );
+GO
+
+
+INSERT INTO Ciudades (codigoCiudad, pais, canton, distrito, ciudad)
+VALUES
+('SJO', 'Costa Rica', 'San Jose', 'Carmen', 'San Jose'),
+('LAX', 'USA', 'California', 'Los Angeles', 'Los Angeles'),
+('NYC', 'USA', 'New York', 'Manhattan', 'New York'),
+('MAD', 'Spain', 'Madrid', 'Centro', 'Madrid'),
+('CDG', 'France', 'Ile-de-France', 'Paris', 'Paris');
+GO
+
+
+INSERT INTO Vuelos (idAerolinea, idAvion, cedulaPiloto, fechaHoraPartida, fechaHoraLlegada, codigoCiudadPartida, codigoCiudadDestino, estado)
+VALUES
+( 1, 1, '123456', '2024-06-06 08:00:00', '2024-06-06 12:00:00', 'SJO', 'LAX', 1),
+( 1, 2, '234567', '2024-06-07 09:00:00', '2024-06-07 13:00:00', 'SJO', 'NYC', 1),
+( 2, 3, '345678', '2024-06-08 10:00:00', '2024-06-08 14:00:00', 'LAX', 'MAD', 1),
+( 2, 4, '456789', '2024-06-09 11:00:00', '2024-06-09 15:00:00', 'NYC', 'CDG', 1),
+( 1, 5, '567890', '2024-06-10 12:00:00', '2024-06-10 16:00:00', 'MAD', 'SJO', 1);
+GO

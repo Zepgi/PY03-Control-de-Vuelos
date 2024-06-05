@@ -66,11 +66,11 @@
     <Compile Include="MainMenuForm.Designer.cs">
       <DependentUpon>MainMenuForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ManageFlightPassengers.cs">
+    <Compile Include="ManageFlightPassengersPanel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ManageFlightPassengers.Designer.cs">
-      <DependentUpon>ManageFlightPassengers.cs</DependentUpon>
+    <Compile Include="ManageFlightPassengersPanel.Designer.cs">
+      <DependentUpon>ManageFlightPassengersPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="ManageFlightsPanel.cs">
       <SubType>Form</SubType>
@@ -147,8 +147,8 @@
     <EmbeddedResource Include="MainMenuForm.resx">
       <DependentUpon>MainMenuForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ManageFlightPassengers.resx">
-      <DependentUpon>ManageFlightPassengers.cs</DependentUpon>
+    <EmbeddedResource Include="ManageFlightPassengersPanel.resx">
+      <DependentUpon>ManageFlightPassengersPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManageFlightsPanel.resx">
       <DependentUpon>ManageFlightsPanel.cs</DependentUpon>

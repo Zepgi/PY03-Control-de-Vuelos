@@ -10,10 +10,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Control_de_Vuelos {
-	public partial class ManageFlightPassengers : Form {
-		public ManageFlightPassengers() {
+	public partial class ManageFlightPassengersPanel : Form {
+		public ManageFlightPassengersPanel() {
 			InitializeComponent();
-			buttonGrid();
 		}
 
 		private int x = 4;
