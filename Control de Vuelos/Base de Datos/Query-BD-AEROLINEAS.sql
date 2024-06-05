@@ -31,7 +31,6 @@ CREATE TABLE AvionesAerolinea
 	FOREIGN KEY (matricula)		REFERENCES Aviones(matricula),
 	FOREIGN KEY (idAerolinea)	REFERENCES Aerolineas(idAerolinea));
 GO
-
 CREATE TABLE Pilotos
 	(idPiloto		INT	IDENTITY(1,1)	NOT NULL,
 	cedulaPiloto	VARCHAR(150)		NOT NULL	UNIQUE,
@@ -39,8 +38,12 @@ CREATE TABLE Pilotos
 	apellidoMat		VARCHAR(150)		NOT NULL,
 	nombre			VARCHAR(150)		NOT NULL,
 	estado			BIT					NOT NULL,
+	idAerolinea		INT					NOT NULL,
+	FOREIGN KEY (idAerolinea) REFERENCES Aerolineas(idAerolinea),
 	PRIMARY KEY(idPiloto));
 GO
+
+
 
 CREATE TABLE Usuarios 
 	(idUsuario INT IDENTITY(1,1) NOT NULL,
@@ -411,6 +414,156 @@ GO
 
 ------------ FIN STORED PROCEDURES AEROLINEAS ------------
 
+
+------------ STORED PROCEDURES PARA AVIONES ------------
+CREATE PROC Crear_Aviones
+(
+    @marca VARCHAR(100),
+    @matricula VARCHAR(50),
+    @cantidadPasajeros INT,
+    @estado INT = 1  -- Valor predeterminado para el estado
+)
+AS
+BEGIN
+    BEGIN TRY
+        -- Verifica si la matricula del Avion ya existe
+        IF EXISTS(SELECT 1 FROM Aviones WHERE matricula = @matricula)
+        BEGIN
+            RAISERROR('La matricula del avion ya existe. Por favor, elija otro numero de matricula', 16, 1);
+            RETURN;
+        END
+
+        -- Verifica si la marca del avion ya existe
+        IF EXISTS(SELECT 1 FROM Aviones WHERE marca = @marca)
+        BEGIN
+            RAISERROR('La marca del avion ya existe. Por favor, elija otra marca', 16, 1);
+            RETURN;
+        END
+
+        -- Verifica que la cantidad de pasajeros sea mayor o igual a 35
+        IF @cantidadPasajeros < 35
+        BEGIN
+            RAISERROR('La capacidad de pasajeros debe ser mayor o igual a 35.', 16, 1);
+            RETURN;
+        END
+
+        -- Inserta un nuevo avion a la tabla aviones
+        INSERT INTO Aviones (matricula, marca, capacidadPasajeros, estado)
+        VALUES (@matricula, @marca, @cantidadPasajeros, @estado);
+
+    END TRY
+    BEGIN CATCH
+        DECLARE @ErrorMessage NVARCHAR(4000)
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage  = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+
+
+CREATE PROC Actualizar_Aviones
+    (@matricula VARCHAR(50), 
+    @marca VARCHAR(100), 
+    @cantidadPasajeros INT)
+AS
+BEGIN
+    BEGIN TRY
+        -- Verifica si la marca ya existe para otro avion
+        IF EXISTS (SELECT 1 FROM Aviones WHERE marca = @marca AND matricula <> @matricula)
+        BEGIN
+            RAISERROR('La marca del avion ya existe. Por favor, elija otra marca', 16, 1);
+            RETURN;
+        END
+
+        -- Verifica que la cantidad de pasajeros sea mayor o igual a 35
+        IF @cantidadPasajeros < 35
+        BEGIN
+            RAISERROR('La capacidad de pasajeros debe ser mayor o igual a 35.', 16, 1);
+            RETURN;
+        END
+
+        -- Actualiza los datos del avion excepto la matricula
+        UPDATE Aviones
+        SET marca = @marca,
+            capacidadPasajeros = @cantidadPasajeros
+        WHERE matricula = @matricula;
+
+    END TRY
+    BEGIN CATCH
+        DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+
+
+CREATE PROCEDURE ObtenerAviones
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+		matricula,
+        marca,
+        capacidadPasajeros,
+        estado
+    FROM 
+        Aviones;
+END
+GO
+
+-- Cambia el estado de la aviones a desactivado = (0)
+CREATE PROC Desactivar_Aviones
+(
+    @matricula VARCHAR(50)
+)
+AS
+BEGIN
+    BEGIN TRY
+        -- Actualiza el estado del avion a 0 para desactivarlo
+        UPDATE Aviones
+        SET estado = 0
+        WHERE matricula = @matricula;
+
+    END TRY
+    BEGIN CATCH
+        DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+
+
+
+------------ STORED FIN PROCEDURES PARA AVIONES ------------
+
+
+
+
+
+
+
+
 ------------ STORED PROCEDURES PARA BUSQUEDAS ------------
 
 CREATE PROC Buscar_Usuario
@@ -440,7 +593,7 @@ GO
 ---------------------------------------------------------------------
 /*
 
-DROP PROCEDURE Obtener_Aerolineas;
+
 
 
 DELETE Aerolineas
