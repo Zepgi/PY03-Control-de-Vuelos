@@ -37,8 +37,9 @@ CREATE TABLE Pilotos
 	apellidoPat		VARCHAR(150)		NOT NULL,
 	apellidoMat		VARCHAR(150)		NOT NULL,
 	nombre			VARCHAR(150)		NOT NULL,
-	estado			BIT					NOT NULL,
-	idAerolinea		INT					NOT NULL,
+	nacionalidad		VARCHAR(150)	NOT NULL,
+	idAerolinea		INT			NOT NULL,
+	estado			BIT			NOT NULL,
 	FOREIGN KEY (idAerolinea) REFERENCES Aerolineas(idAerolinea),
 	PRIMARY KEY(idPiloto));
 GO
