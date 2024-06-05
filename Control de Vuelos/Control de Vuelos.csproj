@@ -66,6 +66,24 @@
     <Compile Include="MainMenuForm.Designer.cs">
       <DependentUpon>MainMenuForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManageFlightPassengers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageFlightPassengers.Designer.cs">
+      <DependentUpon>ManageFlightPassengers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageFlightsPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageFlightsPanel.Designer.cs">
+      <DependentUpon>ManageFlightsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManagePassengersPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManagePassengersPanel.Designer.cs">
+      <DependentUpon>ManagePassengersPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="PanelAerolineas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +138,7 @@
     <Content Include="Imagenes e Iconos\minimize_icon.png" />
     <Content Include="Imagenes e Iconos\pilot_icon.png" />
     <Content Include="Imagenes e Iconos\plane_icon.png" />
+    <Content Include="Imagenes e Iconos\plane_img.png" />
     <Content Include="Imagenes e Iconos\stats_icon.png" />
     <Content Include="Imagenes e Iconos\trip_icon.png" />
     <EmbeddedResource Include="LoginForm.resx">
@@ -127,6 +146,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainMenuForm.resx">
       <DependentUpon>MainMenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageFlightPassengers.resx">
+      <DependentUpon>ManageFlightPassengers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageFlightsPanel.resx">
+      <DependentUpon>ManageFlightsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManagePassengersPanel.resx">
+      <DependentUpon>ManagePassengersPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PanelAerolineas.resx">
       <DependentUpon>PanelAerolineas.cs</DependentUpon>

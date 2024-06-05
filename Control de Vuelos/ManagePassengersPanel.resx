@@ -117,32 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="bExit.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DAAACwwBP0AiyAAAAYBJREFUSEvtlj1OAzEQhRcSKQSJLhVdSmrgGoiG0HANCgQlCpeIQgccgSMQeu5B
-        v398jt4i0K7N+ieiyZOeHNsz83aerFGyLf4FVVUdwKO6rvd0FA1qTag5ZR3oqA0jWpblK+scjnUcDMT2
-        qbeg1p2znumUwHv4WRTFjfMr/4BEn+AHoifsd3TVDYJGiF6TsOL3pfNLLSDnkPylRGeI7urKDdMpvCDx
-        DT74iKvTJTnP8LS3aAMSvG2XaGOvv2gDknvbzl2YvTaYTqHTdnUabq8NFLLaLtF4e22gaMt2mNZeG0yn
-        iM8kPmd9hGnttQGBb9vhZuztwk974Tv7oCHjBTpbv174gpgZg0FDxgsS/fV6YbLZ3gmErK+XffRs74Q6
-        dQ4H0ylMZ7tEew0H7tLYjpD3cCAuznZ1GjR7TafQ33aJRs1ecvxsJ2BC8EKiUbOX/LXtrKs8z8+pNdRV
-        GwRN4S1BxzGiDagxoN4ZvIIjHbehwDGr+4+ZB6g1dIpusVlk2Rf2dcgrs6P+IwAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="btMaintenance.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DAAACwwBP0AiyAAAAINJREFUSEvtkUEKgDAMBOvLfI5Hv6I3X2vdgeSgtlCp4iUDC7amsxVTEAQ/knMe
-        lNGWVZhh1pZtmHxVdmW27Rt6N9nMprSXMKwsChRLtOdyeFYAHFCKJXrukzscVE4lyjtyB4HC/wDELmev
-        T+4gUvxLoP/mVxAqlLwvd6zkG3kQVEjpAK5U2SRxDumYAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="btMin.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DAAACwwBP0AiyAAAADRJREFUWEft0jENADEQA0HjCJrnD+qS5jnEUmak7V04AAAAANzzlcsu1z9wZlZz
-        /xMBHpUcG6/h8HIH+kQAAAAASUVORK5CYII=
-</value>
-  </data>
 </root>
