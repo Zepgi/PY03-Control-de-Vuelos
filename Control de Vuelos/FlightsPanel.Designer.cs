@@ -23,9 +23,9 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.btPassengers = new Guna.UI2.WinForms.Guna2Button();
 			this.btFlights = new Guna.UI2.WinForms.Guna2Button();
 			this.btLeftOption = new Guna.UI2.WinForms.Guna2Button();
@@ -33,7 +33,7 @@
 			this.lbSelectOpt = new System.Windows.Forms.Label();
 			this.btRightOption = new Guna.UI2.WinForms.Guna2Button();
 			this.tbFlights = new Guna.UI2.WinForms.Guna2DataGridView();
-			this.btConfirmPassengers = new Guna.UI2.WinForms.Guna2Button();
+			this.btBottomOption = new Guna.UI2.WinForms.Guna2Button();
 			this.pInputArea.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tbFlights)).BeginInit();
 			this.SuspendLayout();
@@ -48,7 +48,7 @@
 			this.btPassengers.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
 			this.btPassengers.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
 			this.btPassengers.ForeColor = System.Drawing.Color.White;
-			this.btPassengers.Location = new System.Drawing.Point(40, 33);
+			this.btPassengers.Location = new System.Drawing.Point(14, 33);
 			this.btPassengers.Name = "btPassengers";
 			this.btPassengers.PressedColor = System.Drawing.Color.Teal;
 			this.btPassengers.ShadowDecoration.BorderRadius = 0;
@@ -70,7 +70,7 @@
 			this.btFlights.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
 			this.btFlights.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
 			this.btFlights.ForeColor = System.Drawing.Color.White;
-			this.btFlights.Location = new System.Drawing.Point(282, 33);
+			this.btFlights.Location = new System.Drawing.Point(256, 33);
 			this.btFlights.Name = "btFlights";
 			this.btFlights.PressedColor = System.Drawing.Color.Teal;
 			this.btFlights.ShadowDecoration.BorderRadius = 30;
@@ -91,7 +91,7 @@
 			this.btLeftOption.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
 			this.btLeftOption.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
 			this.btLeftOption.ForeColor = System.Drawing.Color.White;
-			this.btLeftOption.Location = new System.Drawing.Point(40, 614);
+			this.btLeftOption.Location = new System.Drawing.Point(14, 614);
 			this.btLeftOption.Name = "btLeftOption";
 			this.btLeftOption.PressedColor = System.Drawing.Color.Teal;
 			this.btLeftOption.ShadowDecoration.BorderRadius = 30;
@@ -107,7 +107,7 @@
 			// 
 			this.pInputArea.BackColor = System.Drawing.Color.Transparent;
 			this.pInputArea.Controls.Add(this.lbSelectOpt);
-			this.pInputArea.Location = new System.Drawing.Point(40, 85);
+			this.pInputArea.Location = new System.Drawing.Point(14, 85);
 			this.pInputArea.Name = "pInputArea";
 			this.pInputArea.Size = new System.Drawing.Size(500, 520);
 			this.pInputArea.TabIndex = 9;
@@ -133,7 +133,7 @@
 			this.btRightOption.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
 			this.btRightOption.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
 			this.btRightOption.ForeColor = System.Drawing.Color.White;
-			this.btRightOption.Location = new System.Drawing.Point(282, 614);
+			this.btRightOption.Location = new System.Drawing.Point(256, 614);
 			this.btRightOption.Name = "btRightOption";
 			this.btRightOption.PressedColor = System.Drawing.Color.Teal;
 			this.btRightOption.ShadowDecoration.BorderRadius = 30;
@@ -150,34 +150,37 @@
 			this.tbFlights.AllowUserToAddRows = false;
 			this.tbFlights.AllowUserToDeleteRows = false;
 			this.tbFlights.AllowUserToResizeColumns = false;
-			dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-			this.tbFlights.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+			this.tbFlights.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+			this.tbFlights.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+			this.tbFlights.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Single;
 			this.tbFlights.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
-			dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.tbFlights.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-			this.tbFlights.ColumnHeadersHeight = 55;
-			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-			dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-			dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-			dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-			dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.tbFlights.DefaultCellStyle = dataGridViewCellStyle6;
+			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.tbFlights.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+			this.tbFlights.ColumnHeadersHeight = 50;
+			this.tbFlights.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.tbFlights.DefaultCellStyle = dataGridViewCellStyle3;
 			this.tbFlights.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-			this.tbFlights.Location = new System.Drawing.Point(574, 33);
+			this.tbFlights.Location = new System.Drawing.Point(520, 88);
 			this.tbFlights.Name = "tbFlights";
 			this.tbFlights.ReadOnly = true;
 			this.tbFlights.RowHeadersVisible = false;
 			this.tbFlights.RowHeadersWidth = 51;
-			this.tbFlights.RowTemplate.Height = 24;
-			this.tbFlights.Size = new System.Drawing.Size(620, 630);
+			this.tbFlights.RowTemplate.Height = 50;
+			this.tbFlights.Size = new System.Drawing.Size(688, 588);
 			this.tbFlights.TabIndex = 11;
 			this.tbFlights.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
 			this.tbFlights.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -188,38 +191,40 @@
 			this.tbFlights.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
 			this.tbFlights.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
 			this.tbFlights.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-			this.tbFlights.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.tbFlights.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.tbFlights.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-			this.tbFlights.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-			this.tbFlights.ThemeStyle.HeaderStyle.Height = 55;
+			this.tbFlights.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+			this.tbFlights.ThemeStyle.HeaderStyle.Height = 50;
 			this.tbFlights.ThemeStyle.ReadOnly = true;
 			this.tbFlights.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
-			this.tbFlights.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-			this.tbFlights.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.tbFlights.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Single;
+			this.tbFlights.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.tbFlights.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-			this.tbFlights.ThemeStyle.RowsStyle.Height = 24;
+			this.tbFlights.ThemeStyle.RowsStyle.Height = 50;
 			this.tbFlights.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
 			this.tbFlights.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+			this.tbFlights.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tbFlights_CellDoubleClick);
 			// 
-			// btConfirmPassengers
+			// btBottomOption
 			// 
-			this.btConfirmPassengers.AutoRoundedCorners = true;
-			this.btConfirmPassengers.BackColor = System.Drawing.Color.Transparent;
-			this.btConfirmPassengers.BorderColor = System.Drawing.Color.White;
-			this.btConfirmPassengers.BorderRadius = 22;
-			this.btConfirmPassengers.FillColor = System.Drawing.SystemColors.HotTrack;
-			this.btConfirmPassengers.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
-			this.btConfirmPassengers.ForeColor = System.Drawing.Color.White;
-			this.btConfirmPassengers.Location = new System.Drawing.Point(159, 666);
-			this.btConfirmPassengers.Name = "btConfirmPassengers";
-			this.btConfirmPassengers.PressedColor = System.Drawing.Color.Teal;
-			this.btConfirmPassengers.ShadowDecoration.BorderRadius = 30;
-			this.btConfirmPassengers.ShadowDecoration.Depth = 0;
-			this.btConfirmPassengers.ShadowDecoration.Enabled = true;
-			this.btConfirmPassengers.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
-			this.btConfirmPassengers.Size = new System.Drawing.Size(226, 46);
-			this.btConfirmPassengers.TabIndex = 12;
-			this.btConfirmPassengers.Text = "Confirmar Pasajeros";
+			this.btBottomOption.AutoRoundedCorners = true;
+			this.btBottomOption.BackColor = System.Drawing.Color.Transparent;
+			this.btBottomOption.BorderColor = System.Drawing.Color.White;
+			this.btBottomOption.BorderRadius = 22;
+			this.btBottomOption.FillColor = System.Drawing.SystemColors.HotTrack;
+			this.btBottomOption.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
+			this.btBottomOption.ForeColor = System.Drawing.Color.White;
+			this.btBottomOption.Location = new System.Drawing.Point(133, 666);
+			this.btBottomOption.Name = "btBottomOption";
+			this.btBottomOption.PressedColor = System.Drawing.Color.Teal;
+			this.btBottomOption.ShadowDecoration.BorderRadius = 30;
+			this.btBottomOption.ShadowDecoration.Depth = 0;
+			this.btBottomOption.ShadowDecoration.Enabled = true;
+			this.btBottomOption.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
+			this.btBottomOption.Size = new System.Drawing.Size(226, 46);
+			this.btBottomOption.TabIndex = 12;
+			this.btBottomOption.Text = "Confirmar Pasajeros";
+			this.btBottomOption.Click += new System.EventHandler(this.btBottomOption_Click);
 			// 
 			// FlightsPanel
 			// 
@@ -227,7 +232,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.BackColor = System.Drawing.Color.White;
 			this.ClientSize = new System.Drawing.Size(1220, 727);
-			this.Controls.Add(this.btConfirmPassengers);
+			this.Controls.Add(this.btBottomOption);
 			this.Controls.Add(this.tbFlights);
 			this.Controls.Add(this.btRightOption);
 			this.Controls.Add(this.btLeftOption);
@@ -254,6 +259,6 @@
 		private Guna.UI2.WinForms.Guna2Button btRightOption;
 		private System.Windows.Forms.Label lbSelectOpt;
 		private Guna.UI2.WinForms.Guna2DataGridView tbFlights;
-		private Guna.UI2.WinForms.Guna2Button btConfirmPassengers;
+		private Guna.UI2.WinForms.Guna2Button btBottomOption;
 	}
 }

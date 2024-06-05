@@ -31,10 +31,10 @@
 			this.txtCountry = new Guna.UI2.WinForms.Guna2TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.txtCanton = new Guna.UI2.WinForms.Guna2TextBox();
-			this.txtCity = new Guna.UI2.WinForms.Guna2TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.txtDistrict = new Guna.UI2.WinForms.Guna2TextBox();
 			this.label5 = new System.Windows.Forms.Label();
+			this.txtCity = new Guna.UI2.WinForms.Guna2TextBox();
 			this.SuspendLayout();
 			// 
 			// lbFlightDate
@@ -171,29 +171,6 @@
 			this.txtCanton.Size = new System.Drawing.Size(310, 41);
 			this.txtCanton.TabIndex = 36;
 			// 
-			// txtCity
-			// 
-			this.txtCity.AutoRoundedCorners = true;
-			this.txtCity.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
-			this.txtCity.BorderRadius = 19;
-			this.txtCity.Cursor = System.Windows.Forms.Cursors.IBeam;
-			this.txtCity.DefaultText = "";
-			this.txtCity.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-			this.txtCity.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-			this.txtCity.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-			this.txtCity.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-			this.txtCity.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-			this.txtCity.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtCity.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-			this.txtCity.Location = new System.Drawing.Point(95, 443);
-			this.txtCity.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-			this.txtCity.Name = "txtCity";
-			this.txtCity.PasswordChar = '\0';
-			this.txtCity.PlaceholderText = "";
-			this.txtCity.SelectedText = "";
-			this.txtCity.Size = new System.Drawing.Size(310, 41);
-			this.txtCity.TabIndex = 38;
-			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
@@ -237,6 +214,29 @@
 			this.label5.TabIndex = 39;
 			this.label5.Text = "Distrito";
 			// 
+			// txtCity
+			// 
+			this.txtCity.AutoRoundedCorners = true;
+			this.txtCity.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+			this.txtCity.BorderRadius = 19;
+			this.txtCity.Cursor = System.Windows.Forms.Cursors.IBeam;
+			this.txtCity.DefaultText = "";
+			this.txtCity.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+			this.txtCity.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+			this.txtCity.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+			this.txtCity.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+			this.txtCity.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+			this.txtCity.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtCity.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+			this.txtCity.Location = new System.Drawing.Point(95, 443);
+			this.txtCity.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			this.txtCity.Name = "txtCity";
+			this.txtCity.PasswordChar = '\0';
+			this.txtCity.PlaceholderText = "";
+			this.txtCity.SelectedText = "";
+			this.txtCity.Size = new System.Drawing.Size(310, 41);
+			this.txtCity.TabIndex = 38;
+			// 
 			// ManagePassengersPanel
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -268,14 +268,14 @@
 		private System.Windows.Forms.Label lbFlightDate;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
-		private Guna.UI2.WinForms.Guna2TextBox txtIdPassenger;
 		private Guna.UI2.WinForms.Guna2TextBox txtPassengerName;
 		private Guna.UI2.WinForms.Guna2TextBox txtCountry;
 		private System.Windows.Forms.Label label3;
 		private Guna.UI2.WinForms.Guna2TextBox txtCanton;
-		private Guna.UI2.WinForms.Guna2TextBox txtCity;
 		private System.Windows.Forms.Label label4;
 		private Guna.UI2.WinForms.Guna2TextBox txtDistrict;
 		private System.Windows.Forms.Label label5;
+		private Guna.UI2.WinForms.Guna2TextBox txtCity;
+		public Guna.UI2.WinForms.Guna2TextBox txtIdPassenger;
 	}
 }

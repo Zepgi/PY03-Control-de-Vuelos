@@ -77,6 +77,7 @@
 			this.cbArrivalCities.Name = "cbArrivalCities";
 			this.cbArrivalCities.Size = new System.Drawing.Size(163, 36);
 			this.cbArrivalCities.TabIndex = 32;
+			this.cbArrivalCities.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox_KeyDown);
 			// 
 			// lbArrivalCity
 			// 
@@ -145,6 +146,7 @@
 			this.cbPilots.Name = "cbPilots";
 			this.cbPilots.Size = new System.Drawing.Size(147, 36);
 			this.cbPilots.TabIndex = 26;
+			this.cbPilots.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox_KeyDown);
 			// 
 			// cbPlanes
 			// 
@@ -162,6 +164,7 @@
 			this.cbPlanes.Name = "cbPlanes";
 			this.cbPlanes.Size = new System.Drawing.Size(148, 36);
 			this.cbPlanes.TabIndex = 25;
+			this.cbPlanes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox_KeyDown);
 			// 
 			// cbArrivalHours
 			// 
@@ -179,6 +182,7 @@
 			this.cbArrivalHours.Name = "cbArrivalHours";
 			this.cbArrivalHours.Size = new System.Drawing.Size(148, 36);
 			this.cbArrivalHours.TabIndex = 24;
+			this.cbArrivalHours.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox_KeyDown);
 			// 
 			// cbDepartureHours
 			// 
@@ -197,6 +201,7 @@
 			this.cbDepartureHours.Name = "cbDepartureHours";
 			this.cbDepartureHours.Size = new System.Drawing.Size(148, 36);
 			this.cbDepartureHours.TabIndex = 23;
+			this.cbDepartureHours.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox_KeyDown);
 			// 
 			// dtDepartureDate
 			// 
@@ -234,6 +239,7 @@
 			this.cbDepartureCities.Name = "cbDepartureCities";
 			this.cbDepartureCities.Size = new System.Drawing.Size(163, 36);
 			this.cbDepartureCities.TabIndex = 21;
+			this.cbDepartureCities.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox_KeyDown);
 			// 
 			// lbDepartureDate
 			// 

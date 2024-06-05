@@ -37,9 +37,8 @@ CREATE TABLE Pilotos
 	apellidoPat		VARCHAR(150)		NOT NULL,
 	apellidoMat		VARCHAR(150)		NOT NULL,
 	nombre			VARCHAR(150)		NOT NULL,
-	nacionalidad		VARCHAR(150)		NOT NULL,
-	idAerolinea		INT			NOT NULL,
-	estado			BIT			NOT NULL,
+	estado			BIT					NOT NULL,
+	idAerolinea		INT					NOT NULL,
 	FOREIGN KEY (idAerolinea) REFERENCES Aerolineas(idAerolinea),
 	PRIMARY KEY(idPiloto));
 GO
@@ -130,6 +129,7 @@ CREATE TABLE ListaPasajeros(
 	idVuelo			INT					NOT NULL,
 	cedulaPasajero	VARCHAR(150) UNIQUE	NOT NULL,
 	confirmado		BIT					NOT NULL,
+	asiento			INT					NOT NULL,
 	FOREIGN KEY	(idVuelo)		 REFERENCES Vuelos(idVuelo),
 	FOREIGN KEY (cedulaPasajero) REFERENCES Pasajeros(cedulaPasajero));
 GO
@@ -231,7 +231,7 @@ CREATE PROC Get_Flights
 	(@idAerolinea INT)
 AS
 BEGIN
-	SELECT  A.matricula 'Avión' , CONCAT (P.apellidoPat, ' ', P.apellidoMat, ' ', P.nombre) Piloto, fechaHoraPartida 'Salida', fechaHoraLlegada 'Llegada', C.ciudad 'Ciudad de Partida', C2.ciudad 'Ciudad de Destino' , V.estado Estado
+	SELECT  V.idVuelo Vuelo, A.matricula 'Avión' , P.cedulaPiloto Piloto, fechaHoraPartida 'Salida', fechaHoraLlegada 'Llegada', CONCAT(C.codigoCiudad, ' | ', C.ciudad) 'Ciudad de Partida', CONCAT(C2.codigoCiudad, ' | ' ,C2.ciudad) 'Ciudad de Destino' , V.estado Estado
 	FROM Vuelos V
 	INNER JOIN Pilotos P ON
 	V.cedulaPiloto =  P.cedulaPiloto
@@ -242,7 +242,7 @@ BEGIN
 	INNER JOIN Aviones A ON
 	A.idAvion = V.idAvion
 	WHERE @idAerolinea = V.idAerolinea
-	GROUP BY A.matricula, CONCAT ( P.apellidoPat, ' ', P.apellidoMat, ' ', P.nombre), fechaHoraPartida, fechaHoraLlegada, C.ciudad, C2.ciudad, V.estado;
+	GROUP BY V.idVuelo, A.matricula, P.cedulaPiloto, fechaHoraPartida, fechaHoraLlegada,  CONCAT(C.codigoCiudad, ' | ', C.ciudad), CONCAT(C2.codigoCiudad, ' | ' ,C2.ciudad), V.estado;
 END;
 GO
 
@@ -285,7 +285,7 @@ BEGIN
 END;
 GO
 
-CREATE PROC Insertar_Vuelo
+CREATE PROC Add_Flight
 (
     @idAerolinea        INT,
     @matricula          VARCHAR(150),
@@ -322,6 +322,213 @@ BEGIN
 
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH
+END;
+GO
+
+CREATE FUNCTION isExistingFlight
+(
+	@idVuelo			INT,
+    @idAerolinea        INT,
+    @idAvion			INT,
+    @cedulaPiloto       INT,
+    @fechaHoraPartida   DATETIME,
+    @fechaHoraLlegada   DATETIME,
+    @codigoCiudadPartida VARCHAR(150),
+    @codigoCiudadDestino VARCHAR(150)
+)
+RETURNS BIT
+AS
+BEGIN
+    DECLARE @exists BIT;
+    IF EXISTS (
+        SELECT 1
+        FROM Vuelos
+        WHERE 
+			  idVuelo = @idVuelo AND
+			  idAerolinea = @idAerolinea AND 
+              idAvion = @idAvion AND 
+              cedulaPiloto = @cedulaPiloto AND
+              fechaHoraPartida = @fechaHoraPartida AND
+              fechaHoraLlegada = @fechaHoraLlegada AND
+              codigoCiudadPartida = @codigoCiudadPartida AND
+              codigoCiudadDestino = @codigoCiudadDestino
+    )
+    BEGIN
+        SET @exists = 1;
+    END
+    ELSE
+    BEGIN
+        SET @exists = 0;
+    END
+
+    RETURN @exists;
+END;
+GO
+
+CREATE PROC Update_Flight
+(
+	@idVuelo			INT,
+    @idAerolinea        INT,
+    @matricula          VARCHAR(150),
+    @cedulaPiloto       INT,
+    @fechaHoraPartida   DATETIME,
+    @fechaHoraLlegada   DATETIME,
+    @codigoCiudadPartida VARCHAR(150),
+    @codigoCiudadDestino VARCHAR(150)
+)
+AS
+BEGIN
+    DECLARE @idAvion INT;
+    DECLARE @flightExists BIT;
+
+    SET @idAvion = (SELECT idAvion FROM Aviones WHERE matricula = @matricula);
+
+    SET @flightExists = dbo.isExistingFlight(@idVuelo, @idAerolinea, @idAvion, @cedulaPiloto, @fechaHoraPartida, @fechaHoraLlegada, @codigoCiudadPartida, @codigoCiudadDestino);
+
+    IF @flightExists = 0
+    BEGIN
+        UPDATE Vuelos
+        SET idAvion = @idAvion,
+            cedulaPiloto = @cedulaPiloto,
+            fechaHoraPartida = @fechaHoraPartida,
+            fechaHoraLlegada = @fechaHoraLlegada,
+            codigoCiudadPartida = @codigoCiudadPartida,
+            codigoCiudadDestino = @codigoCiudadDestino
+        WHERE idVuelo = @idVuelo AND
+			  idAerolinea = @idAerolinea
+    END
+    ELSE
+    BEGIN
+        RAISERROR ('Debe modificar al menos un dato.', 16, 1);
+    END
+END;
+GO
+
+CREATE PROC Search_Active_Flights
+(
+    @idVuelo INT
+)
+AS
+BEGIN
+    SELECT
+        idAerolinea,
+        idAvion,
+        cedulaPiloto,
+        fechaHoraPartida,
+        fechaHoraLlegada,
+        codigoCiudadPartida,
+        codigoCiudadDestino,
+        estado
+    FROM Vuelos
+    WHERE idVuelo = @idVuelo AND estado = 1;
+END;
+GO
+
+
+CREATE PROC Search_Active_Planes
+(
+    @idAvion INT
+)
+AS
+BEGIN
+    SELECT
+        marca,
+        matricula,
+        capacidadPasajeros,
+        estado
+    FROM Aviones
+    WHERE idAvion = @idAvion AND estado = 1;
+END;
+GO
+
+CREATE PROC Search_City
+(
+    @pais VARCHAR(150),
+    @canton VARCHAR(150),
+    @distrito VARCHAR(150),
+    @ciudad VARCHAR(150)
+)
+AS
+BEGIN
+	SELECT codigoCiudad
+	FROM Ciudades
+	WHERE @pais = pais AND @canton = canton AND @distrito = distrito AND @ciudad = ciudad
+END;
+GO
+
+CREATE PROC GenerateCityCode
+(
+    @ciudad VARCHAR(150),
+    @codigoCiudad VARCHAR(150) OUTPUT
+)
+AS
+BEGIN
+    DECLARE @randomNumber INT;
+    DECLARE @cityCode VARCHAR(150);
+
+    SET @cityCode = LEFT(@ciudad, 3);
+
+    -- Generar un número aleatorio de 4 dígitos
+    SET @randomNumber = CAST(FLOOR(RAND() * 10000) AS INT);
+
+    -- Formatear el número aleatorio a 4 dígitos con ceros a la izquierda si es necesario
+    SET @cityCode = @cityCode + RIGHT('0000' + CAST(@randomNumber AS VARCHAR(4)), 4);
+
+    SET @codigoCiudad = @cityCode;
+END;
+GO
+
+
+
+CREATE PROC Add_City
+(
+    @pais VARCHAR(150),
+    @canton VARCHAR(150),
+    @distrito VARCHAR(150),
+    @ciudad VARCHAR(150)
+)
+AS
+BEGIN
+    DECLARE @codigoCiudad VARCHAR(150);
+
+    -- Llamar al procedimiento para generar el código de ciudad
+    EXEC GenerateCityCode @ciudad, @codigoCiudad OUTPUT;
+
+    -- Verificar si la ciudad ya existe
+    IF EXISTS (SELECT 1 FROM Ciudades WHERE pais = @pais AND canton = @canton AND distrito = @distrito AND ciudad = @ciudad)
+        RETURN;
+    ELSE
+        INSERT INTO Ciudades (codigoCiudad, pais, canton, distrito, ciudad)
+        VALUES (@codigoCiudad, @pais, @canton, @distrito, @ciudad);
+END;
+GO
+
+
+CREATE PROC Add_Passenger
+(
+    @cedulaPasajero VARCHAR(150),
+    @nombre         VARCHAR(150),
+    @apellidoMat    VARCHAR(150),
+    @apellidoPat    VARCHAR(150),
+    @codigoCiudad   VARCHAR(150)
+)
+AS
+BEGIN
+    INSERT INTO Pasajeros (cedulaPasajero, nombre, apellidoPat, apellidoMat, codigoCiudad)
+    VALUES (@cedulaPasajero, @nombre, @apellidoPat, @apellidoMat, @codigoCiudad);
+END;
+GO
+
+CREATE PROC Add_Passenger_To_List
+(
+	@cedulaPasajero	VARCHAR(150),
+	@idVuelo		INT,
+	@asiento		INT
+)
+AS
+BEGIN
+	INSERT INTO ListaPasajeros (idVuelo, cedulaPasajero, asiento, confirmado)
+	VALUES (@idVuelo, @cedulaPasajero, @asiento, 0)
 END;
 GO
 
@@ -473,7 +680,7 @@ BEGIN
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH
 END;
-
+GO
 
 CREATE PROC Actualizar_Aviones
     (@matricula VARCHAR(50), 
@@ -516,7 +723,7 @@ BEGIN
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH
 END;
-
+GO
 
 CREATE PROCEDURE ObtenerAviones
 AS
@@ -560,10 +767,16 @@ BEGIN
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH
 END;
-
+GO
 
 
 ------------ STORED FIN PROCEDURES PARA AVIONES ------------
+
+
+
+
+
+
 
 
 ------------ STORED PROCEDURES PARA BUSQUEDAS ------------
@@ -768,7 +981,8 @@ BEGIN
 END;
 GO
 --------------------FIN STORED PROCEDURES PILOTOS----------------------------------
-	
+
+---------------------------------------------------------------------
 ---------- INSERCIONES DE DATOS ----------
 
 INSERT INTO Aerolineas
@@ -830,9 +1044,9 @@ GO
 
 INSERT INTO Aviones (marca, matricula, capacidadPasajeros, estado)
 VALUES
-('Boeing', 'N12345', 150, 1),
-('Airbus', 'A67890', 200, 1),
-('Embraer', 'E23456', 100, 1),
+('Boeing', 'N12345', 90, 1),
+('Airbus', 'A67890', 70, 1),
+('Embraer', 'E23456', 65, 1),
 ('Bombardier', 'B78901', 80, 1),
 ('Cessna', 'C34567', 50, 1);
 GO

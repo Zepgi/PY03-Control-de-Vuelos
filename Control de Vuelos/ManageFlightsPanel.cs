@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Guna.UI2.WinForms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -110,6 +111,13 @@ namespace Control_de_Vuelos {
 			this.cbArrivalCities.SelectedIndex = -1;
 			this.cbPlanes.SelectedIndex = -1;
 			this.cbPilots.SelectedIndex = -1;
+		}
+
+		private void comboBox_KeyDown(object sender, KeyEventArgs e) {
+			Guna2ComboBox comboBox = sender as Guna2ComboBox;
+			if (comboBox != null && (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)) {
+				comboBox.SelectedIndex = -1;
+			}
 		}
 
 		private void hideFlightPanel() {
