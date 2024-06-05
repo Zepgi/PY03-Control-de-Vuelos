@@ -37,8 +37,9 @@ CREATE TABLE Pilotos
 	apellidoPat		VARCHAR(150)		NOT NULL,
 	apellidoMat		VARCHAR(150)		NOT NULL,
 	nombre			VARCHAR(150)		NOT NULL,
-	estado			BIT					NOT NULL,
-	idAerolinea		INT					NOT NULL,
+	nacionalidad		VARCHAR(150)		NOT NULL,
+	idAerolinea		INT			NOT NULL,
+	estado			VARCHAR(150)		NOT NULL,
 	FOREIGN KEY (idAerolinea) REFERENCES Aerolineas(idAerolinea),
 	PRIMARY KEY(idPiloto));
 GO
@@ -597,7 +598,183 @@ BEGIN
 END;
 GO
 
+--Busca a un ´piloto segun su nombre, apellidos, cedula o nombre de aerolinea a la que pertenece
+CREATE PROC Search_Pilot @searchValue VARCHAR(150)
+AS
+BEGIN 
+	BEGIN TRY
+		SELECT p.idPiloto, p.cedulaPiloto, CONCAT(p.nombre, ' ', p.apellidoPat, ' ', p.apellidoMat) AS nombreCompleto, p.nacionalidad, a.nombre, p.estado
+		FROM Pilotos AS p
+		INNER JOIN Aerolineas AS a ON p.idAerolinea = a.idAerolinea
+		WHERE p.nombre LIKE @searchValue OR  p.apellidoPat LIKE @searchValue OR p.apellidoMat LIKE @searchValue
+			OR p.cedulaPiloto LIKE @searchValue OR a.nombre LIKE @searchValue;
+	END TRY
+	BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
 ---------------------------------------------------------------------
+
+-------------STORED PROCEDURES PARA PILOTOS --------------------------}
+--Info pilotos
+CREATE PROC Get_Pilots_Data
+AS
+BEGIN 
+	BEGIN TRY
+		SELECT p.idPiloto, p.cedulaPiloto, CONCAT(p.nombre, ' ', p.apellidoPat, ' ', p.apellidoMat) AS nombreCompleto, p.nacionalidad, a.nombre, p.estado
+		FROM Pilotos AS p
+		INNER JOIN Aerolineas AS a ON p.idAerolinea = a.idAerolinea
+		ORDER BY 
+			CASE
+				WHEN p.estado = 'Inactivo'
+				THEN 1
+				ELSE 0
+			END,
+			idPiloto ASC;
+	END TRY
+	BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+--Existencia cedula
+CREATE PROC Identity_Exist 
+	(@identity VARCHAR(150), @idPilot INT)
+AS
+BEGIN 
+	BEGIN TRY
+		SELECT 1
+		FROM Pilotos
+		WHERE cedulaPiloto = @identity AND idPiloto != @idPilot;
+	END TRY
+	BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+--Añadir Piloto
+CREATE PROC Insert_Pilot 
+	(@identity VARCHAR(150), 
+	@lastName1 VARCHAR(150),
+	@lastname2 VARCHAR(150),
+	@name VARCHAR(150),
+	@country VARCHAR(150),
+	@airline INT)
+AS
+BEGIN 
+	BEGIN TRY
+		INSERT INTO Pilotos
+		VALUES(@identity,
+			@lastName1,
+			@lastname2,
+			@name,
+			@country,
+			@airline,
+			'Activo');
+	END TRY
+	BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+--Modifica el Piloto
+CREATE PROC Update_Pilot 
+	(@identity VARCHAR(150), 
+	@lastName1 VARCHAR(150),
+	@lastname2 VARCHAR(150),
+	@name VARCHAR(150),
+	@country VARCHAR(150),
+	@airline INT)
+AS
+BEGIN 
+	BEGIN TRY
+		UPDATE Pilotos
+		SET cedulaPiloto = @identity,
+			apellidoPat = @lastName1,
+			apellidoMat = @lastname2,
+			nombre = @name,
+			nacionalidad = @country,
+			idAerolinea = @airline;
+	END TRY
+	BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+--Cambia el estdo del Piloto
+CREATE PROC Delete_Pilot 
+AS
+BEGIN 
+	BEGIN TRY
+		UPDATE Pilotos
+		SET estado = 'Inactivo';
+	END TRY
+	BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+--------------------FIN STORED PROCEDURES PILOTOS----------------------------------
+	
 ---------- INSERCIONES DE DATOS ----------
 
 INSERT INTO Aerolineas
