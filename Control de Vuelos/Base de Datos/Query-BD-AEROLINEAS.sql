@@ -39,7 +39,7 @@ CREATE TABLE Pilotos
 	nombre			VARCHAR(150)		NOT NULL,
 	nacionalidad		VARCHAR(150)		NOT NULL,
 	idAerolinea		INT			NOT NULL,
-	estado			VARCHAR(150)		NOT NULL,
+	estado			BIT			NOT NULL,
 	FOREIGN KEY (idAerolinea) REFERENCES Aerolineas(idAerolinea),
 	PRIMARY KEY(idPiloto));
 GO
@@ -566,12 +566,6 @@ END;
 ------------ STORED FIN PROCEDURES PARA AVIONES ------------
 
 
-
-
-
-
-
-
 ------------ STORED PROCEDURES PARA BUSQUEDAS ------------
 
 CREATE PROC Buscar_Usuario
@@ -636,7 +630,7 @@ BEGIN
 		INNER JOIN Aerolineas AS a ON p.idAerolinea = a.idAerolinea
 		ORDER BY 
 			CASE
-				WHEN p.estado = 'Inactivo'
+				WHEN p.estado = 0
 				THEN 1
 				ELSE 0
 			END,
@@ -700,7 +694,7 @@ BEGIN
 			@name,
 			@country,
 			@airline,
-			'Activo');
+			1);
 	END TRY
 	BEGIN CATCH
         DECLARE @ErrorMessage VARCHAR(MAX);
@@ -757,7 +751,7 @@ AS
 BEGIN 
 	BEGIN TRY
 		UPDATE Pilotos
-		SET estado = 'Inactivo';
+		SET estado = 0;
 	END TRY
 	BEGIN CATCH
         DECLARE @ErrorMessage VARCHAR(MAX);
