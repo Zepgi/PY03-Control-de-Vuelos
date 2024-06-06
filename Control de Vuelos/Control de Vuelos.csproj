@@ -149,6 +149,7 @@
     <Content Include="Imagenes e Iconos\config_icon.png" />
     <Content Include="Imagenes e Iconos\expand_icon.png" />
     <Content Include="Imagenes e Iconos\home-page_icon.png" />
+    <Content Include="Imagenes e Iconos\logo.png" />
     <Content Include="Imagenes e Iconos\logout_icon.png" />
     <Content Include="Imagenes e Iconos\minimize_icon.png" />
     <Content Include="Imagenes e Iconos\pilot_icon.png" />

@@ -52,6 +52,8 @@ namespace Control_de_Vuelos {
 				this.btRightOption.Text = "Agregar Pasajero";
 				this.btLeftOption.Text = "Modificar Pasajero";
 				this.btBottomOption.Text = "Confirmar tiquetes";
+				this.btRightOption.Visible = true;
+				this.btLeftOption.Visible = true;
 				this.btBottomOption.Visible = false;
 				setTableData("Vuelos");
 			}
@@ -89,6 +91,8 @@ namespace Control_de_Vuelos {
 
 
 		private void setView() {
+			this.btRightOption.Text = "Agregar Pasajero";
+			this.btLeftOption.Text = "Modificar Pasajero";
 			if (permissions.IndexOf(1) != -1) {
 				this.lbAirline.Visible = true;
 				this.cbAirlines.Visible = true;
@@ -114,12 +118,17 @@ namespace Control_de_Vuelos {
 						this.conn.close();
 					}
 				}
-			} else {
+				this.btRightOption.Visible = false;
+				this.btLeftOption.Visible = false;
+			} else if (permissions.IndexOf(3) != -1) {
+				this.btRightOption.Visible = false;
+				this.btLeftOption.Visible = false;
+			} else { 
 				this.btFlights.Visible = false;
 				this.btPassengers.Visible = false;
+				this.lbSelectOpt.Visible = false;
+
 				this.loadPanel(new ManageFlightPassengersPanel(idAirline, this));
-				this.btRightOption.Text = "Agregar Pasajero";
-				this.btLeftOption.Text = "Modificar Pasajero";
 				setTableData("Vuelos");
 			}
 		}
@@ -195,7 +204,7 @@ namespace Control_de_Vuelos {
 									cmd.ExecuteNonQuery();
 								}
 							}
-							setView();
+							loadPanel(new ManageFlightPassengersPanel(idAirline, this));
 							MessageBox.Show("Tiquetes registrados exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 						}
 					}
