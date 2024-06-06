@@ -214,7 +214,7 @@
 			this.btBottomOption.FillColor = System.Drawing.SystemColors.HotTrack;
 			this.btBottomOption.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
 			this.btBottomOption.ForeColor = System.Drawing.Color.White;
-			this.btBottomOption.Location = new System.Drawing.Point(133, 666);
+			this.btBottomOption.Location = new System.Drawing.Point(129, 666);
 			this.btBottomOption.Name = "btBottomOption";
 			this.btBottomOption.PressedColor = System.Drawing.Color.Teal;
 			this.btBottomOption.ShadowDecoration.BorderRadius = 30;
@@ -286,13 +286,13 @@
 		#endregion
 		private Guna.UI2.WinForms.Guna2Button btPassengers;
 		private Guna.UI2.WinForms.Guna2Button btFlights;
-		private Guna.UI2.WinForms.Guna2Button btLeftOption;
 		private System.Windows.Forms.Panel pInputArea;
 		private System.Windows.Forms.Label lbSelectOpt;
 		private Guna.UI2.WinForms.Guna2DataGridView tbFlights;
-		private Guna.UI2.WinForms.Guna2Button btBottomOption;
 		public Guna.UI2.WinForms.Guna2Button btRightOption;
 		public Guna.UI2.WinForms.Guna2ComboBox cbAirlines;
 		private System.Windows.Forms.Label lbAirline;
+		public Guna.UI2.WinForms.Guna2Button btBottomOption;
+		public Guna.UI2.WinForms.Guna2Button btLeftOption;
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using Guna.UI2.WinForms;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -211,6 +212,31 @@ namespace Control_de_Vuelos {
 				} catch (Exception ex) {
 					MessageBox.Show("Error: " + ex.Message, "Error al agregar pasajero", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
+			} else if (this.btBottomOption.Text.Equals("Confirmar")) {
+				bool foundSeat = false;
+				ManageFlightPassengersPanel inputPanel = this.pInputArea.Controls[0] as ManageFlightPassengersPanel;
+				conn.open();
+				foreach (Control control in inputPanel.Controls.OfType<CheckBox>().ToList()) {
+					if (control.BackColor == Color.Lime) {
+						int seat = Convert.ToInt32(control.Text);
+						int flight = Convert.ToInt32(inputPanel.cbFlights.SelectedItem);
+						foundSeat = true;
+						using (SqlCommand cmd = new SqlCommand("Confirm_Passenger", conn.ConnectDB)) {
+							cmd.CommandType = CommandType.StoredProcedure;
+							cmd.Parameters.AddWithValue("@asiento", seat);
+							cmd.Parameters.AddWithValue("@idVuelo", flight);
+							cmd.ExecuteNonQuery();
+							
+						}
+					}
+				}
+				conn.close();
+				if (!foundSeat) {
+					MessageBox.Show("Debe de seleccionar al menos 1 asiento", "Error al confirmar pasajeros", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return;
+				}
+				MessageBox.Show("Pasajeros confirmados exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				loadPanel(new ManageFlightPassengersPanel(idAirline, this));
 			}
 		}
 
