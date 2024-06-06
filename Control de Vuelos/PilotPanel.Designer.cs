@@ -162,6 +162,7 @@ namespace Control_de_Vuelos {
             this.searchTB.SelectedText = "";
             this.searchTB.Size = new System.Drawing.Size(351, 44);
             this.searchTB.TabIndex = 11;
+            this.searchTB.TextChanged += new System.EventHandler(this.searchTB_TextChanged);
             // 
             // lastName2TB
             // 

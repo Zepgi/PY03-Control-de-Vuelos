@@ -18,26 +18,31 @@ namespace Control_de_Vuelos
         int idAirline;
         String airlineName;
         PilotPanel windowPilot;
+        bool firstTime;
 
         public SelectAirline(PilotPanel window)
         {
             InitializeComponent();
             conn = new DatabaseConnection();
             this.windowPilot =window;
+            this.firstTime = true;
             loadAirlinesData();
         }
 
         private void loadAirlinesData()
         {
+            if (this.firstTime)
+            {
+                // Create the columns on the DataGrid  idAerolinea, nombre, lema, estado 
+                airlineGrid.Columns.Add("idColumn", "ID");
+                airlineGrid.Columns.Add("nameColumn", "Nombre");
+                airlineGrid.Columns.Add("mottoColumn", "Lema");
+                airlineGrid.Columns.Add("stateColumn", "Estado");
 
-            // Create the columns on the DataGrid  idAerolinea, nombre, lema, estado 
-            airlineGrid.Columns.Add("idColumn", "ID");
-            airlineGrid.Columns.Add("nameColumn", "Nombre");
-            airlineGrid.Columns.Add("mottoColumn", "Lema");
-            airlineGrid.Columns.Add("stateColumn", "Estado");
-
-            airlineGrid.AutoGenerateColumns = false;  // Disable automatic column generation
-            airlineGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                airlineGrid.AutoGenerateColumns = false;  // Disable automatic column generation
+                airlineGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                this.firstTime = false;
+            }
 
             try
             {
@@ -95,6 +100,7 @@ namespace Control_de_Vuelos
             dT.Columns.Remove("estado");
 
             dT.Columns["estadoString"].ColumnName = "estado";
+
 
         }
 
@@ -172,6 +178,52 @@ namespace Control_de_Vuelos
             }
         }
 
+        private void searchTB_TextChanged(object sender, EventArgs e)
+        {
+            //If is empty shows all the airlines data
+            if (string.IsNullOrEmpty(searchTB.Text))
+            {
+                loadAirlinesData();
+            }
+            else
+            {
+                try
+                {
+                    // Open connection
+                    conn.open();
+
+                    SqlCommand search = new SqlCommand("GetAirlineByName", conn.ConnectDB);
+                    search.CommandType = CommandType.StoredProcedure;
+                    search.Parameters.AddWithValue("@Name", searchTB.Text);
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(search);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    //Change the boolean value 0 or 1 to Inactivo or Activo
+                    changeValueState(dataTable);
+
+                    // Map columns explicitly
+                    airlineGrid.Columns["idColumn"].DataPropertyName = "idAerolinea";
+                    airlineGrid.Columns["nameColumn"].DataPropertyName = "nombre";
+                    airlineGrid.Columns["mottoColumn"].DataPropertyName = "lema";
+                    airlineGrid.Columns["stateColumn"].DataPropertyName = "estado";
+
+                    // Assign data to DataGridView
+                    airlineGrid.DataSource = dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ocurrió un error al cargar los datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    // Close connection
+                    conn.close();
+                }
+            }
+        }
+
         private void btnAccept_Click(object sender, EventArgs e)
         {
             if(this.windowPilot.getSelect())
@@ -187,5 +239,6 @@ namespace Control_de_Vuelos
         {
             this.Close();
         }
+
     }
 }

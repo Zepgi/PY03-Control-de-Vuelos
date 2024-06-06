@@ -31,14 +31,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectAirline));
             this.bExit = new System.Windows.Forms.Button();
             this.panel = new System.Windows.Forms.Panel();
-            this.btnAccept = new Guna.UI2.WinForms.Guna2Button();
-            this.airlineGrid = new System.Windows.Forms.DataGridView();
             this.searchPanel = new System.Windows.Forms.Panel();
             this.searchLabel = new System.Windows.Forms.Label();
             this.searchTB = new Guna.UI2.WinForms.Guna2TextBox();
+            this.btnAccept = new Guna.UI2.WinForms.Guna2Button();
+            this.airlineGrid = new System.Windows.Forms.DataGridView();
             this.panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.airlineGrid)).BeginInit();
             this.searchPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.airlineGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // bExit
@@ -67,41 +67,6 @@
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(547, 635);
             this.panel.TabIndex = 2;
-            // 
-            // btnAccept
-            // 
-            this.btnAccept.Animated = true;
-            this.btnAccept.AutoRoundedCorners = true;
-            this.btnAccept.BackColor = System.Drawing.Color.Transparent;
-            this.btnAccept.BorderColor = System.Drawing.Color.White;
-            this.btnAccept.BorderRadius = 22;
-            this.btnAccept.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnAccept.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnAccept.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnAccept.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnAccept.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
-            this.btnAccept.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
-            this.btnAccept.ForeColor = System.Drawing.Color.White;
-            this.btnAccept.Location = new System.Drawing.Point(303, 586);
-            this.btnAccept.Name = "btnAccept";
-            this.btnAccept.PressedColor = System.Drawing.Color.Teal;
-            this.btnAccept.Size = new System.Drawing.Size(226, 46);
-            this.btnAccept.TabIndex = 2;
-            this.btnAccept.Text = "Aceptar";
-            this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
-            // 
-            // airlineGrid
-            // 
-            this.airlineGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.airlineGrid.Location = new System.Drawing.Point(14, 61);
-            this.airlineGrid.Name = "airlineGrid";
-            this.airlineGrid.RowHeadersWidth = 51;
-            this.airlineGrid.RowTemplate.Height = 24;
-            this.airlineGrid.Size = new System.Drawing.Size(515, 514);
-            this.airlineGrid.TabIndex = 0;
-            this.airlineGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.airlineGrid_CellMouseDown);
-            this.airlineGrid.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.airlineGrid_RowPrePaint);
-            this.airlineGrid.SelectionChanged += new System.EventHandler(this.airlineGrid_SelectionChanged);
             // 
             // searchPanel
             // 
@@ -147,6 +112,42 @@
             this.searchTB.SelectedText = "";
             this.searchTB.Size = new System.Drawing.Size(351, 44);
             this.searchTB.TabIndex = 11;
+            this.searchTB.TextChanged += new System.EventHandler(this.searchTB_TextChanged);
+            // 
+            // btnAccept
+            // 
+            this.btnAccept.Animated = true;
+            this.btnAccept.AutoRoundedCorners = true;
+            this.btnAccept.BackColor = System.Drawing.Color.Transparent;
+            this.btnAccept.BorderColor = System.Drawing.Color.White;
+            this.btnAccept.BorderRadius = 22;
+            this.btnAccept.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnAccept.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnAccept.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnAccept.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnAccept.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+            this.btnAccept.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
+            this.btnAccept.ForeColor = System.Drawing.Color.White;
+            this.btnAccept.Location = new System.Drawing.Point(303, 586);
+            this.btnAccept.Name = "btnAccept";
+            this.btnAccept.PressedColor = System.Drawing.Color.Teal;
+            this.btnAccept.Size = new System.Drawing.Size(226, 46);
+            this.btnAccept.TabIndex = 2;
+            this.btnAccept.Text = "Aceptar";
+            this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
+            // 
+            // airlineGrid
+            // 
+            this.airlineGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.airlineGrid.Location = new System.Drawing.Point(14, 61);
+            this.airlineGrid.Name = "airlineGrid";
+            this.airlineGrid.RowHeadersWidth = 51;
+            this.airlineGrid.RowTemplate.Height = 24;
+            this.airlineGrid.Size = new System.Drawing.Size(515, 514);
+            this.airlineGrid.TabIndex = 0;
+            this.airlineGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.airlineGrid_CellMouseDown);
+            this.airlineGrid.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.airlineGrid_RowPrePaint);
+            this.airlineGrid.SelectionChanged += new System.EventHandler(this.airlineGrid_SelectionChanged);
             // 
             // SelectAirline
             // 
@@ -161,9 +162,9 @@
             this.Name = "SelectAirline";
             this.Text = "v";
             this.panel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.airlineGrid)).EndInit();
             this.searchPanel.ResumeLayout(false);
             this.searchPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.airlineGrid)).EndInit();
             this.ResumeLayout(false);
 
         }

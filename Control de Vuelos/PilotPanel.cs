@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -277,6 +278,55 @@ namespace Control_de_Vuelos
             }
         }
 
+        //Makes the serach while the user changed the data
+        private void searchTB_TextChanged(object sender, EventArgs e)
+        {
+            //If is empty shows all the pilots data
+            if (string.IsNullOrEmpty(searchTB.Text))
+            {
+                loadPilotsData();
+            }
+            else
+            {
+                try
+                {
+                    // Open connection
+                    conn.open();
+
+                    SqlCommand search = new SqlCommand("Search_Pilot", conn.ConnectDB);
+                    search.CommandType = CommandType.StoredProcedure;
+                    search.Parameters.AddWithValue("@searchValue", searchTB.Text);
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(search);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    //Change the boolean value 0 or 1 to Inactivo or Activo
+                    changeValueState(dataTable);
+
+                    // Map columns explicitly
+                    pilotsGrid.Columns["idColumn"].DataPropertyName = "idPiloto";
+                    pilotsGrid.Columns["identityColumn"].DataPropertyName = "cedulaPiloto";
+                    pilotsGrid.Columns["nameColumn"].DataPropertyName = "nombreCompleto";
+                    pilotsGrid.Columns["countryColumn"].DataPropertyName = "nacionalidad";
+                    pilotsGrid.Columns["airlineColumn"].DataPropertyName = "nombre";
+                    pilotsGrid.Columns["stateColumn"].DataPropertyName = "estado";
+
+                    // Assign data to DataGridView
+                    pilotsGrid.DataSource = dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ocurrió un error al cargar los datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    // Close connection
+                    conn.close();
+                }
+            }
+        }
+
         //---------------------------Auxiliary  functions for the data manipulation----------------------------
 
         //Load all the countries to the comboBox
@@ -506,5 +556,6 @@ namespace Control_de_Vuelos
         {
             return this.selected;
         }
+
     }
 }
