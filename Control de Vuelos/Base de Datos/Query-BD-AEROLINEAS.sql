@@ -242,7 +242,7 @@ BEGIN
 	C2.codigoCiudad = V.codigoCiudadPartida
 	INNER JOIN Aviones A ON
 	A.idAvion = V.idAvion
-	WHERE @idAerolinea = V.idAerolinea
+	WHERE @idAerolinea = V.idAerolinea AND V.fechaHoraPartida > GETDATE()
 	GROUP BY V.idVuelo, A.matricula, P.cedulaPiloto, fechaHoraPartida, fechaHoraLlegada,  CONCAT(C.codigoCiudad, ' | ', C.ciudad), CONCAT(C2.codigoCiudad, ' | ' ,C2.ciudad), V.estado;
 END;
 GO
@@ -250,11 +250,11 @@ GO
 CREATE PROC Get_Passengers
 AS
 BEGIN
-	SELECT cedulaPasajero 'Cédula', CONCAT(apellidoMat, ' ', apellidoMat, ' ', nombre) 'Nombre Completo', C.ciudad 'Ciudad de Residencia'
+	SELECT cedulaPasajero 'Cédula', CONCAT(apellidoPat, ' ', apellidoMat, ' ', nombre) 'Nombre Completo', C.ciudad 'Ciudad de Residencia'
 	FROM Pasajeros P
 	INNER JOIN Ciudades C ON
 	P.codigoCiudad = C.codigoCiudad
-	GROUP BY cedulaPasajero, CONCAT(apellidoMat, ' ', apellidoMat, ' ', nombre), C.ciudad
+	GROUP BY cedulaPasajero, CONCAT(apellidoPat, ' ', apellidoMat, ' ', nombre), C.ciudad
 END;
 GO
 
@@ -331,7 +331,7 @@ CREATE FUNCTION isExistingFlight
 	@idVuelo			INT,
     @idAerolinea        INT,
     @idAvion			INT,
-    @cedulaPiloto       INT,
+    @cedulaPiloto       VARCHAR(150),
     @fechaHoraPartida   DATETIME,
     @fechaHoraLlegada   DATETIME,
     @codigoCiudadPartida VARCHAR(150),
@@ -371,7 +371,7 @@ CREATE PROC Update_Flight
 	@idVuelo			INT,
     @idAerolinea        INT,
     @matricula          VARCHAR(150),
-    @cedulaPiloto       INT,
+    @cedulaPiloto       VARCHAR(150),
     @fechaHoraPartida   DATETIME,
     @fechaHoraLlegada   DATETIME,
     @codigoCiudadPartida VARCHAR(150),
@@ -404,6 +404,86 @@ BEGIN
     END
 END;
 GO
+SELECT * FROM Vuelos
+
+EXEC Update_Flight 5, 1, 'C34567', '123456', '2024-06-10 12:00:00.000', '2024-06-10 16:00:00.000', 'SJO', 'MAD'
+
+CREATE FUNCTION dbo.isExistingPassenger
+(
+    @cedulaPasajero VARCHAR(150),
+    @nombre         VARCHAR(150),
+    @apellidoPat    VARCHAR(150),
+    @apellidoMat    VARCHAR(150),
+    @codigoCiudad   VARCHAR(150)
+)
+RETURNS BIT
+AS
+BEGIN
+    DECLARE @exists BIT;
+    
+    IF EXISTS (
+        SELECT 1 
+        FROM Pasajeros 
+        WHERE cedulaPasajero = @cedulaPasajero 
+          AND nombre = @nombre 
+          AND apellidoMat = @apellidoMat 
+          AND apellidoPat = @apellidoPat 
+          AND codigoCiudad = @codigoCiudad
+    )
+    BEGIN
+        SET @exists = 1;
+    END
+    ELSE
+    BEGIN
+        SET @exists = 0;
+    END
+    
+    RETURN @exists;
+END;
+GO
+
+
+CREATE PROC Update_Passenger
+(
+    @cedulaPasajero VARCHAR(150),
+    @nombre         VARCHAR(150),
+    @apellidoPat    VARCHAR(150),
+    @apellidoMat    VARCHAR(150),
+    @pais           VARCHAR(150),
+    @canton         VARCHAR(150),
+    @distrito       VARCHAR(150),
+    @ciudad         VARCHAR(150)
+)
+AS
+BEGIN
+    DECLARE @codigoCiudad VARCHAR(150);
+    DECLARE @passengerExists BIT;
+
+    SET @codigoCiudad = (SELECT codigoCiudad 
+                         FROM Ciudades 
+                         WHERE pais = @pais 
+                           AND canton = @canton 
+                           AND distrito = @distrito 
+                           AND ciudad = @ciudad);
+
+    SET @passengerExists = dbo.isExistingPassenger(@cedulaPasajero, @nombre, @apellidoPat, @apellidoMat, @codigoCiudad);
+
+    IF @passengerExists = 0
+    BEGIN
+        UPDATE Pasajeros
+        SET nombre = @nombre,
+            apellidoMat = @apellidoMat,
+            apellidoPat = @apellidoPat,
+            codigoCiudad = @codigoCiudad
+        WHERE cedulaPasajero = @cedulaPasajero;
+    END
+    ELSE
+    BEGIN
+        RAISERROR ('Debe modificar al menos un dato.', 16, 1);
+    END
+END;
+GO
+
 
 CREATE PROC Search_Active_Flights
 (
@@ -457,7 +537,22 @@ BEGIN
 END;
 GO
 
-CREATE PROC GenerateCityCode
+CREATE PROC Search_Passenger
+(
+	@cedulaPasajero INT
+)
+AS
+BEGIN
+	SELECT 	idPasajero, cedulaPasajero, CONCAT(nombre, ' ', apellidoPat, ' ', apellidoMat) nombreCompleto, C.pais, C.canton, C.distrito, C.ciudad
+	FROM Pasajeros P
+	INNER JOIN Ciudades C ON
+	P.codigoCiudad = C.codigoCiudad
+	WHERE @cedulaPasajero = cedulaPasajero
+	GROUP BY idPasajero, cedulaPasajero, CONCAT( nombre, ' ', apellidoPat, ' ', apellidoMat), C.pais, C.canton, C.distrito, C.ciudad
+END;
+GO
+
+CREATE PROC Generate_City_Code
 (
     @ciudad VARCHAR(150),
     @codigoCiudad VARCHAR(150) OUTPUT
@@ -468,13 +563,8 @@ BEGIN
     DECLARE @cityCode VARCHAR(150);
 
     SET @cityCode = LEFT(@ciudad, 3);
-
-    -- Generar un número aleatorio de 4 dígitos
     SET @randomNumber = CAST(FLOOR(RAND() * 10000) AS INT);
-
-    -- Formatear el número aleatorio a 4 dígitos con ceros a la izquierda si es necesario
     SET @cityCode = @cityCode + RIGHT('0000' + CAST(@randomNumber AS VARCHAR(4)), 4);
-
     SET @codigoCiudad = @cityCode;
 END;
 GO
@@ -492,10 +582,8 @@ AS
 BEGIN
     DECLARE @codigoCiudad VARCHAR(150);
 
-    -- Llamar al procedimiento para generar el código de ciudad
-    EXEC GenerateCityCode @ciudad, @codigoCiudad OUTPUT;
+    EXEC Generate_City_Code @ciudad, @codigoCiudad OUTPUT;
 
-    -- Verificar si la ciudad ya existe
     IF EXISTS (SELECT 1 FROM Ciudades WHERE pais = @pais AND canton = @canton AND distrito = @distrito AND ciudad = @ciudad)
         RETURN;
     ELSE
@@ -533,6 +621,33 @@ BEGIN
 END;
 GO
 
+
+CREATE PROC Search_Between_Dates
+(
+	@fechaHoraPartida	DATETIME,
+	@fechaHoraLlegada	DATETIME
+)
+AS
+BEGIN
+	SELECT cedulaPiloto, (SELECT matricula FROM Aviones A WHERE A.idAvion = V.idAvion) matricula, idVuelo
+	FROM Vuelos V
+	WHERE (fechaHoraLlegada BETWEEN @fechaHoraPartida AND @fechaHoraLlegada) OR
+			(fechaHoraPartida BETWEEN @fechaHoraPartida AND fechaHoraLlegada)
+			
+END;
+GO
+
+CREATE PROC Get_Occupied_Seats
+(
+	@idVuelo	INT
+)
+AS
+BEGIN
+	SELECT asiento
+	FROM ListaPasajeros
+	WHERE @idVuelo = idVuelo
+END;
+GO
 
 ------------ INICIO STORED PROCEDURES AEROLINEAS ------------
 CREATE PROC Crear_Aerolinea
@@ -1085,8 +1200,8 @@ GO
 
 INSERT INTO Vuelos (idAerolinea, idAvion, cedulaPiloto, fechaHoraPartida, fechaHoraLlegada, codigoCiudadPartida, codigoCiudadDestino, estado)
 VALUES
-( 1, 1, '123456', '2024-06-06 08:00:00', '2024-06-06 12:00:00', 'SJO', 'LAX', 1),
-( 1, 2, '234567', '2024-06-07 09:00:00', '2024-06-07 13:00:00', 'SJO', 'NYC', 1),
+( 1, 1, '123456', '2024-05-06 08:00:00', '2024-06-06 12:00:00', 'SJO', 'LAX', 1),
+( 1, 2, '234567', '2024-05-07 09:00:00', '2024-06-07 13:00:00', 'SJO', 'NYC', 1),
 ( 2, 3, '345678', '2024-06-08 10:00:00', '2024-06-08 14:00:00', 'LAX', 'MAD', 1),
 ( 2, 4, '456789', '2024-06-09 11:00:00', '2024-06-09 15:00:00', 'NYC', 'CDG', 1),
 ( 1, 5, '567890', '2024-06-10 12:00:00', '2024-06-10 16:00:00', 'MAD', 'SJO', 1);
