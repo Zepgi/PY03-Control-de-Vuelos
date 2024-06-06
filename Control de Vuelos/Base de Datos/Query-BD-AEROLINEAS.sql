@@ -758,20 +758,28 @@ BEGIN
 END;
 GO
 
+
 CREATE PROCEDURE ObtenerAviones
 AS
 BEGIN
     SET NOCOUNT ON;
 
     SELECT 
-		matricula,
-        marca,
-        capacidadPasajeros,
-        estado
+        av.matricula,
+        av.marca,
+        av.capacidadPasajeros,
+        av.estado
     FROM 
-        Aviones;
+        Aviones av
+    WHERE 
+        NOT EXISTS (
+            SELECT 1
+            FROM AvionesAerolinea aa
+            WHERE aa.matricula = av.matricula
+        );
 END
 GO
+
 
 -- Cambia el estado de la aviones a desactivado = (0)
 CREATE PROC Desactivar_Aviones

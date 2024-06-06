@@ -25,6 +25,8 @@ namespace Control_de_Vuelos
             dataGridViewAirlines.CellClick += dataGridViewAerolineas_CellClick;
             this.buttonDeleteAirline.Visible = false;
             this.buttonModifyAirline.Visible = false;
+            this.buttonModifyView.Visible = true;
+            
         }
 
         private void PanelAerolineas_Load(object sender, EventArgs e)

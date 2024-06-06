@@ -43,12 +43,12 @@
             // 
             this.dataGridViewAirPlanes.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridViewAirPlanes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAirPlanes.Location = new System.Drawing.Point(582, 59);
+            this.dataGridViewAirPlanes.Location = new System.Drawing.Point(466, 47);
             this.dataGridViewAirPlanes.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewAirPlanes.Name = "dataGridViewAirPlanes";
             this.dataGridViewAirPlanes.RowHeadersWidth = 51;
             this.dataGridViewAirPlanes.RowTemplate.Height = 24;
-            this.dataGridViewAirPlanes.Size = new System.Drawing.Size(559, 590);
+            this.dataGridViewAirPlanes.Size = new System.Drawing.Size(447, 472);
             this.dataGridViewAirPlanes.TabIndex = 27;
             this.dataGridViewAirPlanes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAirPlanes_CellContentClick);
             // 
@@ -56,10 +56,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 10.2F);
-            this.label4.Location = new System.Drawing.Point(252, 257);
+            this.label4.Location = new System.Drawing.Point(202, 206);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 21);
+            this.label4.Size = new System.Drawing.Size(55, 19);
             this.label4.TabIndex = 25;
             this.label4.Text = "Marca";
             // 
@@ -67,10 +67,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 10.2F);
-            this.label3.Location = new System.Drawing.Point(241, 162);
+            this.label3.Location = new System.Drawing.Point(193, 130);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 21);
+            this.label3.Size = new System.Drawing.Size(75, 19);
             this.label3.TabIndex = 24;
             this.label3.Text = "Matricula";
             // 
@@ -78,10 +78,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 10.2F);
-            this.label1.Location = new System.Drawing.Point(225, 356);
+            this.label1.Location = new System.Drawing.Point(180, 285);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(136, 21);
+            this.label1.Size = new System.Drawing.Size(111, 19);
             this.label1.TabIndex = 31;
             this.label1.Text = "Cant.Pasajeros";
             // 
@@ -89,7 +89,7 @@
             // 
             this.textBoxMatricula.AutoRoundedCorners = true;
             this.textBoxMatricula.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
-            this.textBoxMatricula.BorderRadius = 21;
+            this.textBoxMatricula.BorderRadius = 16;
             this.textBoxMatricula.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.textBoxMatricula.DefaultText = "";
             this.textBoxMatricula.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
@@ -100,20 +100,19 @@
             this.textBoxMatricula.Font = new System.Drawing.Font("Century Gothic", 10.2F);
             this.textBoxMatricula.ForeColor = System.Drawing.Color.Black;
             this.textBoxMatricula.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.textBoxMatricula.Location = new System.Drawing.Point(156, 187);
-            this.textBoxMatricula.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxMatricula.Location = new System.Drawing.Point(125, 150);
             this.textBoxMatricula.Name = "textBoxMatricula";
             this.textBoxMatricula.PasswordChar = '\0';
             this.textBoxMatricula.PlaceholderText = "";
             this.textBoxMatricula.SelectedText = "";
-            this.textBoxMatricula.Size = new System.Drawing.Size(273, 44);
+            this.textBoxMatricula.Size = new System.Drawing.Size(218, 35);
             this.textBoxMatricula.TabIndex = 33;
             // 
             // textBoxMarcaAvion
             // 
             this.textBoxMarcaAvion.AutoRoundedCorners = true;
             this.textBoxMarcaAvion.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
-            this.textBoxMarcaAvion.BorderRadius = 21;
+            this.textBoxMarcaAvion.BorderRadius = 16;
             this.textBoxMarcaAvion.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.textBoxMarcaAvion.DefaultText = "";
             this.textBoxMarcaAvion.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
@@ -124,20 +123,19 @@
             this.textBoxMarcaAvion.Font = new System.Drawing.Font("Century Gothic", 10.2F);
             this.textBoxMarcaAvion.ForeColor = System.Drawing.Color.Black;
             this.textBoxMarcaAvion.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.textBoxMarcaAvion.Location = new System.Drawing.Point(156, 282);
-            this.textBoxMarcaAvion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxMarcaAvion.Location = new System.Drawing.Point(125, 226);
             this.textBoxMarcaAvion.Name = "textBoxMarcaAvion";
             this.textBoxMarcaAvion.PasswordChar = '\0';
             this.textBoxMarcaAvion.PlaceholderText = "";
             this.textBoxMarcaAvion.SelectedText = "";
-            this.textBoxMarcaAvion.Size = new System.Drawing.Size(273, 44);
+            this.textBoxMarcaAvion.Size = new System.Drawing.Size(218, 35);
             this.textBoxMarcaAvion.TabIndex = 34;
             // 
             // textBoxCantPasajeros
             // 
             this.textBoxCantPasajeros.AutoRoundedCorners = true;
             this.textBoxCantPasajeros.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
-            this.textBoxCantPasajeros.BorderRadius = 21;
+            this.textBoxCantPasajeros.BorderRadius = 16;
             this.textBoxCantPasajeros.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.textBoxCantPasajeros.DefaultText = "";
             this.textBoxCantPasajeros.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
@@ -148,13 +146,12 @@
             this.textBoxCantPasajeros.Font = new System.Drawing.Font("Century Gothic", 10.2F);
             this.textBoxCantPasajeros.ForeColor = System.Drawing.Color.Black;
             this.textBoxCantPasajeros.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.textBoxCantPasajeros.Location = new System.Drawing.Point(156, 381);
-            this.textBoxCantPasajeros.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxCantPasajeros.Location = new System.Drawing.Point(125, 305);
             this.textBoxCantPasajeros.Name = "textBoxCantPasajeros";
             this.textBoxCantPasajeros.PasswordChar = '\0';
             this.textBoxCantPasajeros.PlaceholderText = "";
             this.textBoxCantPasajeros.SelectedText = "";
-            this.textBoxCantPasajeros.Size = new System.Drawing.Size(273, 44);
+            this.textBoxCantPasajeros.Size = new System.Drawing.Size(218, 35);
             this.textBoxCantPasajeros.TabIndex = 35;
             // 
             // buttonDeleteAirPlane
@@ -163,7 +160,7 @@
             this.buttonDeleteAirPlane.AutoRoundedCorners = true;
             this.buttonDeleteAirPlane.BackColor = System.Drawing.Color.Transparent;
             this.buttonDeleteAirPlane.BorderColor = System.Drawing.Color.White;
-            this.buttonDeleteAirPlane.BorderRadius = 22;
+            this.buttonDeleteAirPlane.BorderRadius = 17;
             this.buttonDeleteAirPlane.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.buttonDeleteAirPlane.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.buttonDeleteAirPlane.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -171,10 +168,11 @@
             this.buttonDeleteAirPlane.FillColor = System.Drawing.Color.Red;
             this.buttonDeleteAirPlane.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
             this.buttonDeleteAirPlane.ForeColor = System.Drawing.Color.White;
-            this.buttonDeleteAirPlane.Location = new System.Drawing.Point(59, 461);
+            this.buttonDeleteAirPlane.Location = new System.Drawing.Point(47, 369);
+            this.buttonDeleteAirPlane.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonDeleteAirPlane.Name = "buttonDeleteAirPlane";
             this.buttonDeleteAirPlane.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.buttonDeleteAirPlane.Size = new System.Drawing.Size(226, 46);
+            this.buttonDeleteAirPlane.Size = new System.Drawing.Size(181, 37);
             this.buttonDeleteAirPlane.TabIndex = 36;
             this.buttonDeleteAirPlane.Text = "Eliminar";
             this.buttonDeleteAirPlane.Visible = false;
@@ -186,7 +184,7 @@
             this.buttonCreateAirPlane.AutoRoundedCorners = true;
             this.buttonCreateAirPlane.BackColor = System.Drawing.Color.Transparent;
             this.buttonCreateAirPlane.BorderColor = System.Drawing.Color.White;
-            this.buttonCreateAirPlane.BorderRadius = 22;
+            this.buttonCreateAirPlane.BorderRadius = 17;
             this.buttonCreateAirPlane.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.buttonCreateAirPlane.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.buttonCreateAirPlane.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -194,10 +192,11 @@
             this.buttonCreateAirPlane.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
             this.buttonCreateAirPlane.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
             this.buttonCreateAirPlane.ForeColor = System.Drawing.Color.White;
-            this.buttonCreateAirPlane.Location = new System.Drawing.Point(59, 461);
+            this.buttonCreateAirPlane.Location = new System.Drawing.Point(47, 369);
+            this.buttonCreateAirPlane.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonCreateAirPlane.Name = "buttonCreateAirPlane";
             this.buttonCreateAirPlane.PressedColor = System.Drawing.Color.Teal;
-            this.buttonCreateAirPlane.Size = new System.Drawing.Size(226, 46);
+            this.buttonCreateAirPlane.Size = new System.Drawing.Size(181, 37);
             this.buttonCreateAirPlane.TabIndex = 37;
             this.buttonCreateAirPlane.Text = "Crear Avión";
             this.buttonCreateAirPlane.Click += new System.EventHandler(this.buttonCreateAirPlane_Click_1);
@@ -208,7 +207,7 @@
             this.buttonModifyView.AutoRoundedCorners = true;
             this.buttonModifyView.BackColor = System.Drawing.Color.Transparent;
             this.buttonModifyView.BorderColor = System.Drawing.Color.White;
-            this.buttonModifyView.BorderRadius = 22;
+            this.buttonModifyView.BorderRadius = 17;
             this.buttonModifyView.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.buttonModifyView.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.buttonModifyView.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -216,10 +215,11 @@
             this.buttonModifyView.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
             this.buttonModifyView.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
             this.buttonModifyView.ForeColor = System.Drawing.Color.White;
-            this.buttonModifyView.Location = new System.Drawing.Point(303, 461);
+            this.buttonModifyView.Location = new System.Drawing.Point(242, 369);
+            this.buttonModifyView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonModifyView.Name = "buttonModifyView";
             this.buttonModifyView.PressedColor = System.Drawing.Color.Teal;
-            this.buttonModifyView.Size = new System.Drawing.Size(226, 46);
+            this.buttonModifyView.Size = new System.Drawing.Size(181, 37);
             this.buttonModifyView.TabIndex = 38;
             this.buttonModifyView.Text = "Modificar";
             this.buttonModifyView.Visible = false;
@@ -231,7 +231,7 @@
             this.buttonModifyAirPlane.AutoRoundedCorners = true;
             this.buttonModifyAirPlane.BackColor = System.Drawing.Color.Transparent;
             this.buttonModifyAirPlane.BorderColor = System.Drawing.Color.White;
-            this.buttonModifyAirPlane.BorderRadius = 22;
+            this.buttonModifyAirPlane.BorderRadius = 17;
             this.buttonModifyAirPlane.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.buttonModifyAirPlane.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.buttonModifyAirPlane.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -239,10 +239,11 @@
             this.buttonModifyAirPlane.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
             this.buttonModifyAirPlane.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
             this.buttonModifyAirPlane.ForeColor = System.Drawing.Color.White;
-            this.buttonModifyAirPlane.Location = new System.Drawing.Point(303, 461);
+            this.buttonModifyAirPlane.Location = new System.Drawing.Point(242, 369);
+            this.buttonModifyAirPlane.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonModifyAirPlane.Name = "buttonModifyAirPlane";
             this.buttonModifyAirPlane.PressedColor = System.Drawing.Color.Teal;
-            this.buttonModifyAirPlane.Size = new System.Drawing.Size(226, 46);
+            this.buttonModifyAirPlane.Size = new System.Drawing.Size(181, 37);
             this.buttonModifyAirPlane.TabIndex = 39;
             this.buttonModifyAirPlane.Text = "Modificar Aviones";
             this.buttonModifyAirPlane.Visible = false;
@@ -250,9 +251,9 @@
             // 
             // PanelAviones
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1220, 728);
+            this.ClientSize = new System.Drawing.Size(976, 582);
             this.Controls.Add(this.buttonModifyAirPlane);
             this.Controls.Add(this.buttonModifyView);
             this.Controls.Add(this.buttonCreateAirPlane);
@@ -266,8 +267,8 @@
             this.Controls.Add(this.label3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.MaximumSize = new System.Drawing.Size(1220, 728);
-            this.MinimumSize = new System.Drawing.Size(1220, 728);
+            this.MaximumSize = new System.Drawing.Size(976, 582);
+            this.MinimumSize = new System.Drawing.Size(976, 582);
             this.Name = "PanelAviones";
             this.Text = "PanelAviones";
             this.Load += new System.EventHandler(this.PanelAviones_Load);

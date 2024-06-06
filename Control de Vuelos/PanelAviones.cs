@@ -16,6 +16,7 @@ namespace Control_de_Vuelos
             conexion = new DatabaseConnection();
             this.buttonDeleteAirPlane.Visible = false;
             this.buttonModifyAirPlane.Visible = false;
+            this.buttonModifyView.Visible = true;
             this.textBoxMatricula.Enabled = true;
 
             dataGridViewAirPlanes.CellClick += dataGridViewAirPlanes_CellContentClick;
