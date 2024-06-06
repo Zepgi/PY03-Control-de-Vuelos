@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
@@ -268,37 +269,35 @@ namespace Control_de_Vuelos
         //Creates the columns for the Fligth per passanger report
         private void cloumnsFligthPerPassenger()
         {
-            // Create the columns on the DataGrid
             fligthPerPassengerGrid.Columns.Add("idColumn", "ID");
             fligthPerPassengerGrid.Columns.Add("airlineColumn", "Aerolinea");
             fligthPerPassengerGrid.Columns.Add("airplaneColumn", "Avion");
             fligthPerPassengerGrid.Columns.Add("identityColumn", "Cedula Pasajero");
             fligthPerPassengerGrid.Columns.Add("dateHourDColumn", "Fecha y Hora Partida");
             fligthPerPassengerGrid.Columns.Add("dateHourAColumn", "Fecha y Hora Llegada");
-            fligthPerPassengerGrid.Columns.Add("cityDColumn", "Cuidad Partida");
-            fligthPerPassengerGrid.Columns.Add("cityAColumn", "Cuidad Llegada");
+            fligthPerPassengerGrid.Columns.Add("cityDColumn", "Ciudad Partida");
+            fligthPerPassengerGrid.Columns.Add("cityAColumn", "Ciudad Llegada");
 
-            fligthPerPassengerGrid.AutoGenerateColumns = false;  // Disable automatic column generation
+            fligthPerPassengerGrid.AutoGenerateColumns = false;  // Deshabilitar la generación automática de columnas
             fligthPerPassengerGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
+
 
         //Load the grid for the Fligth per passanger report
         private void loadFligthsPerPassenger()
         {
             try
             {
-                // Open connection
                 conexion.open();
 
-                SqlCommand data = new SqlCommand("Get_Pilots_Data", conexion.ConnectDB);
+                SqlCommand data = new SqlCommand("Fligth_per_Passenger", conexion.ConnectDB);
                 data.CommandType = CommandType.StoredProcedure;
 
                 SqlDataAdapter adapter = new SqlDataAdapter(data);
                 DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);
 
-
-                // Map columns explicitly
+                //Maps the columns
                 fligthPerPassengerGrid.Columns["idColumn"].DataPropertyName = "idVuelo";
                 fligthPerPassengerGrid.Columns["airlineColumn"].DataPropertyName = "nombre";
                 fligthPerPassengerGrid.Columns["airplaneColumn"].DataPropertyName = "matricula";
@@ -308,7 +307,7 @@ namespace Control_de_Vuelos
                 fligthPerPassengerGrid.Columns["cityDColumn"].DataPropertyName = "codigoCiudadPartida";
                 fligthPerPassengerGrid.Columns["cityAColumn"].DataPropertyName = "codigoCiudadDestino";
 
-                // Assign data to DataGridView
+                // Asignes the dat ato the grid
                 fligthPerPassengerGrid.DataSource = dataTable;
             }
             catch (Exception ex)
@@ -317,17 +316,17 @@ namespace Control_de_Vuelos
             }
             finally
             {
-                // Close connection
                 conexion.close();
             }
-
-
         }
 
-        private void passengerInfo(DataGridViewRow row)
+
+        private void passengerInfo(int id, String identity)
         {
-            //Abrir ventana con info del pasajero
+            PassangerFligthInfo infoPassanger = new PassangerFligthInfo(id, identity);
+            infoPassanger.Show();
         }
+
 
         //Selected all the row
         private void fligthPerPassengerGrid_SelectionChanged(object sender, EventArgs e)
@@ -357,7 +356,9 @@ namespace Control_de_Vuelos
                 DataGridViewRow row = fligthPerPassengerGrid.Rows[e.RowIndex];
                 row.Selected = true;
 
-                passengerInfo(row);
+                int idV = (int)row.Cells["idColumn"].Value;
+
+                passengerInfo(idV, row.Cells["identityColumn"].Value.ToString());
             }
 
         }
