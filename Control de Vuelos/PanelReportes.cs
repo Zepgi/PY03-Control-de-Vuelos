@@ -20,6 +20,12 @@ namespace Control_de_Vuelos
             conexion = new DatabaseConnection();
             top3Days();
             CargarAvionesInactivos();
+            cloumnsFligthPerPassenger();
+            loadFligthsPerPassenger();
+            cloumnsCancelledFligths();
+            loadCancelledFligths();
+            cloumnsPassengersConfirm();
+            loadPassengersConfirm();
 
 
         }
@@ -621,6 +627,207 @@ namespace Control_de_Vuelos
                 MessageBox.Show("Error al cargar aviones inactivos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void cloumnsFligthPerPassenger()
+        {
+            fligthPerPassengerGrid.Columns.Add("idColumn", "ID");
+            fligthPerPassengerGrid.Columns.Add("airlineColumn", "Aerolinea");
+            fligthPerPassengerGrid.Columns.Add("airplaneColumn", "Avion");
+            fligthPerPassengerGrid.Columns.Add("identityColumn", "Cedula Pasajero");
+            fligthPerPassengerGrid.Columns.Add("dateHourDColumn", "Fecha y Hora Partida");
+            fligthPerPassengerGrid.Columns.Add("dateHourAColumn", "Fecha y Hora Llegada");
+            fligthPerPassengerGrid.Columns.Add("cityDColumn", "Ciudad Partida");
+            fligthPerPassengerGrid.Columns.Add("cityAColumn", "Ciudad Llegada");
+
+            fligthPerPassengerGrid.AutoGenerateColumns = false;  // Deshabilitar la generación automática de columnas
+            fligthPerPassengerGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+        }
+
+
+        //Load the grid for the Fligth per passanger report
+        private void loadFligthsPerPassenger()
+        {
+            try
+            {
+                conexion.open();
+
+                SqlCommand data = new SqlCommand("Fligth_per_Passenger", conexion.ConnectDB);
+                data.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter adapter = new SqlDataAdapter(data);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+
+                //Maps the columns
+                fligthPerPassengerGrid.Columns["idColumn"].DataPropertyName = "idVuelo";
+                fligthPerPassengerGrid.Columns["airlineColumn"].DataPropertyName = "nombre";
+                fligthPerPassengerGrid.Columns["airplaneColumn"].DataPropertyName = "matricula";
+                fligthPerPassengerGrid.Columns["identityColumn"].DataPropertyName = "cedulaPasajero";
+                fligthPerPassengerGrid.Columns["dateHourDColumn"].DataPropertyName = "fechaHoraPartida";
+                fligthPerPassengerGrid.Columns["dateHourAColumn"].DataPropertyName = "fechaHoraLlegada";
+                fligthPerPassengerGrid.Columns["cityDColumn"].DataPropertyName = "codigoCiudadPartida";
+                fligthPerPassengerGrid.Columns["cityAColumn"].DataPropertyName = "codigoCiudadDestino";
+
+                // Asignes the dat ato the grid
+                fligthPerPassengerGrid.DataSource = dataTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error al cargar los datos:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexion.close();
+            }
+        }
+
+
+        private void passengerInfo(int id, String identity)
+        {
+            PassangerFligthInfo infoPassanger = new PassangerFligthInfo(id, identity);
+            infoPassanger.Show();
+        }
+
+        private void fligthPerPassengerGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.Button == MouseButtons.Left)
+            {
+                fligthPerPassengerGrid.ClearSelection();
+                DataGridViewRow row = fligthPerPassengerGrid.Rows[e.RowIndex];
+                row.Selected = true;
+
+                int idV = (int)row.Cells["idColumn"].Value;
+
+                passengerInfo(idV, row.Cells["identityColumn"].Value.ToString());
+            }
+        }
+
+        private void fligthPerPassengerGrid_SelectionChanged(object sender, EventArgs e)
+        {
+            if (fligthPerPassengerGrid.SelectedCells.Count == 0)
+                return;
+
+            fligthPerPassengerGrid.ClearSelection();
+
+            foreach (DataGridViewCell cell in fligthPerPassengerGrid.SelectedCells)
+            {
+                if (cell != null && cell.OwningRow != null)
+                {
+                    DataGridViewRow row = cell.OwningRow;
+                    row.Selected = true;
+                    break;
+                }
+            }
+
+        }
+
+        //Creates the columns for the cancelled fligths report
+        private void cloumnsCancelledFligths()
+        {
+            cancelledFligthsGrid.Columns.Add("idColumn", "ID");
+            cancelledFligthsGrid.Columns.Add("airlineColumn", "Aerolinea");
+            cancelledFligthsGrid.Columns.Add("airplaneColumn", "Avion");
+            cancelledFligthsGrid.Columns.Add("identityColumn", "Cedula Pasajero");
+            cancelledFligthsGrid.Columns.Add("dateHourDColumn", "Fecha y Hora Partida");
+            cancelledFligthsGrid.Columns.Add("dateHourAColumn", "Fecha y Hora Llegada");
+            cancelledFligthsGrid.Columns.Add("cityDColumn", "Ciudad Partida");
+            cancelledFligthsGrid.Columns.Add("cityAColumn", "Ciudad Llegada");
+
+            cancelledFligthsGrid.AutoGenerateColumns = false;  // Deshabilitar la generación automática de columnas
+            cancelledFligthsGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+        }
+
+
+        //Load the grid for the cancelled fligths report
+        private void loadCancelledFligths()
+        {
+            try
+            {
+                conexion.open();
+
+                SqlCommand dataCancelled = new SqlCommand("Fligth_Cancelled", conexion.ConnectDB);
+                dataCancelled.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter adapter = new SqlDataAdapter(dataCancelled);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+
+
+                //Maps the columns
+                cancelledFligthsGrid.Columns["idColumn"].DataPropertyName = "idVuelo";
+                cancelledFligthsGrid.Columns["airlineColumn"].DataPropertyName = "nombre";
+                cancelledFligthsGrid.Columns["airplaneColumn"].DataPropertyName = "matricula";
+                cancelledFligthsGrid.Columns["dateHourDColumn"].DataPropertyName = "fechaHoraPartida";
+                cancelledFligthsGrid.Columns["dateHourAColumn"].DataPropertyName = "fechaHoraLlegada";
+                cancelledFligthsGrid.Columns["cityDColumn"].DataPropertyName = "codigoCiudadPartida";
+                cancelledFligthsGrid.Columns["cityAColumn"].DataPropertyName = "codigoCiudadDestino";
+
+                // Asignes the dat ato the grid
+                cancelledFligthsGrid.DataSource = dataTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error al cargar los datos:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexion.close();
+            }
+        }
+
+
+        //Creates the columns for the passanger confirm report
+        private void cloumnsPassengersConfirm()
+        {
+            passengersConfirmGrid.Columns.Add("idColumn", "ID");
+            passengersConfirmGrid.Columns.Add("identityColumn", "Cedula");
+            passengersConfirmGrid.Columns.Add("nameColumn", "Nombre");
+            passengersConfirmGrid.Columns.Add("sitColumn", "Asiento");
+
+            passengersConfirmGrid.AutoGenerateColumns = false;  // Deshabilitar la generación automática de columnas
+            passengersConfirmGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+        }
+
+
+        //Load the grid for the passengers confirm report
+        private void loadPassengersConfirm()
+        {
+            try
+            {
+                conexion.open();
+
+                SqlCommand dt = new SqlCommand("Passengers_Confirm", conexion.ConnectDB);
+                dt.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter adapter = new SqlDataAdapter(dt);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+
+                //Maps the columns
+                passengersConfirmGrid.Columns["idColumn"].DataPropertyName = "id";
+                passengersConfirmGrid.Columns["identityColumn"].DataPropertyName = "cedulaPasajero";
+                passengersConfirmGrid.Columns["nameColumn"].DataPropertyName = "nombrePasajero";
+                passengersConfirmGrid.Columns["sitColumn"].DataPropertyName = "asiento";
+
+                // Asignes the dat ato the grid
+                passengersConfirmGrid.DataSource = dataTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error al cargar los datos:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexion.close();
+            }
+        }
+
+        private void passengerConfirmInfo(int id, String identity)
+        {
+            PassangerConfimFligth infoFligth = new PassangerConfimFligth(id, identity);
+            infoFligth.Show();
+        }
+
     }
 }
 
