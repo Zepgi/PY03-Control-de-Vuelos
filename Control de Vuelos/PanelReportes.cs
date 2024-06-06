@@ -32,6 +32,8 @@ namespace Control_de_Vuelos
         {
             CargarAviones();
             CargarVuelos();
+            cloumnsFligthPerPassenger();
+            loadFligthsPerPassenger();
         }
 
         private void dataGridViewAirPlanes_AirLines_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -270,6 +272,106 @@ namespace Control_de_Vuelos
 
         private void buttonCheckFlys1_Click(object sender, EventArgs e)
         {
+
+        }
+
+        /// <summary>
+        /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// </summary>
+        //Creates the columns for the Fligth per passanger report
+        private void cloumnsFligthPerPassenger()
+        {
+            // Create the columns on the DataGrid
+            fligthPerPassengerGrid.Columns.Add("idColumn", "ID");
+            fligthPerPassengerGrid.Columns.Add("airlineColumn", "Aerolinea");
+            fligthPerPassengerGrid.Columns.Add("airplaneColumn", "Avion");
+            fligthPerPassengerGrid.Columns.Add("identityColumn", "Cedula Pasajero");
+            fligthPerPassengerGrid.Columns.Add("dateHourDColumn", "Fecha y Hora Partida");
+            fligthPerPassengerGrid.Columns.Add("dateHourAColumn", "Fecha y Hora Llegada");
+            fligthPerPassengerGrid.Columns.Add("cityDColumn", "Cuidad Partida");
+            fligthPerPassengerGrid.Columns.Add("cityAColumn", "Cuidad Llegada");
+
+            fligthPerPassengerGrid.AutoGenerateColumns = false;  // Disable automatic column generation
+            fligthPerPassengerGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+        }
+
+        //Load the grid for the Fligth per passanger report
+        private void loadFligthsPerPassenger()
+        {
+            try
+            {
+                // Open connection
+                conexion.open();
+
+                SqlCommand data = new SqlCommand("Get_Pilots_Data", conexion.ConnectDB);
+                data.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter adapter = new SqlDataAdapter(data);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+
+
+                // Map columns explicitly
+                fligthPerPassengerGrid.Columns["idColumn"].DataPropertyName = "idVuelo";
+                fligthPerPassengerGrid.Columns["airlineColumn"].DataPropertyName = "nombre";
+                fligthPerPassengerGrid.Columns["airplaneColumn"].DataPropertyName = "matricula";
+                fligthPerPassengerGrid.Columns["identityColumn"].DataPropertyName = "cedulaPasajero";
+                fligthPerPassengerGrid.Columns["dateHourDColumn"].DataPropertyName = "fechaHoraPartida";
+                fligthPerPassengerGrid.Columns["dateHourAColumn"].DataPropertyName = "fechaHoraLlegada";
+                fligthPerPassengerGrid.Columns["cityDColumn"].DataPropertyName = "codigoCiudadPartida";
+                fligthPerPassengerGrid.Columns["cityAColumn"].DataPropertyName = "codigoCiudadDestino";
+
+                // Assign data to DataGridView
+                fligthPerPassengerGrid.DataSource = dataTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error al cargar los datos:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Close connection
+                conexion.close();
+            }
+
+
+        }
+
+        private void passengerInfo(DataGridViewRow row)
+        {
+            //Abrir ventana con info del pasajero
+        }
+
+        //Selected all the row
+        private void fligthPerPassengerGrid_SelectionChanged(object sender, EventArgs e)
+        {
+            if (fligthPerPassengerGrid.SelectedCells.Count == 0)
+                return;
+
+            fligthPerPassengerGrid.ClearSelection();
+
+            foreach (DataGridViewCell cell in fligthPerPassengerGrid.SelectedCells)
+            {
+                if (cell != null && cell.OwningRow != null)
+                {
+                    DataGridViewRow row = cell.OwningRow;
+                    row.Selected = true;
+                    break;
+                }
+            }
+
+        }
+
+        private void fligthPerPassengerGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.Button == MouseButtons.Left)
+            {
+                fligthPerPassengerGrid.ClearSelection();
+                DataGridViewRow row = fligthPerPassengerGrid.Rows[e.RowIndex];
+                row.Selected = true;
+
+                passengerInfo(row);
+            }
 
         }
 
