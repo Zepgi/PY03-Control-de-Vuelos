@@ -5,7 +5,6 @@ GO
 USE AEROLINEAS;
 GO
 
---------------BEGIN TABLE------------------
 CREATE TABLE Aerolineas
 	(idAerolinea	INT	IDENTITY(1,1)	NOT NULL,
 	nombre			VARCHAR(100)		NOT NULL,
@@ -135,11 +134,8 @@ CREATE TABLE ListaPasajeros(
 	FOREIGN KEY	(idVuelo)		 REFERENCES Vuelos(idVuelo),
 	FOREIGN KEY (cedulaPasajero) REFERENCES Pasajeros(cedulaPasajero));
 GO
---------------------END TABLES----------------------
+------------------------------------------
 
------------BEGIN PROCEDURES----------------------------
-
--------------LOGIN----------------------
 CREATE PROC Permisos_Admin_General
 	(@idUsuario INT)
 AS
@@ -179,6 +175,8 @@ BEGIN
 		(@idAerolinea, @idUsuario, 2);
 END;
 GO
+
+------------ STORED PROCEDURES ------------
 
 CREATE PROC Verificar_Credenciales 
     (@email VARCHAR(300), @contrasenia VARCHAR(100))
@@ -230,8 +228,6 @@ BEGIN
 END;
 GO
 
-
----------------FLIGTH PROCEDURES-------------------
 CREATE PROC Get_Flights
 	(@idAerolinea INT)
 AS
@@ -409,84 +405,6 @@ BEGIN
 END;
 GO
 
-
-CREATE FUNCTION dbo.isExistingPassenger
-(
-    @cedulaPasajero VARCHAR(150),
-    @nombre         VARCHAR(150),
-    @apellidoPat    VARCHAR(150),
-    @apellidoMat    VARCHAR(150),
-    @codigoCiudad   VARCHAR(150)
-)
-RETURNS BIT
-AS
-BEGIN
-    DECLARE @exists BIT;
-    
-    IF EXISTS (
-        SELECT 1 
-        FROM Pasajeros 
-        WHERE cedulaPasajero = @cedulaPasajero 
-          AND nombre = @nombre 
-          AND apellidoMat = @apellidoMat 
-          AND apellidoPat = @apellidoPat 
-          AND codigoCiudad = @codigoCiudad
-    )
-    BEGIN
-        SET @exists = 1;
-    END
-    ELSE
-    BEGIN
-        SET @exists = 0;
-    END
-    
-    RETURN @exists;
-END;
-GO
-
-
-CREATE PROC Update_Passenger
-(
-    @cedulaPasajero VARCHAR(150),
-    @nombre         VARCHAR(150),
-    @apellidoPat    VARCHAR(150),
-    @apellidoMat    VARCHAR(150),
-    @pais           VARCHAR(150),
-    @canton         VARCHAR(150),
-    @distrito       VARCHAR(150),
-    @ciudad         VARCHAR(150)
-)
-AS
-BEGIN
-    DECLARE @codigoCiudad VARCHAR(150);
-    DECLARE @passengerExists BIT;
-
-    SET @codigoCiudad = (SELECT codigoCiudad 
-                         FROM Ciudades 
-                         WHERE pais = @pais 
-                           AND canton = @canton 
-                           AND distrito = @distrito 
-                           AND ciudad = @ciudad);
-
-    SET @passengerExists = dbo.isExistingPassenger(@cedulaPasajero, @nombre, @apellidoPat, @apellidoMat, @codigoCiudad);
-
-    IF @passengerExists = 0
-    BEGIN
-        UPDATE Pasajeros
-        SET nombre = @nombre,
-            apellidoMat = @apellidoMat,
-            apellidoPat = @apellidoPat,
-            codigoCiudad = @codigoCiudad
-        WHERE cedulaPasajero = @cedulaPasajero;
-    END
-    ELSE
-    BEGIN
-        RAISERROR ('Debe modificar al menos un dato.', 16, 1);
-    END
-END;
-GO
-
-
 CREATE PROC Search_Active_Flights
 (
     @idVuelo INT
@@ -541,21 +459,6 @@ GO
 
 CREATE PROC Search_Passenger
 (
-	@cedulaPasajero INT
-)
-AS
-BEGIN
-	SELECT 	idPasajero, cedulaPasajero, CONCAT(nombre, ' ', apellidoPat, ' ', apellidoMat) nombreCompleto, C.pais, C.canton, C.distrito, C.ciudad
-	FROM Pasajeros P
-	INNER JOIN Ciudades C ON
-	P.codigoCiudad = C.codigoCiudad
-	WHERE @cedulaPasajero = cedulaPasajero
-	GROUP BY idPasajero, cedulaPasajero, CONCAT( nombre, ' ', apellidoPat, ' ', apellidoMat), C.pais, C.canton, C.distrito, C.ciudad
-END;
-GO
-
-CREATE PROC Generate_City_Code
-(
     @ciudad VARCHAR(150),
     @codigoCiudad VARCHAR(150) OUTPUT
 )
@@ -565,8 +468,13 @@ BEGIN
     DECLARE @cityCode VARCHAR(150);
 
     SET @cityCode = LEFT(@ciudad, 3);
+
+    -- Generar un número aleatorio de 4 dígitos
     SET @randomNumber = CAST(FLOOR(RAND() * 10000) AS INT);
+
+    -- Formatear el número aleatorio a 4 dígitos con ceros a la izquierda si es necesario
     SET @cityCode = @cityCode + RIGHT('0000' + CAST(@randomNumber AS VARCHAR(4)), 4);
+
     SET @codigoCiudad = @cityCode;
 END;
 GO
@@ -584,8 +492,10 @@ AS
 BEGIN
     DECLARE @codigoCiudad VARCHAR(150);
 
-    EXEC Generate_City_Code @ciudad, @codigoCiudad OUTPUT;
+    -- Llamar al procedimiento para generar el código de ciudad
+    EXEC GenerateCityCode @ciudad, @codigoCiudad OUTPUT;
 
+    -- Verificar si la ciudad ya existe
     IF EXISTS (SELECT 1 FROM Ciudades WHERE pais = @pais AND canton = @canton AND distrito = @distrito AND ciudad = @ciudad)
         RETURN;
     ELSE
@@ -815,7 +725,12 @@ BEGIN
 END;
 GO
 
------------- PLANE PROCEDURES ------------
+
+
+------------ FIN STORED PROCEDURES AEROLINEAS ------------
+
+
+------------ STORED PROCEDURES PARA AVIONES ------------
 CREATE PROC Crear_Aviones
 (
     @marca VARCHAR(100),
@@ -910,20 +825,28 @@ BEGIN
 END;
 GO
 
+
 CREATE PROCEDURE ObtenerAviones
 AS
 BEGIN
     SET NOCOUNT ON;
 
     SELECT 
-		matricula,
-        marca,
-        capacidadPasajeros,
-        estado
+        av.matricula,
+        av.marca,
+        av.capacidadPasajeros,
+        av.estado
     FROM 
-        Aviones;
+        Aviones av
+    WHERE 
+        NOT EXISTS (
+            SELECT 1
+            FROM AvionesAerolinea aa
+            WHERE aa.matricula = av.matricula
+        );
 END
 GO
+
 
 -- Cambia el estado de la aviones a desactivado = (0)
 CREATE PROC Desactivar_Aviones
@@ -955,7 +878,16 @@ END;
 GO
 
 
------------- SEARCH USER PROCEDURE ------------
+------------ STORED FIN PROCEDURES PARA AVIONES ------------
+
+
+
+
+
+
+
+
+------------ STORED PROCEDURES PARA BUSQUEDAS ------------
 
 CREATE PROC Buscar_Usuario
 	(@idUsuario INT)
@@ -981,33 +913,9 @@ BEGIN
 END;
 GO
 
--------------PILOTS PROCEDURES --------------------------
---Search the pilot by the name, lastNames, airline or identity document
-CREATE PROC Search_Pilot @searchValue VARCHAR(150)
-AS
-BEGIN 
-	BEGIN TRY
-		SELECT p.idPiloto, p.cedulaPiloto, CONCAT(p.nombre, ' ', p.apellidoPat, ' ', p.apellidoMat) AS nombreCompleto, p.nacionalidad, a.nombre, p.estado
-		FROM Pilotos AS p
-		INNER JOIN Aerolineas AS a ON p.idAerolinea = a.idAerolinea
-		WHERE p.nombre LIKE '%'+@searchValue+'%' OR  p.apellidoPat LIKE '%'+@searchValue+'%' OR p.apellidoMat LIKE '%'+@searchValue+'%'
-			OR p.cedulaPiloto LIKE '%'+@searchValue+'%' OR a.nombre LIKE '%'+@searchValue+'%';
-	END TRY
-	BEGIN CATCH
-        DECLARE @ErrorMessage VARCHAR(MAX);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
+---------------------------------------------------------------------
 
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH
-END;
-GO
-
+-------------STORED PROCEDURES PARA PILOTOS --------------------------}
 --Info pilotos
 CREATE PROC Get_Pilots_Data
 AS
@@ -1183,28 +1091,175 @@ BEGIN
 END;
 GO
 
---------------------DOCUMENT PROCEDURES----------------------------------
+--Busca a un piloto segun su nombre, apellidos, cedula o nombre de aerolinea a la que pertenece
+CREATE PROC Search_Pilot @searchValue VARCHAR(150)
+AS
+BEGIN 
+	BEGIN TRY
+		SELECT p.idPiloto, p.cedulaPiloto, CONCAT(p.nombre, ' ', p.apellidoPat, ' ', p.apellidoMat) AS nombreCompleto, p.nacionalidad, a.nombre, p.estado
+		FROM Pilotos AS p
+		INNER JOIN Aerolineas AS a ON p.idAerolinea = a.idAerolinea
+		WHERE p.nombre LIKE '%'+@searchValue+'%' OR  p.apellidoPat LIKE '%'+@searchValue+'%' OR p.apellidoMat LIKE '%'+@searchValue+'%'
+			OR p.cedulaPiloto LIKE '%'+@searchValue+'%' OR a.nombre LIKE '%'+@searchValue+'%';
+	END TRY
+	BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
 
-CREATE PROCEDURE Aviones_Aerolineas
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+--------------------FIN STORED PROCEDURES PILOTOS----------------------------------
+
+--------------------Inicio STORED PROCEDURES Documentos----------------------------------
+
+DROP PROC Airplanes_Airlines
+
+CREATE PROCEDURE Airplanes_Airlines
 AS
 BEGIN
-    -- Selecciona el nombre de la aerolínea y los datos del avión
+    -- Selects airline name and airplane data
     SELECT 
-        a.nombre AS NombreAerolinea,
-        av.marca AS MarcaAvion,
-        av.matricula AS MatriculaAvion,
-        av.capacidadPasajeros AS CapacidadPasajeros,
-        av.estado AS EstadoAvion
+        a.nombre AS AirlineName,
+        av.marca AS AirplaneBrand,
+        av.matricula AS AirplaneRegistration,
+        av.capacidadPasajeros AS PassengerCapacity,
+        av.estado AS AirplaneStatus
     FROM 
         Aerolineas a
     INNER JOIN 
         AvionesAerolinea aa ON a.idAerolinea = aa.idAerolinea
     INNER JOIN 
-        Aviones av ON aa.matricula = av.matricula
+        Aviones  av ON aa.matricula = av.matricula
     ORDER BY 
         a.nombre, av.matricula;
 END;
 GO
+
+
+
+CREATE PROCEDURE GetAirlineFlightsByNames
+    @Name VARCHAR(100)
+AS
+BEGIN
+    BEGIN TRY
+        SELECT 
+            a.idAerolinea AS AirlineId,
+            a.nombre AS AirlineName,
+            v.idVuelo AS FlightId,
+            c1.ciudad AS OriginCity,
+            c2.ciudad AS DestinationCity,
+            v.fechaHoraPartida AS DepartureTime,
+            v.fechaHoraLlegada AS ArrivalTime
+        FROM 
+            Aerolineas a
+            JOIN Vuelos v ON a.idAerolinea = v.idAerolinea
+            JOIN Ciudades c1 ON v.codigoCiudadPartida = c1.codigoCiudad
+            JOIN Ciudades c2 ON v.codigoCiudadDestino = c2.codigoCiudad
+        WHERE 
+            a.nombre LIKE '%' + @Name + '%';
+    END TRY
+    BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+CREATE PROCEDURE GetAirplanesByAirlineName
+    @AirlineName VARCHAR(100)
+AS
+BEGIN
+    BEGIN TRY
+        SELECT 
+            a.nombre AS AirlineName,
+            av.marca AS AirplaneBrand,
+            av.matricula AS AirplaneRegistration,
+            av.capacidadPasajeros AS PassengerCapacity,
+            av.estado AS AirplaneStatus
+        FROM 
+            Aerolineas a
+        INNER JOIN 
+            AvionesAerolinea aa ON a.idAerolinea = aa.idAerolinea
+        INNER JOIN 
+            Aviones av ON aa.matricula = av.matricula
+        WHERE 
+            a.nombre LIKE '%' + @AirlineName + '%'
+        ORDER BY 
+            a.nombre, av.matricula;
+    END TRY
+    BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+
+CREATE PROCEDURE GetFlightDetails
+AS
+BEGIN
+    BEGIN TRY
+        SELECT 
+            a.nombre AS AirlineName,
+            v.idVuelo AS FlightId,
+            c1.ciudad AS OriginCity,
+            c2.ciudad AS DestinationCity,
+            v.fechaHoraPartida AS DepartureTime,
+            v.fechaHoraLlegada AS ArrivalTime
+        FROM 
+            Vuelos v
+        INNER JOIN 
+            Aerolineas a ON v.idAerolinea = a.idAerolinea
+        INNER JOIN 
+            Ciudades c1 ON v.codigoCiudadPartida = c1.codigoCiudad
+        INNER JOIN 
+            Ciudades c2 ON v.codigoCiudadDestino = c2.codigoCiudad;
+    END TRY
+    BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+
+
+
+
+
+
 
 ---------------------------------------------------------------------
 ---------- INSERCIONES DE DATOS ----------
@@ -1308,9 +1363,12 @@ GO
 
 INSERT INTO Vuelos (idAerolinea, idAvion, cedulaPiloto, fechaHoraPartida, fechaHoraLlegada, codigoCiudadPartida, codigoCiudadDestino, estado)
 VALUES
-( 1, 1, '123456', '2024-05-06 08:00:00', '2024-06-06 12:00:00', 'SJO', 'LAX', 1),
-( 1, 2, '234567', '2024-05-07 09:00:00', '2024-06-07 13:00:00', 'SJO', 'NYC', 1),
+( 1, 1, '123456', '2024-06-06 08:00:00', '2024-06-06 12:00:00', 'SJO', 'LAX', 1),
+( 1, 2, '234567', '2024-06-07 09:00:00', '2024-06-07 13:00:00', 'SJO', 'NYC', 1),
 ( 2, 3, '345678', '2024-06-08 10:00:00', '2024-06-08 14:00:00', 'LAX', 'MAD', 1),
 ( 2, 4, '456789', '2024-06-09 11:00:00', '2024-06-09 15:00:00', 'NYC', 'CDG', 1),
 ( 1, 5, '567890', '2024-06-10 12:00:00', '2024-06-10 16:00:00', 'MAD', 'SJO', 1);
 GO
+
+
+

@@ -202,7 +202,7 @@ namespace Control_de_Vuelos
         //-------------------------Functions for the good performance of the gridView----------------------------
 
         //Changed the style of a row were the column Estado is Inactivo
-        private void pilotsGrid_RowPrePaint(object sender, System.Windows.Forms.DataGridViewRowPrePaintEventArgs e)
+        private void pilotsGrid_RowPrePaint_1(object sender, System.Windows.Forms.DataGridViewRowPrePaintEventArgs e)
         {
             DataGridViewRow row = pilotsGrid.Rows[e.RowIndex];
 
@@ -227,7 +227,7 @@ namespace Control_de_Vuelos
         }
 
         //Mange the event of selected in the data grid
-        private void pilotsGrid_SelectionChanged_1(object sender, EventArgs e)
+        private void pilotsGrid_SelectionChanged(object sender, EventArgs e)
         {
             if (pilotsGrid.SelectedCells.Count == 0)
                 return;
@@ -247,7 +247,7 @@ namespace Control_de_Vuelos
         }
 
         //If the row is enable, prevents the selection
-        private void pilotsGrid_CellMouseDown_1(object sender, DataGridViewCellMouseEventArgs e)
+        private void pilotsGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex >= 0 && e.Button == MouseButtons.Left)
             {
