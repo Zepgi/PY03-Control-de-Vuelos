@@ -1663,6 +1663,30 @@ BEGIN
 END;
 GO
 
+
+CREATE PROC Pilots_Nacionality 
+AS
+BEGIN 
+	BEGIN TRY
+		SELECT nacionalidad, COUNT(idPiloto) AS cantidadPilotos
+		FROM Pilotos
+		GROUP BY nacionalidad; 
+	END TRY
+	BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
 ---------------------------------------------------------------------
 ---------- INSERCIONES DE DATOS ----------
 
