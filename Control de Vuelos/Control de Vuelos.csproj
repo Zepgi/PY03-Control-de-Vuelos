@@ -56,6 +56,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PassangerFligthInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PassangerFligthInfo.Designer.cs">
+      <DependentUpon>PassangerFligthInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectAirline.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PanelMantenimiento.resx">
       <DependentUpon>PanelMantenimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PassangerFligthInfo.resx">
+      <DependentUpon>PassangerFligthInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PilotPanel.resx">
       <DependentUpon>PilotPanel.cs</DependentUpon>

@@ -1408,10 +1408,103 @@ BEGIN
 END;
 GO
 
+	
+CREATE PROCEDURE GetActiveFlightsByDate
+    @Date DATETIME
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        SELECT 
+            v.idVuelo AS FlightId,
+            a.nombre AS AirlineName,
+            av.marca AS AirplaneBrand,
+            p.nombre AS PilotName,
+            c1.ciudad AS OriginCity,
+            c2.ciudad AS DestinationCity,
+            v.fechaHoraPartida AS DepartureTime,
+            v.fechaHoraLlegada AS ArrivalTime,
+            v.estado AS FlightStatus
+        FROM 
+            Vuelos v
+        INNER JOIN 
+            Aerolineas a ON v.idAerolinea = a.idAerolinea
+        INNER JOIN 
+            Aviones av ON v.idAvion = av.idAvion
+        INNER JOIN 
+            Pilotos p ON v.cedulaPiloto = p.cedulaPiloto
+        INNER JOIN 
+            Ciudades c1 ON v.codigoCiudadPartida = c1.codigoCiudad
+        INNER JOIN 
+            Ciudades c2 ON v.codigoCiudadDestino = c2.codigoCiudad
+        WHERE 
+            v.estado = 1 AND
+            CONVERT(DATE, v.fechaHoraPartida) = CONVERT(DATE, @Date);
+    END TRY
+    BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+CREATE PROCEDURE AirplanesByAirlinesInactiveState
+AS
+BEGIN
+    -- Selecciona el nombre de la aerolínea y los datos del avión con estado inactivo
+    SELECT 
+        a.nombre AS AirlineName,
+        av.marca AS AirplaneBrand,
+        av.matricula AS AirplaneRegistration,
+        av.capacidadPasajeros AS PassengerCapacity,
+        av.estado AS AirplaneStatus
+    FROM 
+        Aerolineas a
+    INNER JOIN 
+        AvionesAerolinea aa ON a.idAerolinea = aa.idAerolinea
+    INNER JOIN 
+        Aviones av ON aa.matricula = av.matricula
+    WHERE 
+        av.estado = 0 -- Filtra solo los aviones con estado inactivo
+    ORDER BY 
+        a.nombre, av.matricula;
+END;
+GO
 
 
-
-
+CREATE PROCEDURE GetAirplanesByAirlinesInactiveState
+    @AirlineName VARCHAR(100) = NULL
+AS
+BEGIN
+    -- Selecciona el nombre de la aerolínea y los datos del avión con estado inactivo
+    SELECT 
+        a.nombre AS AirlineName,
+        av.marca AS AirplaneBrand,
+        av.matricula AS AirplaneRegistration,
+        av.capacidadPasajeros AS PassengerCapacity,
+        av.estado AS AirplaneStatus
+    FROM 
+        Aerolineas a
+    INNER JOIN 
+        AvionesAerolinea aa ON a.idAerolinea = aa.idAerolinea
+    INNER JOIN 
+        Aviones av ON aa.matricula = av.matricula
+    WHERE 
+        av.estado = 0 -- Filtra solo los aviones con estado inactivo
+        AND (@AirlineName IS NULL OR a.nombre LIKE '%' + @AirlineName + '%') -- Filtra por nombre de aerolínea si se proporciona
+    ORDER BY 
+        a.nombre, av.matricula;
+END;
+GO
 
 
 
@@ -1484,7 +1577,6 @@ VALUES
 ('Cessna', 'C34567', 50, 1);
 GO
 
-
 INSERT INTO AvionesAerolinea (matricula, idAerolinea)
 VALUES
 ('N12345', 1),
@@ -1493,7 +1585,6 @@ VALUES
 ('B78901', 2),
 ('C34567', 1);
 GO
-
 
 INSERT INTO Pilotos (cedulaPiloto, nacionalidad,apellidoPat, apellidoMat, nombre, estado, idAerolinea)
 VALUES
