@@ -21,7 +21,7 @@ namespace Control_de_Vuelos
             dataGridViewAirPlanes.CellClick += dataGridViewAirPlanes_CellContentClick;
         }
 
-        private void buttonCreateAirPlane_Click(object sender, EventArgs e)
+        private void buttonCreateAirPlane_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -91,7 +91,8 @@ namespace Control_de_Vuelos
                 MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void buttonModifyAirPlane_Click(object sender, EventArgs e)
+
+        private void buttonModifyAirPlane_Click_1(object sender, EventArgs e)
         {
             if (dataGridViewAirPlanes.SelectedRows.Count > 0)
             {
@@ -179,10 +180,7 @@ namespace Control_de_Vuelos
             }
         }
 
-
-
-
-        private void buttonDeleteAirPlane_Click(object sender, EventArgs e)
+        private void buttonDeleteAirPlane_Click_1(object sender, EventArgs e)
         {
             // Verifica si alguna fila está seleccionada en el DataGridView
             if (dataGridViewAirPlanes.SelectedRows.Count > 0)
@@ -246,15 +244,13 @@ namespace Control_de_Vuelos
         }
 
 
-
-        private void buttonModifyView_Click(object sender, EventArgs e)
+        private void buttonModifyView_Click_1(object sender, EventArgs e)
         {
             this.buttonDeleteAirPlane.Visible = true;
             this.buttonModifyAirPlane.Visible = true;
             this.buttonCreateAirPlane.Visible = false;
             this.buttonModifyView.Visible = false;
             this.textBoxMatricula.Enabled = false;
-
         }
 
         private void dataGridViewAirPlanes_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -318,7 +314,5 @@ namespace Control_de_Vuelos
                 MessageBox.Show("Error al cargar los aviones registrados: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        
     }
 }

@@ -302,6 +302,7 @@ namespace Control_de_Vuelos {
             // 
             // pilotsGrid
             // 
+            this.pilotsGrid.BackgroundColor = System.Drawing.SystemColors.Control;
             this.pilotsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.pilotsGrid.Location = new System.Drawing.Point(622, 134);
             this.pilotsGrid.Name = "pilotsGrid";
