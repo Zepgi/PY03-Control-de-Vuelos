@@ -62,7 +62,7 @@
 			this.dataGridViewAirPlanes_AirLines.BackgroundColor = System.Drawing.Color.White;
 			this.dataGridViewAirPlanes_AirLines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewAirPlanes_AirLines.Location = new System.Drawing.Point(15, 989);
-			this.dataGridViewAirPlanes_AirLines.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.dataGridViewAirPlanes_AirLines.Margin = new System.Windows.Forms.Padding(4);
 			this.dataGridViewAirPlanes_AirLines.Name = "dataGridViewAirPlanes_AirLines";
 			this.dataGridViewAirPlanes_AirLines.RowHeadersWidth = 51;
 			this.dataGridViewAirPlanes_AirLines.Size = new System.Drawing.Size(462, 268);
@@ -107,7 +107,7 @@
 			this.dataGridViewAire8.BackgroundColor = System.Drawing.Color.White;
 			this.dataGridViewAire8.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewAire8.Location = new System.Drawing.Point(15, 1572);
-			this.dataGridViewAire8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.dataGridViewAire8.Margin = new System.Windows.Forms.Padding(4);
 			this.dataGridViewAire8.Name = "dataGridViewAire8";
 			this.dataGridViewAire8.RowHeadersWidth = 51;
 			this.dataGridViewAire8.Size = new System.Drawing.Size(462, 281);
@@ -129,7 +129,7 @@
 			this.searchAirLine3.Font = new System.Drawing.Font("Century Gothic", 10.2F);
 			this.searchAirLine3.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
 			this.searchAirLine3.Location = new System.Drawing.Point(68, 1318);
-			this.searchAirLine3.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+			this.searchAirLine3.Margin = new System.Windows.Forms.Padding(5);
 			this.searchAirLine3.Name = "searchAirLine3";
 			this.searchAirLine3.PasswordChar = '\0';
 			this.searchAirLine3.PlaceholderText = "";
@@ -186,7 +186,7 @@
 			this.guna2TextBoxAir8.Font = new System.Drawing.Font("Century Gothic", 10.2F);
 			this.guna2TextBoxAir8.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
 			this.guna2TextBoxAir8.Location = new System.Drawing.Point(15, 1925);
-			this.guna2TextBoxAir8.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+			this.guna2TextBoxAir8.Margin = new System.Windows.Forms.Padding(5);
 			this.guna2TextBoxAir8.Name = "guna2TextBoxAir8";
 			this.guna2TextBoxAir8.PasswordChar = '\0';
 			this.guna2TextBoxAir8.PlaceholderText = "";
@@ -233,7 +233,7 @@
 			this.dataGridViewAir1.BackgroundColor = System.Drawing.Color.White;
 			this.dataGridViewAir1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewAir1.Location = new System.Drawing.Point(15, 158);
-			this.dataGridViewAir1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.dataGridViewAir1.Margin = new System.Windows.Forms.Padding(4);
 			this.dataGridViewAir1.Name = "dataGridViewAir1";
 			this.dataGridViewAir1.RowHeadersWidth = 51;
 			this.dataGridViewAir1.Size = new System.Drawing.Size(462, 268);
@@ -444,7 +444,7 @@
 			this.chartTopDays.ChartAreas.Add(chartArea1);
 			legend1.Name = "Legend1";
 			this.chartTopDays.Legends.Add(legend1);
-			this.chartTopDays.Location = new System.Drawing.Point(562, 1121);
+			this.chartTopDays.Location = new System.Drawing.Point(821, 1105);
 			this.chartTopDays.Name = "chartTopDays";
 			series1.ChartArea = "chDays";
 			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
