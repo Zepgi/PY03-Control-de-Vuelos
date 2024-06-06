@@ -575,14 +575,14 @@ AS
 BEGIN
     BEGIN TRY
         SELECT 
-            idAerolinea AS AirlineId,
-            nombre AS Name,
-            lema AS Motto,
-            estado AS State
+            idAerolinea,
+            nombre,
+            lema,
+            estado
         FROM 
             Aerolineas
         WHERE 
-            nombre LIKE @Name + '%';
+            nombre LIKE '%' + @Name + '%';
     END TRY
     BEGIN CATCH
         DECLARE @ErrorMessage VARCHAR(MAX);
@@ -835,8 +835,8 @@ BEGIN
 		SELECT p.idPiloto, p.cedulaPiloto, CONCAT(p.nombre, ' ', p.apellidoPat, ' ', p.apellidoMat) AS nombreCompleto, p.nacionalidad, a.nombre, p.estado
 		FROM Pilotos AS p
 		INNER JOIN Aerolineas AS a ON p.idAerolinea = a.idAerolinea
-		WHERE p.nombre LIKE @searchValue + '%' OR  p.apellidoPat LIKE @searchValue + '%' OR p.apellidoMat LIKE @searchValue + '%'
-			OR p.cedulaPiloto LIKE @searchValue + '%' OR a.nombre LIKE @searchValue + '%';
+		WHERE p.nombre LIKE '%'+@searchValue+'%' OR  p.apellidoPat LIKE '%'+@searchValue+'%' OR p.apellidoMat LIKE '%'+@searchValue+'%'
+			OR p.cedulaPiloto LIKE '%'+@searchValue+'%' OR a.nombre LIKE '%'+@searchValue+'%';
 	END TRY
 	BEGIN CATCH
         DECLARE @ErrorMessage VARCHAR(MAX);
