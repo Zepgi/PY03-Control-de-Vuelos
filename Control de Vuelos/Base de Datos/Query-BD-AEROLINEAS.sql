@@ -927,7 +927,8 @@ GO
 
 --Modifica el Piloto
 CREATE PROC Update_Pilot 
-	(@identity VARCHAR(150), 
+	(@id INT,
+	@identity VARCHAR(150), 
 	@lastName1 VARCHAR(150),
 	@lastname2 VARCHAR(150),
 	@name VARCHAR(150),
@@ -942,7 +943,8 @@ BEGIN
 			apellidoMat = @lastname2,
 			nombre = @name,
 			nacionalidad = @country,
-			idAerolinea = @airline;
+			idAerolinea = @airline
+		WHERE idPiloto = @id;
 	END TRY
 	BEGIN CATCH
         DECLARE @ErrorMessage VARCHAR(MAX);
@@ -960,12 +962,13 @@ END;
 GO
 
 --Cambia el estdo del Piloto
-CREATE PROC Delete_Pilot 
+CREATE PROC Delete_Pilot @id INT
 AS
 BEGIN 
 	BEGIN TRY
 		UPDATE Pilotos
-		SET estado = 0;
+		SET estado = 0
+		WHERE idPiloto = @id;
 	END TRY
 	BEGIN CATCH
         DECLARE @ErrorMessage VARCHAR(MAX);
@@ -981,6 +984,31 @@ BEGIN
     END CATCH
 END;
 GO
+
+--IdAerolinea del piloto actual
+CREATE PROC Get_IdAirline @idPilot INT
+AS
+BEGIN 
+	BEGIN TRY
+		SELECT idAerolinea
+		FROM Pilotos
+		WHERE idPiloto = @idPilot;
+	END TRY
+	BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
 --------------------FIN STORED PROCEDURES PILOTOS----------------------------------
 
 --------------------Inicio STORED PROCEDURES Documentos----------------------------------
