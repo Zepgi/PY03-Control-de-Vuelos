@@ -15,38 +15,38 @@ namespace Control_de_Vuelos {
 		Panel p = new Panel();
 		bool subMenuMan;
 		string idUser;
-		List<int> permisos;
-		int idAerolinea;
+		List<int> permissions;
+		int idAirline;
 		readonly LoginForm view;
 
-		public MainMenuForm(LoginForm pView, string pIdUser, List<int> pPermisos, int pIdAerolinea) {
+		public MainMenuForm(LoginForm pView, string pIdUser, List<int> pPermissions, int pIdAirline) {
 			this.view = pView;
 			this.idUser = pIdUser;
-			this.idAerolinea = pIdAerolinea;
-			this.permisos = pPermisos;
+			this.idAirline = pIdAirline;
+			this.permissions = pPermissions;
 			this.subMenuMan = false;
 			InitializeComponent();
-			this.btMantenimiento.Enabled = false;
-			this.btAerolineas.Enabled	 = false;
-			this.btReportes.Enabled		 = false;
-			this.btVuelos.Enabled		 = false;
-			loadPanel(new HomePanel(idAerolinea, idUser));
-			gestionarPermisos();
+			this.btMaintenance.Enabled = false;
+			this.btAirlines.Enabled	 = false;
+			this.btReports.Enabled		 = false;
+			this.btFlights.Enabled		 = false;
+			loadPanel(new HomePanel(idAirline, idUser));
+			managePermissions();
 		}
 
-		private void gestionarPermisos() {
+		private void managePermissions() {
 
-			if (permisos.IndexOf(1) != -1) {
-				this.btAerolineas.Enabled = true;
+			if (permissions.IndexOf(1) != -1) {
+				this.btAirlines.Enabled = true;
 			}
-			if (permisos.IndexOf(2) != -1) {
-				this.btVuelos.Enabled = true;
+			if (permissions.IndexOf(2) != -1) {
+				this.btFlights.Enabled = true;
 			}
-			if (permisos.IndexOf(3) != -1) {
-				this.btMantenimiento.Enabled = true;
+			if (permissions.IndexOf(3) != -1) {
+				this.btMaintenance.Enabled = true;
 			}
-			if (permisos.IndexOf(4) != -1) {
-				this.btReportes.Enabled = true;
+			if (permissions.IndexOf(4) != -1) {
+				this.btReports.Enabled = true;
 			}
 		}
 		
@@ -56,10 +56,10 @@ namespace Control_de_Vuelos {
 		}
 
 		private void btExit_Click(object sender, MouseEventArgs e) {
-			String mensaje = "¿Desea cerrar la aplicación?";
-			DialogResult resultado = MessageBox.Show(mensaje, "Cerrar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			String msg = "¿Desea cerrar la aplicación?";
+			DialogResult res = MessageBox.Show(msg, "Cerrar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-			if (resultado == DialogResult.Yes) {
+			if (res == DialogResult.Yes) {
 				this.Close();
 				this.view.Close();
 				Application.Exit();
@@ -97,7 +97,7 @@ namespace Control_de_Vuelos {
 			}
 			btn_MouseEnter(sender, e);
 			subMenuMan = true;
-			pMantenimiento.Visible = true;
+			pMaintenance.Visible = true;
 		}
 
 		private void btMantenimiento_MouseLeave(object sender, EventArgs e) {
@@ -109,7 +109,7 @@ namespace Control_de_Vuelos {
 		private async void hideSubMenu() {
 			await Task.Delay(150);
 			if (!subMenuMan) {
-				pMantenimiento.Visible = false;
+				pMaintenance.Visible = false;
 			}
 		}
 
@@ -118,26 +118,26 @@ namespace Control_de_Vuelos {
 
 			if (btn != null) {
 				switch (btn.Name) {
-					case "btAerolineas":
+					case "btAirlines":
 						loadPanel(new PanelAerolineas());
 						break;
-					case "btReportes":
+					case "btReports":
 						loadPanel(new PanelReportes());
 						break;
-					case "btMantenimiento":
+					case "btMaintenance":
 						loadPanel(new PanelMantenimiento());
 						break;
-					case "btInicio":
-						loadPanel(new HomePanel(idAerolinea, idUser));
+					case "btHome":
+						loadPanel(new HomePanel(idAirline, idUser));
 						break;
-					case "btAviones":
+					case "btPlanes":
 						loadPanel(new PanelAviones());
 						break;
-					case "btPilotos":
+					case "btPilots":
 						loadPanel(new PanelPilotos());
 						break;
-					case "btVuelos":
-						loadPanel(new FlightsPanel());
+					case "btFlights":
+						loadPanel(new FlightsPanel(idAirline, idUser, permissions));
 						break;
 					default:
 						MessageBox.Show("Botón no reconocido.");
