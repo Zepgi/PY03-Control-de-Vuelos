@@ -46,11 +46,11 @@ namespace Control_de_Vuelos
 
                 foreach (DataRow row in dataTable.Rows)
                 {
-                    fligthText.Text = row[0].ToString();
-                    dHDText.Text = row[1].ToString();
-                    dHAText.Text = row[2].ToString();
-                    cityDText.Text = row[3].ToString();
-                    cityAText.Text = row[4].ToString();
+                    fligthText.Text = row["idVuelo"].ToString();
+                    dHDText.Text = row["fechaHoraPartida"].ToString();
+                    dHAText.Text = row["fechaHoraLlegada"].ToString();
+                    cityDText.Text = row["ciudadSalida"].ToString();
+                    cityAText.Text = row["ciudadLlegada"].ToString();
                 }
 
             }
