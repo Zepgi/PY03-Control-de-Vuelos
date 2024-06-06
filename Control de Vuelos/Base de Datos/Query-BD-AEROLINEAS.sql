@@ -564,6 +564,39 @@ BEGIN
     END CATCH
 END;
 GO
+---------- ObtenerAerolineasId-------------
+CREATE PROCEDURE GetAirlineByName
+    @Name VARCHAR(100)
+AS
+BEGIN
+    BEGIN TRY
+        SELECT 
+            idAerolinea AS AirlineId,
+            nombre AS Name,
+            lema AS Motto,
+            estado AS State
+        FROM 
+            Aerolineas
+        WHERE 
+            nombre = @Name;
+    END TRY
+    BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+
+DROP PROC GetAirlineByName
 
 ---------- ObtenerAerolineas-------------
 CREATE PROCEDURE ObtenerAerolineas

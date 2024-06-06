@@ -134,7 +134,7 @@ namespace Control_de_Vuelos {
 						loadPanel(new PanelAviones());
 						break;
 					case "btPilots":
-						loadPanel(new PanelPilotos());
+						loadPanel(new PilotPanel());
 						break;
 					case "btFlights":
 						loadPanel(new FlightsPanel(idAirline, idUser, permissions));
