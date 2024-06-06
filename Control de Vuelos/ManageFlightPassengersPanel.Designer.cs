@@ -25,9 +25,9 @@
 		private void InitializeComponent() {
 			this.cbFlights = new Guna.UI2.WinForms.Guna2ComboBox();
 			this.lbFlights = new System.Windows.Forms.Label();
-			this.btConfirmPassengers = new Guna.UI2.WinForms.Guna2Button();
+			this.btBookTickets = new Guna.UI2.WinForms.Guna2Button();
 			this.planeimg = new System.Windows.Forms.PictureBox();
-			this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+			this.btConfirmPassengers = new Guna.UI2.WinForms.Guna2Button();
 			((System.ComponentModel.ISupportInitialize)(this.planeimg)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -60,26 +60,26 @@
 			this.lbFlights.Text = "Vuelo";
 			this.lbFlights.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// btConfirmPassengers
+			// btBookTickets
 			// 
-			this.btConfirmPassengers.AutoRoundedCorners = true;
-			this.btConfirmPassengers.BackColor = System.Drawing.Color.Transparent;
-			this.btConfirmPassengers.BorderColor = System.Drawing.Color.White;
-			this.btConfirmPassengers.BorderRadius = 24;
-			this.btConfirmPassengers.FillColor = System.Drawing.SystemColors.HotTrack;
-			this.btConfirmPassengers.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
-			this.btConfirmPassengers.ForeColor = System.Drawing.Color.White;
-			this.btConfirmPassengers.Location = new System.Drawing.Point(354, 216);
-			this.btConfirmPassengers.Name = "btConfirmPassengers";
-			this.btConfirmPassengers.PressedColor = System.Drawing.Color.Teal;
-			this.btConfirmPassengers.ShadowDecoration.BorderRadius = 30;
-			this.btConfirmPassengers.ShadowDecoration.Depth = 0;
-			this.btConfirmPassengers.ShadowDecoration.Enabled = true;
-			this.btConfirmPassengers.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
-			this.btConfirmPassengers.Size = new System.Drawing.Size(134, 51);
-			this.btConfirmPassengers.TabIndex = 30;
-			this.btConfirmPassengers.Text = "Reservar Tiquetes";
-			this.btConfirmPassengers.Click += new System.EventHandler(this.btConfirmPassengers_Click);
+			this.btBookTickets.AutoRoundedCorners = true;
+			this.btBookTickets.BackColor = System.Drawing.Color.Transparent;
+			this.btBookTickets.BorderColor = System.Drawing.Color.White;
+			this.btBookTickets.BorderRadius = 24;
+			this.btBookTickets.FillColor = System.Drawing.SystemColors.HotTrack;
+			this.btBookTickets.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
+			this.btBookTickets.ForeColor = System.Drawing.Color.White;
+			this.btBookTickets.Location = new System.Drawing.Point(354, 216);
+			this.btBookTickets.Name = "btBookTickets";
+			this.btBookTickets.PressedColor = System.Drawing.Color.Teal;
+			this.btBookTickets.ShadowDecoration.BorderRadius = 30;
+			this.btBookTickets.ShadowDecoration.Depth = 0;
+			this.btBookTickets.ShadowDecoration.Enabled = true;
+			this.btBookTickets.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
+			this.btBookTickets.Size = new System.Drawing.Size(134, 51);
+			this.btBookTickets.TabIndex = 30;
+			this.btBookTickets.Text = "Reservar Tiquetes";
+			this.btBookTickets.Click += new System.EventHandler(this.btBookTickets_Click);
 			// 
 			// planeimg
 			// 
@@ -91,25 +91,26 @@
 			this.planeimg.TabIndex = 0;
 			this.planeimg.TabStop = false;
 			// 
-			// guna2Button1
+			// btConfirmPassengers
 			// 
-			this.guna2Button1.AutoRoundedCorners = true;
-			this.guna2Button1.BackColor = System.Drawing.Color.Transparent;
-			this.guna2Button1.BorderColor = System.Drawing.Color.White;
-			this.guna2Button1.BorderRadius = 24;
-			this.guna2Button1.FillColor = System.Drawing.SystemColors.HotTrack;
-			this.guna2Button1.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
-			this.guna2Button1.ForeColor = System.Drawing.Color.White;
-			this.guna2Button1.Location = new System.Drawing.Point(354, 420);
-			this.guna2Button1.Name = "guna2Button1";
-			this.guna2Button1.PressedColor = System.Drawing.Color.Teal;
-			this.guna2Button1.ShadowDecoration.BorderRadius = 30;
-			this.guna2Button1.ShadowDecoration.Depth = 0;
-			this.guna2Button1.ShadowDecoration.Enabled = true;
-			this.guna2Button1.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
-			this.guna2Button1.Size = new System.Drawing.Size(134, 51);
-			this.guna2Button1.TabIndex = 31;
-			this.guna2Button1.Text = "Confirmar Pasajeros";
+			this.btConfirmPassengers.AutoRoundedCorners = true;
+			this.btConfirmPassengers.BackColor = System.Drawing.Color.Transparent;
+			this.btConfirmPassengers.BorderColor = System.Drawing.Color.White;
+			this.btConfirmPassengers.BorderRadius = 24;
+			this.btConfirmPassengers.FillColor = System.Drawing.SystemColors.HotTrack;
+			this.btConfirmPassengers.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
+			this.btConfirmPassengers.ForeColor = System.Drawing.Color.White;
+			this.btConfirmPassengers.Location = new System.Drawing.Point(354, 420);
+			this.btConfirmPassengers.Name = "btConfirmPassengers";
+			this.btConfirmPassengers.PressedColor = System.Drawing.Color.Teal;
+			this.btConfirmPassengers.ShadowDecoration.BorderRadius = 30;
+			this.btConfirmPassengers.ShadowDecoration.Depth = 0;
+			this.btConfirmPassengers.ShadowDecoration.Enabled = true;
+			this.btConfirmPassengers.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
+			this.btConfirmPassengers.Size = new System.Drawing.Size(134, 51);
+			this.btConfirmPassengers.TabIndex = 31;
+			this.btConfirmPassengers.Text = "Confirmar Pasajeros";
+			this.btConfirmPassengers.Click += new System.EventHandler(this.btConfirmPassengers_Click);
 			// 
 			// ManageFlightPassengersPanel
 			// 
@@ -118,8 +119,8 @@
 			this.AutoScroll = true;
 			this.BackColor = System.Drawing.Color.White;
 			this.ClientSize = new System.Drawing.Size(500, 520);
-			this.Controls.Add(this.guna2Button1);
 			this.Controls.Add(this.btConfirmPassengers);
+			this.Controls.Add(this.btBookTickets);
 			this.Controls.Add(this.lbFlights);
 			this.Controls.Add(this.cbFlights);
 			this.Controls.Add(this.planeimg);
@@ -136,8 +137,8 @@
 
 		private System.Windows.Forms.PictureBox planeimg;
 		private System.Windows.Forms.Label lbFlights;
-		private Guna.UI2.WinForms.Guna2Button btConfirmPassengers;
+		private Guna.UI2.WinForms.Guna2Button btBookTickets;
 		public Guna.UI2.WinForms.Guna2ComboBox cbFlights;
-		private Guna.UI2.WinForms.Guna2Button guna2Button1;
+		private Guna.UI2.WinForms.Guna2Button btConfirmPassengers;
 	}
 }

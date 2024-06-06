@@ -651,6 +651,48 @@ BEGIN
 END;
 GO
 
+CREATE PROC Confirm_Passenger
+(
+	@asiento	INT,
+	@idVuelo	INT
+)
+AS
+BEGIN
+	UPDATE ListaPasajeros
+	SET confirmado = 1
+	WHERE
+		asiento = @asiento AND
+		idVuelo = @idVuelo
+END;
+GO
+
+CREATE FUNCTION isFlightConfirmed
+(
+	@idVuelo INT
+)
+RETURNS BIT
+AS
+BEGIN
+	DECLARE @result BIT;
+	
+	IF EXISTS (
+		SELECT 1
+		FROM ListaPasajeros
+		WHERE idVuelo = @idVuelo AND confirmado = 1
+	)
+	BEGIN
+		SET @result = 1;
+	END
+	ELSE
+	BEGIN
+		SET @result = 0;
+	END
+	
+	RETURN @result;
+END;
+GO
+
+
 -----------AIRLINE PROCEDURES ------------
 CREATE PROC Crear_Aerolinea
     (@nombre VARCHAR(100), @lema VARCHAR(MAX))
