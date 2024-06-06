@@ -15,12 +15,14 @@ namespace Control_de_Vuelos
     {
         DatabaseConnection cnn;
         int idV;
+        String identity;
 
-        public PassangerFligthInfo(int id)
+        public PassangerFligthInfo(int id, String identi)
         {
             InitializeComponent();
             this.cnn = new DatabaseConnection();
             this.idV = id;
+            this.identity = identi;
             loadPassangerData();
         }
 
@@ -34,6 +36,7 @@ namespace Control_de_Vuelos
                 SqlCommand info = new SqlCommand("Fligth_Passenger_Info", cnn.ConnectDB);
                 info.CommandType = CommandType.StoredProcedure;
                 info.Parameters.AddWithValue("@id", this.idV);
+                info.Parameters.AddWithValue("@identity", this.identity);
 
                 SqlDataAdapter adapter = new SqlDataAdapter(info);
                 DataTable dataTable = new DataTable();
