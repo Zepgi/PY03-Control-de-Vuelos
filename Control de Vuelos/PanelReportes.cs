@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Guna.UI2.WinForms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,17 +10,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Control_de_Vuelos
 {
     public partial class PanelReportes : Form
     {
         DatabaseConnection conexion;
-        public PanelReportes()
+        private int idAirline;
+        public PanelReportes(int pIdAirline)
         {
+            this.idAirline = pIdAirline;
             InitializeComponent();
+            this.lbAirline.Visible = false;
+            this.cbAirlines.Visible = false;
             conexion = new DatabaseConnection();
-        }
+            top3Days();
+
+		}
 
         private void PanelReportes_Load(object sender, EventArgs e)
         {
@@ -356,6 +364,135 @@ namespace Control_de_Vuelos
                 DataGridViewRow row = fligthPerPassengerGrid.Rows[e.RowIndex];
                 row.Selected = true;
 
+                passengerInfo(row);
+            }
+
+        }
+
+        ////////////////////           EYDEN
+        private void button_ClickHandler(object sender, EventArgs e) { 
+            Guna2Button b = (Guna2Button)sender;
+            switch (b.Name) {
+				case "btPlanesByCity":
+                    this.lbAirline.Visible = true;
+                    this.cbAirlines.Visible = true;
+                    this.cbAirlines.Items.Clear();
+                    getAirlines();
+					setPlanesByCity();
+					break;
+				case "btDifferentPlanes":
+					this.lbAirline.Visible = false;
+					this.cbAirlines.Visible = false;
+					setDifferentPlanes();
+					break;
+				case "btTopCity":
+					this.lbAirline.Visible = false;
+					this.cbAirlines.Visible = false;
+					setTopCities();
+					break;
+				default: 
+                    break;
+			}
+        }
+
+
+		// todos usan tbPlanes
+		private void setPlanesByCity() {
+			try {
+				this.conexion.open();
+				SqlCommand cmd = new SqlCommand("Planes_By_City", this.conexion.ConnectDB);
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue("@idAerolinea", this.idAirline);
+
+				SqlDataAdapter da = new SqlDataAdapter(cmd);
+				DataTable dt = new DataTable();
+				da.Fill(dt);
+				tbPlanes.DataSource = dt;
+			} catch (Exception ex) {
+				MessageBox.Show("Error: " + ex.Message, "Error al obtener aviones por ciudad", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			} finally {
+				if (this.conexion.ConnectDB.State == ConnectionState.Open) {
+					this.conexion.close();
+				}
+			}
+		}
+
+		private void setDifferentPlanes() {
+			try {
+				this.conexion.open();
+				SqlCommand cmd = new SqlCommand("Distinct_Planes", this.conexion.ConnectDB);
+				cmd.CommandType = CommandType.StoredProcedure;
+
+				SqlDataAdapter da = new SqlDataAdapter(cmd);
+				DataTable dt = new DataTable();
+				da.Fill(dt);
+				tbPlanes.DataSource = dt;
+				tbPlanes.Columns["Aviones"].HeaderText = "Cantidad de Aviones";
+				tbPlanes.Columns["Partida"].HeaderText = "Ciudad de Partida";
+				tbPlanes.Columns["Destino"].HeaderText = "Ciudad de Destino";
+			} catch (Exception ex) {
+				MessageBox.Show("Error: " + ex.Message, "Error al obtener aviones distintos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			} finally {
+				if (this.conexion.ConnectDB.State == ConnectionState.Open) {
+					this.conexion.close();
+				}
+			}
+		}
+
+		private void setTopCities() {
+			try {
+				this.conexion.open();
+				SqlCommand cmd = new SqlCommand("Top_City", this.conexion.ConnectDB);
+				cmd.CommandType = CommandType.StoredProcedure;
+
+				SqlDataAdapter da = new SqlDataAdapter(cmd);
+				DataTable dt = new DataTable();
+				da.Fill(dt);
+				tbPlanes.DataSource = dt;
+				tbPlanes.Columns["Aviones"].HeaderText = "Cantidad de Aviones";
+				tbPlanes.Columns["Vuelos"].HeaderText = "Cantidad de Vuelos";
+				tbPlanes.Columns["Ciudad"].HeaderText = "Ciudad de Destino";
+			} catch (Exception ex) {
+				MessageBox.Show("Error: " + ex.Message, "Error al obtener las ciudades top", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			} finally {
+				if (this.conexion.ConnectDB.State == ConnectionState.Open) {
+					this.conexion.close();
+				}
+			}
+		}
+
+
+		private void cbAirlines_IndexChanged(object sender, EventArgs e) {
+			if (this.cbAirlines.SelectedIndex != -1) {
+				this.idAirline = Convert.ToInt32(this.cbAirlines.SelectedItem.ToString().Split('-')[0].Trim());
+				this.setPlanesByCity();
+			}
+		}
+
+		private void getAirlines() {
+			try {
+				this.conexion.open();
+
+				SqlCommand cmd = new SqlCommand("GetAirlineByName", this.conexion.ConnectDB);
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue("@Name", "");
+
+				SqlDataReader reader = cmd.ExecuteReader();
+				while (reader.Read()) {
+					string idAerolinea = reader["idAerolinea"].ToString();
+					string nombre = reader["nombre"].ToString();
+					this.cbAirlines.Items.Add(idAerolinea + " - " + nombre);
+				}
+
+				reader.Close();
+			} catch (SqlException ex) {
+				MessageBox.Show("Error: " + ex.Message, "Error al cargar aerolíneas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			} finally {
+				if (this.conexion.ConnectDB.State == ConnectionState.Open) {
+					this.conexion.close();
+				}
+			}
+		}
                 int idV = (int)row.Cells["idColumn"].Value;
 
                 passengerInfo(idV, row.Cells["identityColumn"].Value.ToString());
@@ -513,47 +650,43 @@ namespace Control_de_Vuelos
             }
         }
 
+		private void top3Days() {
+			chartTopDays.Series.Clear();
+			chartTopDays.Titles.Clear();
+			chartTopDays.ChartAreas.Clear();
 
+			ChartArea chartArea = new ChartArea();
+			chartTopDays.ChartAreas.Add(chartArea);
 
-        private void CargarAvionesInactivos()
-        {
-            try
-            {
-                // Limpiar el DataGridView antes de cargar los datos
-                dataGridJose.DataSource = null;
-                dataGridJose.Columns.Clear();
+			Series series = new Series();
+			series.ChartType = SeriesChartType.Pie;
+			series.IsValueShownAsLabel = true;
 
-                using (SqlCommand cmd = new SqlCommand("AirplanesByAirlinesInactiveState", conexion.ConnectDB))
-                {
-                    // Configurar el comando para llamar al stored procedure
-                    cmd.CommandType = CommandType.StoredProcedure;
+			try {
+				conexion.open();
+				SqlCommand cmd = new SqlCommand("TopDaysWithMostPassengers", conexion.ConnectDB);
+				cmd.CommandType = CommandType.StoredProcedure;
 
-                    // Crear un adaptador de datos para llenar un DataTable
-                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                    DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
+				SqlDataAdapter da = new SqlDataAdapter(cmd);
+				DataTable dt = new DataTable();
+				da.Fill(dt);
 
-                    // Asignar los datos al DataGridView
-                    dataGridJose.DataSource = dataTable;
+				foreach (DataRow row in dt.Rows) {
+					series.Points.AddXY(row["Fecha del Vuelo"].ToString(), Convert.ToInt32(row["Cantidad de Pasajeros"]));
+				}
 
-                    // Opcional: Personalizar los encabezados de las columnas si es necesario
-                    dataGridJose.Columns["AirlineName"].HeaderText = "Nombre de la Aerolínea";
-                    dataGridJose.Columns["AirplaneBrand"].HeaderText = "Marca del Avión";
-                    dataGridJose.Columns["AirplaneRegistration"].HeaderText = "Matrícula del Avión";
-                    dataGridJose.Columns["PassengerCapacity"].HeaderText = "Capacidad de Pasajeros";
+				chartTopDays.Series.Add(series);
 
-                    // Ocultar la columna 'AirplaneStatus'
-                    dataGridJose.Columns["AirplaneStatus"].Visible = false;
+				chartTopDays.Titles.Add("Top 3 Días con Más Pasajeros");
 
-                    // Cerrar la conexión si fuera necesario (no se ve en el código proporcionado)
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar aviones inactivos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-    }
+				chartTopDays.DataBind();
+				
+			} catch (Exception ex) {
+				MessageBox.Show("Error: " + ex.Message, "Error al obtener los días con más pasajeros", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+            conexion.close();
+		}
+	}
 }
 
 

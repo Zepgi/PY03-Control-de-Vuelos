@@ -1,4 +1,5 @@
-﻿using Guna.UI2.WinForms;
+﻿using Guna.UI2.AnimatorNS;
+using Guna.UI2.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -259,6 +260,7 @@ namespace Control_de_Vuelos {
 		}
 
 		private void modPassenger() {
+			bool passengerExists = false;
 			ManagePassengersPanel inputPanel = this.pInputArea.Controls[0] as ManagePassengersPanel;
 			if (inputPanel == null) {
 				return;
@@ -281,6 +283,26 @@ namespace Control_de_Vuelos {
 				MessageBox.Show("El país no puede contener números.", "Nombre incorrecto", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
+			conn.open();
+			using (SqlCommand cmdSearchPassenger = new SqlCommand("Search_Passenger", this.conn.ConnectDB)) {
+				cmdSearchPassenger.CommandType = CommandType.StoredProcedure;
+				cmdSearchPassenger.Parameters.AddWithValue("@cedulaPasajero", inputPanel.txtIdPassenger.Text);
+				using (SqlDataReader reader = cmdSearchPassenger.ExecuteReader()) {
+					if (reader.Read()) {
+						if (reader["cedulaPasajero"] == DBNull.Value) {
+							passengerExists = false;
+						} else {
+							passengerExists = true;
+
+						}
+					}
+				}
+			}
+			if (!passengerExists) {
+				MessageBox.Show("El pasajero no está registrado.", "Error al modificar pasajero", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+			conn.close();
 			try {
 				this.conn.open();
 				SqlCommand cmd = new SqlCommand("Update_Passenger", this.conn.ConnectDB);

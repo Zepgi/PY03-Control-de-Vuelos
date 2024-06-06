@@ -689,6 +689,72 @@ BEGIN
 END;
 GO
 
+CREATE PROC Planes_By_City
+(
+    @idAerolinea INT
+)
+AS
+BEGIN
+    IF @idAerolinea != 0
+    BEGIN
+        SELECT COUNT(V.idAvion) AS 'Cantidad de Aviones', 
+               CONCAT(V.codigoCiudadPartida, ' | ', C.ciudad) AS 'Ciudad'
+        FROM Vuelos V
+        INNER JOIN Ciudades C ON C.codigoCiudad = V.codigoCiudadPartida
+        WHERE V.idAerolinea = @idAerolinea
+        GROUP BY CONCAT(V.codigoCiudadPartida, ' | ', C.ciudad)
+		ORDER BY COUNT(V.idAvion) DESC;
+    END
+    ELSE
+    BEGIN
+        SELECT COUNT(V.idAvion) AS 'Cantidad de Aviones', 
+               CONCAT(V.codigoCiudadPartida, ' | ', C.ciudad) AS 'Ciudad'
+        FROM Vuelos V
+        INNER JOIN Ciudades C ON C.codigoCiudad = V.codigoCiudadPartida
+        GROUP BY CONCAT(V.codigoCiudadPartida, ' | ', C.ciudad)
+		ORDER BY COUNT(V.idAvion) DESC;
+    END
+END;
+GO
+
+CREATE PROC Distinct_Planes
+AS
+	SELECT COUNT(DISTINCT(idAvion)) Aviones, CONCAT(V.codigoCiudadPartida, ' | ', C.ciudad) Partida, CONCAT(V.codigoCiudadDestino, ' | ', C2.ciudad) Destino
+	FROM Vuelos V
+	INNER JOIN Ciudades C ON 
+	C.codigoCiudad = V.codigoCiudadPartida
+	INNER JOIN Ciudades C2 ON 
+	C2.codigoCiudad = V.codigoCiudadDestino
+    GROUP BY CONCAT(V.codigoCiudadPartida, ' | ', C.ciudad), CONCAT(V.codigoCiudadDestino, ' | ', C2.ciudad)
+	ORDER BY  COUNT(DISTINCT(idAvion))DESC;
+GO
+
+CREATE PROC Top_City
+AS
+	SELECT COUNT(idAvion) Aviones, COUNT(idVuelo) Vuelos, CONCAT(V.codigoCiudadDestino, ' | ', C.ciudad) Ciudad
+	FROM Vuelos V
+	INNER JOIN Ciudades C ON 
+	C.codigoCiudad = V.codigoCiudadDestino
+	GROUP BY CONCAT(V.codigoCiudadDestino, ' | ', C.ciudad)
+	ORDER BY COUNT(idAvion), COUNT(idVuelo) DESC;
+GO
+
+CREATE PROCEDURE TopDaysWithMostPassengers
+AS
+BEGIN
+    SELECT TOP 3
+        CONVERT(DATE, V.fechaHoraPartida) AS 'Fecha del Vuelo',
+        COUNT(LP.cedulaPasajero) AS 'Cantidad de Pasajeros'
+    FROM Vuelos V
+    INNER JOIN ListaPasajeros LP ON V.idVuelo = LP.idVuelo
+    GROUP BY CONVERT(DATE, V.fechaHoraPartida)
+    ORDER BY COUNT(LP.cedulaPasajero) DESC;
+END;
+GO
+
+
+
+
 
 ------------ INICIO STORED PROCEDURES AEROLINEAS ------------
 CREATE PROC Crear_Aerolinea
@@ -1551,4 +1617,3 @@ GO
 
 
 
-SELECT * FROM Vuelos
