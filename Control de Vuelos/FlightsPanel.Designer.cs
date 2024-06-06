@@ -23,9 +23,9 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.btPassengers = new Guna.UI2.WinForms.Guna2Button();
 			this.btFlights = new Guna.UI2.WinForms.Guna2Button();
 			this.btLeftOption = new Guna.UI2.WinForms.Guna2Button();
@@ -34,7 +34,8 @@
 			this.btRightOption = new Guna.UI2.WinForms.Guna2Button();
 			this.tbFlights = new Guna.UI2.WinForms.Guna2DataGridView();
 			this.btBottomOption = new Guna.UI2.WinForms.Guna2Button();
-			this.pInputArea.SuspendLayout();
+			this.cbAirlines = new Guna.UI2.WinForms.Guna2ComboBox();
+			this.lbAirline = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.tbFlights)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -106,7 +107,6 @@
 			// pInputArea
 			// 
 			this.pInputArea.BackColor = System.Drawing.Color.Transparent;
-			this.pInputArea.Controls.Add(this.lbSelectOpt);
 			this.pInputArea.Location = new System.Drawing.Point(14, 85);
 			this.pInputArea.Name = "pInputArea";
 			this.pInputArea.Size = new System.Drawing.Size(500, 520);
@@ -116,7 +116,7 @@
 			// 
 			this.lbSelectOpt.AutoSize = true;
 			this.lbSelectOpt.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lbSelectOpt.Location = new System.Drawing.Point(100, 225);
+			this.lbSelectOpt.Location = new System.Drawing.Point(100, 325);
 			this.lbSelectOpt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.lbSelectOpt.Name = "lbSelectOpt";
 			this.lbSelectOpt.Size = new System.Drawing.Size(300, 54);
@@ -150,29 +150,29 @@
 			this.tbFlights.AllowUserToAddRows = false;
 			this.tbFlights.AllowUserToDeleteRows = false;
 			this.tbFlights.AllowUserToResizeColumns = false;
-			dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-			this.tbFlights.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle13.BackColor = System.Drawing.Color.White;
+			this.tbFlights.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
 			this.tbFlights.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
 			this.tbFlights.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Single;
 			this.tbFlights.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.tbFlights.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+			dataGridViewCellStyle14.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle14.ForeColor = System.Drawing.Color.White;
+			dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.tbFlights.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
 			this.tbFlights.ColumnHeadersHeight = 50;
 			this.tbFlights.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.tbFlights.DefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle15.BackColor = System.Drawing.Color.White;
+			dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+			dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+			dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+			dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.tbFlights.DefaultCellStyle = dataGridViewCellStyle15;
 			this.tbFlights.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
 			this.tbFlights.Location = new System.Drawing.Point(520, 88);
 			this.tbFlights.Name = "tbFlights";
@@ -226,17 +226,49 @@
 			this.btBottomOption.Text = "Confirmar Pasajeros";
 			this.btBottomOption.Click += new System.EventHandler(this.btBottomOption_Click);
 			// 
+			// cbAirlines
+			// 
+			this.cbAirlines.BackColor = System.Drawing.Color.Transparent;
+			this.cbAirlines.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+			this.cbAirlines.BorderRadius = 15;
+			this.cbAirlines.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+			this.cbAirlines.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cbAirlines.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+			this.cbAirlines.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+			this.cbAirlines.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbAirlines.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+			this.cbAirlines.ItemHeight = 30;
+			this.cbAirlines.Location = new System.Drawing.Point(864, 33);
+			this.cbAirlines.Name = "cbAirlines";
+			this.cbAirlines.Size = new System.Drawing.Size(344, 36);
+			this.cbAirlines.TabIndex = 25;
+			// 
+			// lbAirline
+			// 
+			this.lbAirline.AutoSize = true;
+			this.lbAirline.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lbAirline.Location = new System.Drawing.Point(734, 42);
+			this.lbAirline.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.lbAirline.Name = "lbAirline";
+			this.lbAirline.Size = new System.Drawing.Size(123, 27);
+			this.lbAirline.TabIndex = 26;
+			this.lbAirline.Text = "Aerolínea";
+			this.lbAirline.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
 			// FlightsPanel
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.BackColor = System.Drawing.Color.White;
 			this.ClientSize = new System.Drawing.Size(1220, 727);
+			this.Controls.Add(this.lbAirline);
+			this.Controls.Add(this.cbAirlines);
+			this.Controls.Add(this.lbSelectOpt);
+			this.Controls.Add(this.pInputArea);
 			this.Controls.Add(this.btBottomOption);
 			this.Controls.Add(this.tbFlights);
 			this.Controls.Add(this.btRightOption);
 			this.Controls.Add(this.btLeftOption);
-			this.Controls.Add(this.pInputArea);
 			this.Controls.Add(this.btFlights);
 			this.Controls.Add(this.btPassengers);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -244,10 +276,9 @@
 			this.MinimumSize = new System.Drawing.Size(1220, 727);
 			this.Name = "FlightsPanel";
 			this.Text = "PanelVuelos";
-			this.pInputArea.ResumeLayout(false);
-			this.pInputArea.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tbFlights)).EndInit();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -256,9 +287,11 @@
 		private Guna.UI2.WinForms.Guna2Button btFlights;
 		private Guna.UI2.WinForms.Guna2Button btLeftOption;
 		private System.Windows.Forms.Panel pInputArea;
-		private Guna.UI2.WinForms.Guna2Button btRightOption;
 		private System.Windows.Forms.Label lbSelectOpt;
 		private Guna.UI2.WinForms.Guna2DataGridView tbFlights;
 		private Guna.UI2.WinForms.Guna2Button btBottomOption;
+		public Guna.UI2.WinForms.Guna2Button btRightOption;
+		public Guna.UI2.WinForms.Guna2ComboBox cbAirlines;
+		private System.Windows.Forms.Label lbAirline;
 	}
 }

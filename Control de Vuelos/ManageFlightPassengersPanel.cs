@@ -26,13 +26,41 @@ namespace Control_de_Vuelos {
 			setFlights();
 		}
 
+		private List<int> getOccupiedSeats() {
+			List<int> occupiedSeatsList = new List<int>();
+
+			try {
+				this.conn.open();
+				SqlCommand cmd = new SqlCommand("Get_Occupied_Seats", this.conn.ConnectDB);
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue("@idVuelo", Int32.Parse(cbFlights.SelectedItem.ToString()));
+
+				SqlDataReader reader = cmd.ExecuteReader();
+				while (reader.Read()) {
+					occupiedSeatsList.Add(reader.GetInt32(0));
+				}
+				reader.Close();
+			} catch (SqlException ex) {
+				MessageBox.Show("Error: " + ex.Message, "Error al obtener los asientos ocupados", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			} finally {
+				if (this.conn.ConnectDB.State == ConnectionState.Open) {
+					this.conn.close();
+				}
+			}
+
+			return occupiedSeatsList;
+		}
+
+
 		private void buttonGrid(int pY) {
 			int x = 6;
-			int y = pY / 6; // División entera
+			int y = pY / 6;
 
 			int number = 1;
 			int yPos = 40;
 			int xPos = 0;
+
+			List<int> occupiedSeats = getOccupiedSeats();
 
 			foreach (Control control in Controls.OfType<CheckBox>().ToList()) {
 				Controls.Remove(control);
@@ -51,7 +79,11 @@ namespace Control_de_Vuelos {
 					checkBox.FlatAppearance.BorderSize = 2;
 					checkBox.FlatAppearance.BorderColor = Color.LightGray;
 					checkBox.Font = new Font("Century Gothic", 8.2f, FontStyle.Regular);
-
+					if (occupiedSeats.IndexOf(number) != -1) {
+						checkBox.Checked = true;
+						checkBox.BackColor = Color.Red;
+						checkBox.Enabled = false;
+					}
 					checkBox.Click += checkBox_Click;
 					if (j == 4) {
 						xPosition += 25;
@@ -140,11 +172,15 @@ namespace Control_de_Vuelos {
 			foreach (Control control in Controls) {
 				if (control is CheckBox checkBox && checkBox.Checked) {
 					if (int.TryParse(checkBox.Text, out int seatNumber)) {
-						seats.Add(seatNumber);
+						if (!(checkBox.BackColor == Color.Red)) {
+							seats.Add(seatNumber);
+
+						}
 					}
 				}
 			}
 			if (seats.Count > 0) {
+				
 				string seatNumbers = string.Join(", ", seats.Select(s => s.ToString()));
 				MessageBox.Show($"Asientos seleccionados: {seatNumbers}", "Asientos Confirmados", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				this.super.addPassengers(seats);

@@ -1,28 +1,22 @@
 ﻿using Guna.UI2.WinForms;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Control_de_Vuelos {
 	public partial class FlightsPanel : Form {
 
-		List<int> permissions;
-		List<int> actualSeats;
+		private List<int> permissions;
+		public List<int> actualSeats;
 		int idAirline;
 		public int selectedFlight;
-		string idUser;
-		DatabaseConnection conn;
+		private string idUser;
+		private DatabaseConnection conn;
 		private Dictionary<string, int> passengerSeats = new Dictionary<string, int>();
 
 		public FlightsPanel(int pIdAirline, string pIdUser, List<int> pPermissions) {
@@ -30,9 +24,13 @@ namespace Control_de_Vuelos {
 			this.idAirline = pIdAirline;
 			this.idUser = pIdUser;
 			this.permissions = pPermissions;
+			this.actualSeats = new List<int>();
 			InitializeComponent();
 			this.btBottomOption.Visible = false;
+			this.lbAirline.Visible = false;
+			this.cbAirlines.Visible = false;
 			this.setView();
+			this.setTableData("Vuelos");
 		}
 
 		private void button_Click(object sender, EventArgs e) {
@@ -54,7 +52,7 @@ namespace Control_de_Vuelos {
 				this.btRightOption.Text = "Agregar Pasajero";
 				this.btLeftOption.Text = "Modificar Pasajero";
 				this.btBottomOption.Text = "Confirmar tiquetes";
-				this.btBottomOption.Visible = true;
+				this.btBottomOption.Visible = false;
 				setTableData("Vuelos");
 			}
 		}
@@ -91,6 +89,10 @@ namespace Control_de_Vuelos {
 
 
 		private void setView() {
+			if (permissions.IndexOf(1) != -1) {
+				this.lbAirline.Visible = true;
+				this.cbAirlines.Visible = true;
+			}
 			if (permissions.IndexOf(3) != -1) {
 				this.btRightOption.Visible = false;
 				this.btLeftOption.Visible = false;
@@ -107,12 +109,18 @@ namespace Control_de_Vuelos {
 		private void btRightOption_Click(object sender, EventArgs e) {
 			this.btRightOption.FillColor = Color.FromArgb(19, 216, 143);
 			this.btLeftOption.FillColor = Color.FromArgb(19, 216, 143);
-			if (this.btRightOption.Text.Equals("Agregar Pasajero")) {
-				this.loadPanel(new ManagePassengersPanel());
+			if (this.btRightOption.Text.Equals("Agregar Pasajero") && !this.pInputArea.Controls[0].Name.Equals("ManagePassengersPanel")) {
+				this.loadPanel(new ManagePassengersPanel(this));
 				this.setTableData("Pasajeros");
+
+			} else if (this.btRightOption.Text.Equals("Agregar Pasajero") && this.pInputArea.Controls[0].Name.Equals("ManagePassengersPanel")) {
+				ManagePassengersPanel flightPassengersPanel = this.pInputArea.Controls[0] as ManagePassengersPanel;
+				flightPassengersPanel.addPassenger();
 			} else if (this.btRightOption.Text.Equals("Agregar Vuelo")) {
 				addFlight();
-			} else if (this.btRightOption.Text.Equals("Modificar")) {
+			} else if (this.btRightOption.Text.Equals("Modificar") && pInputArea.Controls[0].Name.Equals("ManagePassengersPanel")) {
+				modPassenger();
+			} else if (this.btRightOption.Text.Equals("Modificar") && pInputArea.Controls[0].Name.Equals("ManageFlightsPanel")) {
 				modFlight();
 			} else {
 				MessageBox.Show("No ha sido implementado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -121,11 +129,23 @@ namespace Control_de_Vuelos {
 		}
 		private void btLeftOption_Click(object sender, EventArgs e) {
 			if (this.btLeftOption.Text.Equals("Modificar Pasajero")) {
+				this.loadPanel(new ManagePassengersPanel(this));
 				this.setTableData("Pasajeros");
+				this.btRightOption.Text = "Modificar";
+				this.btRightOption.FillColor = Color.FromKnownColor(KnownColor.HotTrack);
+				this.btLeftOption.Text = "Cancelar";
+				this.btLeftOption.FillColor = System.Drawing.Color.Red;
 			} else if (this.btLeftOption.Text.Equals("Modificar Vuelo")) {
 				modFlightView();
-			} else if (this.btLeftOption.Text.Equals("Cancelar")) {
+			} else if (this.btLeftOption.Text.Equals("Cancelar") && pInputArea.Controls[0].Name.Equals("ManageFlightsPanel")) {
 				cancelFlight();
+			} else if (this.btLeftOption.Text.Equals("Cancelar") && pInputArea.Controls[0].Name.Equals("ManagePassengersPanel")) {
+				this.loadPanel(new ManageFlightPassengersPanel(this.idAirline, this));
+				setTableData("Vuelos");
+				this.btRightOption.Text = "Agregar Pasajero";
+				this.btLeftOption.Text = "Modificar Pasajero";
+				this.btRightOption.FillColor = Color.FromArgb(19, 216, 143);
+				this.btLeftOption.FillColor = Color.FromArgb(19, 216, 143);
 			} else {
 				MessageBox.Show("No ha sido implementado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
@@ -141,16 +161,12 @@ namespace Control_de_Vuelos {
 						int seat = actualSeats[0];
 						int flight = this.selectedFlight;
 
-						// Agregar pasajero y asiento al diccionario
 						passengerSeats.Add(idPassenger, seat);
 
-						// Eliminar el primer asiento de la lista
 						actualSeats = actualSeats.Skip(1).ToList();
 
-						MessageBox.Show("Pasajero agregado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 						if (actualSeats.Count <= 0) {
-							// Todos los pasajeros han sido agregados, insertar en la base de datos
 							conn.open();
 							foreach (var passenger in passengerSeats) {
 								using (SqlCommand cmd = new SqlCommand("Add_Passenger_To_List", conn.ConnectDB)) {
@@ -161,10 +177,9 @@ namespace Control_de_Vuelos {
 									cmd.ExecuteNonQuery();
 								}
 							}
+							setView();
+							MessageBox.Show("Tiquetes registrados exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 						}
-						passengerSeats.Clear(); // Limpiar el diccionario después de la inserción
-						setView();
-						MessageBox.Show("Todos los pasajeros han sido agregados.", "Proceso completo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					}
 				} catch (Exception ex) {
 					MessageBox.Show("Error: " + ex.Message, "Error al agregar pasajero", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -180,7 +195,7 @@ namespace Control_de_Vuelos {
 			this.btBottomOption.Text = "Agregar Pasajero";
 			this.btBottomOption.Visible = true;
 			actualSeats = pSeats;
-			this.loadPanel(new ManagePassengersPanel());
+			this.loadPanel(new ManagePassengersPanel(this));
 		}
 
 		private void modFlightView() {
@@ -188,6 +203,59 @@ namespace Control_de_Vuelos {
 			this.btRightOption.FillColor = Color.FromKnownColor(KnownColor.HotTrack);
 			this.btLeftOption.Text = "Cancelar";
 			this.btLeftOption.FillColor = System.Drawing.Color.Red;
+		}
+
+		private void modPassenger() {
+			ManagePassengersPanel inputPanel = this.pInputArea.Controls[0] as ManagePassengersPanel;
+			if (inputPanel == null) {
+				return;
+			}
+			if (string.IsNullOrEmpty(inputPanel.txtIdPassenger.Text) &&
+							string.IsNullOrEmpty(inputPanel.txtPassengerName.Text) &&
+							string.IsNullOrEmpty(inputPanel.txtCountry.Text) &&
+							string.IsNullOrEmpty(inputPanel.txtCanton.Text) &&
+							string.IsNullOrEmpty(inputPanel.txtDistrict.Text) &&
+							string.IsNullOrEmpty(inputPanel.txtCity.Text)) {
+				MessageBox.Show("Por favor, complete todos los campos.", "Campos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+			if (!inputPanel.isValidText(inputPanel.txtPassengerName.Text)) {
+				MessageBox.Show("El nombre del pasajero no puede contener números.", "Nombre incorrecto", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+
+			if (!inputPanel.isValidText(inputPanel.txtCountry.Text)) {
+				MessageBox.Show("El país no puede contener números.", "Nombre incorrecto", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+			try {
+				this.conn.open();
+				SqlCommand cmd = new SqlCommand("Update_Passenger", this.conn.ConnectDB);
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue("@cedulaPasajero", Convert.ToInt32(inputPanel.txtIdPassenger.Text));
+				cmd.Parameters.AddWithValue("@nombre", inputPanel.txtPassengerName.Text.Split(' ')[0]);
+				cmd.Parameters.AddWithValue("@apellidoPat", inputPanel.txtPassengerName.Text.Split(' ')[1]);
+				cmd.Parameters.AddWithValue("@apellidoMat", inputPanel.txtPassengerName.Text.Split(' ')[2]);
+				cmd.Parameters.AddWithValue("@pais", inputPanel.txtCountry.Text);
+				cmd.Parameters.AddWithValue("@canton", inputPanel.txtCanton.Text);
+				cmd.Parameters.AddWithValue("@distrito", inputPanel.txtDistrict.Text);
+				cmd.Parameters.AddWithValue("@ciudad", inputPanel.txtCity.Text);
+
+				cmd.ExecuteNonQuery();
+				MessageBox.Show("El pasajero ha sido actualizado exitosamente.", "Actualización exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				this.setTableData("Vuelos");
+				setView();
+			} catch (SqlException ex) {
+				if (ex.Number == 50000) {
+					MessageBox.Show("Debe modificar al menos un dato.", "Error en la actualización", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				} else {
+					MessageBox.Show("Error: " + ex.Message, "Error al actualizar pasajero", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+			} finally {
+				if (this.conn.ConnectDB.State == ConnectionState.Open) {
+					this.conn.close();
+				}
+			}
 		}
 
 		private void modFlight() {
@@ -205,8 +273,8 @@ namespace Control_de_Vuelos {
 				return;
 			}
 
-			DateTime departureDateTime = flightPanel.dtArrivalDate.Value.Date.Add(DateTime.Parse(flightPanel.cbDepartureHours.SelectedItem.ToString()).TimeOfDay);
-			DateTime arrivalDateTime = flightPanel.dtDepartureDate.Value.Date.Add(DateTime.Parse(flightPanel.cbArrivalHours.SelectedItem.ToString()).TimeOfDay);
+			DateTime arrivalDateTime = flightPanel.dtArrivalDate.Value.Date.Add(DateTime.Parse(flightPanel.cbArrivalHours.SelectedItem.ToString()).TimeOfDay);
+			DateTime departureDateTime = flightPanel.dtDepartureDate.Value.Date.Add(DateTime.Parse(flightPanel.cbDepartureHours.SelectedItem.ToString()).TimeOfDay);
 
 			DateTime now = DateTime.Now;
 			if (departureDateTime <= now) {
@@ -223,35 +291,61 @@ namespace Control_de_Vuelos {
 				return;
 			}
 
-			// verificar que no haya un vuelo con el mismo piloto en el  momento que se hace
-
 			try {
 				this.conn.open();
+
+				SqlCommand checkCmd = new SqlCommand("Search_Between_Dates", conn.ConnectDB);
+				checkCmd.CommandType = CommandType.StoredProcedure;
+				checkCmd.Parameters.AddWithValue("@fechaHoraPartida", departureDateTime);
+				checkCmd.Parameters.AddWithValue("@fechaHoraLlegada", arrivalDateTime);
+
+				SqlDataReader reader = checkCmd.ExecuteReader();
+				while (reader.Read()) {
+					string cedulaPiloto = reader["cedulaPiloto"].ToString();
+					string matricula = reader["matricula"].ToString();
+					int     flight  = (int) reader["idVuelo"];
+
+					if ((cedulaPiloto.Equals(flightPanel.cbPilots.SelectedItem.ToString()) ||
+						matricula == flightPanel.cbPlanes.SelectedItem.ToString()) && flight != this.selectedFlight) {
+						MessageBox.Show("Conflicto de horario: el piloto o el avión ya están asignados a otro vuelo en este horario.", "Error de programación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+						conn.close();
+						return;
+					}
+				}
+				reader.Close();
+
 				SqlCommand cmd = new SqlCommand("Update_Flight", conn.ConnectDB);
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue("@idVuelo", this.selectedFlight);
 				cmd.Parameters.AddWithValue("@idAerolinea", this.idAirline);
 				cmd.Parameters.AddWithValue("@matricula", flightPanel.cbPlanes.SelectedItem.ToString());
-				cmd.Parameters.AddWithValue("@cedulaPiloto", Int32.Parse(flightPanel.cbPilots.SelectedItem.ToString()));
+				cmd.Parameters.AddWithValue("@cedulaPiloto", flightPanel.cbPilots.SelectedItem.ToString());
 				cmd.Parameters.AddWithValue("@fechaHoraPartida", departureDateTime);
 				cmd.Parameters.AddWithValue("@fechaHoraLlegada", arrivalDateTime);
-				cmd.Parameters.AddWithValue("@codigoCiudadPartida", flightPanel.cbDepartureCities.SelectedItem.ToString().Split('|')[0].Trim());
-				cmd.Parameters.AddWithValue("@codigoCiudadDestino", flightPanel.cbArrivalCities.SelectedItem.ToString().Split('|')[0].Trim());
+				cmd.Parameters.AddWithValue("@codigoCiudadDestino", flightPanel.cbDepartureCities.SelectedItem.ToString().Split('|')[0].Trim());
+				cmd.Parameters.AddWithValue("@codigoCiudadPartida", flightPanel.cbArrivalCities.SelectedItem.ToString().Split('|')[0].Trim());
 
 				cmd.ExecuteNonQuery();
 				MessageBox.Show("El vuelo ha sido actualizado exitosamente.", "Actualización exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				this.setTableData("Vuelos");
-				flightPanel.clear();
-				setView();
+				loadPanel(new ManageFlightPassengersPanel(this.idAirline, this));
+				this.btRightOption.Text = "Agregar Pasajero";
+				this.btLeftOption.Text = "Modificar Pasajero";
+				this.btRightOption.FillColor = Color.FromArgb(19, 216, 143);
+				this.btLeftOption.FillColor = Color.FromArgb(19, 216, 143);
 			} catch (SqlException ex) {
 				if (ex.Number == 50000) {
 					MessageBox.Show("Debe modificar al menos un dato", "Error en la actualización", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
 				} else {
 					MessageBox.Show("Error: " + ex.Message, "Error al cancelar vuelo", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
+			} finally {
+				if (conn.ConnectDB.State == ConnectionState.Open) {
+					conn.close();
+				}
 			}
 		}
+
 		private void cancelFlight() {
 			if (tbFlights.SelectedRows.Count == 0) {
 				MessageBox.Show("Por favor, seleccione un vuelo para cancelar.", "Selección vacía", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -309,7 +403,7 @@ namespace Control_de_Vuelos {
 				return;
 			}
 
-			if (arrivalDateTime >= departureDateTime) {
+			if (arrivalDateTime <= departureDateTime) {
 				MessageBox.Show("La fecha y hora de llegada debe ser posterior a la fecha y hora de partida.", "Error en las fechas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
@@ -319,10 +413,28 @@ namespace Control_de_Vuelos {
 				return;
 			}
 
-			// verificar que no haya un vuelo con el mismo piloto en el  momento que se hace
-
 			try {
 				this.conn.open();
+
+				SqlCommand checkCmd = new SqlCommand("Search_Between_Dates", this.conn.ConnectDB);
+				checkCmd.CommandType = CommandType.StoredProcedure;
+				checkCmd.Parameters.AddWithValue("@fechaHoraPartida", departureDateTime);
+				checkCmd.Parameters.AddWithValue("@fechaHoraLlegada", arrivalDateTime);
+
+				SqlDataReader reader = checkCmd.ExecuteReader();
+				while (reader.Read()) {
+					string cedulaPiloto = (string)reader["cedulaPiloto"];
+					string matricula = reader["matricula"].ToString();
+
+					if (cedulaPiloto == flightPanel.cbPilots.SelectedItem.ToString() ||
+						matricula == flightPanel.cbPlanes.SelectedItem.ToString()) {
+						MessageBox.Show("Conflicto de horario: el piloto o el avión ya están asignados a otro vuelo en este horario.", "Error de programación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+						conn.close();
+						return;
+					}
+				}
+				reader.Close();
+
 				SqlCommand cmd = new SqlCommand("Add_Flight", this.conn.ConnectDB);
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue("@idAerolinea", this.idAirline);
@@ -335,7 +447,11 @@ namespace Control_de_Vuelos {
 
 				cmd.ExecuteNonQuery();
 				this.setTableData("Vuelos");
-				flightPanel.clear();
+				loadPanel(new ManageFlightPassengersPanel(this.idAirline, this));
+				this.btRightOption.Text = "Agregar Pasajero";
+				this.btLeftOption.Text = "Modificar Pasajero";
+				this.btRightOption.FillColor = Color.FromArgb(19, 216, 143);
+				this.btLeftOption.FillColor = Color.FromArgb(19, 216, 143);
 				MessageBox.Show("Vuelo agregado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			} catch (SqlException ex) {
 				MessageBox.Show("Error: " + ex.Message, "Error al agregar vuelo", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -363,11 +479,11 @@ namespace Control_de_Vuelos {
 			if (e.RowIndex == -1) {
 				return;
 			}
-			ManageFlightsPanel flightPanel = this.pInputArea.Controls[0] as ManageFlightsPanel;
-			if (flightPanel == null) {
+			if (this.pInputArea.Controls.Count == 0) {
 				return;
 			}
-			if (btRightOption.Text.Equals("Modificar")) {
+			ManageFlightsPanel flightPanel = this.pInputArea.Controls[0] as ManageFlightsPanel;
+			if (btRightOption.Text.Equals("Modificar") && pInputArea.Controls[0].Name.Equals("ManageFlightsPanel")) {
 				DataGridViewRow selectedRow = this.tbFlights.Rows[e.RowIndex];
 				if (selectedRow != null) {
 					this.selectedFlight = (int) selectedRow.Cells["Vuelo"].Value;
@@ -389,6 +505,62 @@ namespace Control_de_Vuelos {
 					flightPanel.cbDepartureHours.SelectedItem = departureHour;
 					flightPanel.cbArrivalHours.SelectedItem = arrivalHour;
 					flightPanel.cbPilots.SelectedItem = pilotID;
+				}
+			}
+
+			if (pInputArea.Controls[0].Name.Equals("ManageFlightPassengersPanel")) {
+				ManageFlightPassengersPanel inputPanel = pInputArea.Controls[0] as ManageFlightPassengersPanel;
+				DataGridViewRow selectedRow = this.tbFlights.Rows[e.RowIndex];
+				if (selectedRow != null) {
+					this.selectedFlight = (int) selectedRow.Cells["Vuelo"].Value;
+					bool estado = (bool) selectedRow.Cells["Estado"].Value;
+					if (!estado) {
+						return;
+					}
+					inputPanel.cbFlights.SelectedItem = this.selectedFlight.ToString();
+				}
+			}
+			if (pInputArea.Controls[0].Name.Equals("ManagePassengersPanel")) {
+				ManagePassengersPanel inputPanel = pInputArea.Controls[0] as ManagePassengersPanel;
+				DataGridViewRow selectedRow = this.tbFlights.Rows[e.RowIndex];
+				if (selectedRow != null) {
+					if (this.btRightOption.Text.Equals("Agregar Pasajero")) {
+						return;
+					}
+					string passengerId = (string) selectedRow.Cells["Cédula"].Value;
+					try {
+
+						this.conn.open();
+
+						using (SqlCommand cmdSearchPassenger = new SqlCommand("Search_Passenger", this.conn.ConnectDB)) {
+							cmdSearchPassenger.CommandType = CommandType.StoredProcedure;
+							cmdSearchPassenger.Parameters.AddWithValue("@cedulaPasajero", passengerId);
+
+							using (SqlDataReader reader = cmdSearchPassenger.ExecuteReader()) {
+								if (reader.Read()) {
+									inputPanel.txtIdPassenger.Text = reader["cedulaPasajero"].ToString();
+									inputPanel.txtPassengerName.Text = reader["nombreCompleto"].ToString();
+									inputPanel.txtCountry.Text = reader["pais"].ToString();
+									inputPanel.txtCanton.Text = reader["canton"].ToString();
+									inputPanel.txtDistrict.Text = reader["distrito"].ToString();
+									inputPanel.txtCity.Text = reader["ciudad"].ToString();
+								} else {
+									inputPanel.txtPassengerName.Text = string.Empty;
+									inputPanel.txtCountry.Text = string.Empty;
+									inputPanel.txtCanton.Text = string.Empty;
+									inputPanel.txtDistrict.Text = string.Empty;
+									inputPanel.txtCity.Text = string.Empty;
+								}
+							}
+						}
+
+					} catch (Exception ex) {
+						MessageBox.Show("Error: " + ex.Message, "Error al buscar pasajero", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					} finally {
+						if (this.conn.ConnectDB.State == ConnectionState.Open) {
+							this.conn.close();
+						}
+					}
 				}
 			}
 		}
