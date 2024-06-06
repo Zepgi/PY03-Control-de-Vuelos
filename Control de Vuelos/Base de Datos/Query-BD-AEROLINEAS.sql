@@ -1639,8 +1639,8 @@ BEGIN
 			v.idVuelo,
 			v.fechaHoraPartida,
 			v.fechaHoraLlegada,
-			cs.ciudad,
-			cl.ciudad
+			cs.ciudad AS ciudadSalida,
+            cl.ciudad AS ciudadLlegada
 		FROM ListaPasajeros AS lp
 		INNER JOIN Vuelos AS v ON lp.idVuelo = v.idVuelo
 		INNER JOIN Ciudades AS cs ON v.codigoCiudadPartida = cs.codigoCiudad
