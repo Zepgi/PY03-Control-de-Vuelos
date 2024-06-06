@@ -1,13 +1,10 @@
-﻿using Guna.UI2.AnimatorNS;
-using Guna.UI2.WinForms;
+﻿using Guna.UI2.WinForms;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
-using System.Security;
 using System.Windows.Forms;
 
 namespace Control_de_Vuelos {
