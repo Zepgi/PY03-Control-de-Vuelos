@@ -5,6 +5,7 @@ GO
 USE AEROLINEAS;
 GO
 
+--------------BEGIN TABLE------------------
 CREATE TABLE Aerolineas
 	(idAerolinea	INT	IDENTITY(1,1)	NOT NULL,
 	nombre			VARCHAR(100)		NOT NULL,
@@ -134,8 +135,11 @@ CREATE TABLE ListaPasajeros(
 	FOREIGN KEY	(idVuelo)		 REFERENCES Vuelos(idVuelo),
 	FOREIGN KEY (cedulaPasajero) REFERENCES Pasajeros(cedulaPasajero));
 GO
-------------------------------------------
+--------------------END TABLES----------------------
 
+-----------BEGIN PROCEDURES----------------------------
+
+-------------LOGIN----------------------
 CREATE PROC Permisos_Admin_General
 	(@idUsuario INT)
 AS
@@ -175,8 +179,6 @@ BEGIN
 		(@idAerolinea, @idUsuario, 2);
 END;
 GO
-
------------- STORED PROCEDURES ------------
 
 CREATE PROC Verificar_Credenciales 
     (@email VARCHAR(300), @contrasenia VARCHAR(100))
@@ -228,6 +230,8 @@ BEGIN
 END;
 GO
 
+
+---------------FLIGTH PROCEDURES-------------------
 CREATE PROC Get_Flights
 	(@idAerolinea INT)
 AS
@@ -534,7 +538,7 @@ END;
 GO
 
 
------------- INICIO STORED PROCEDURES AEROLINEAS ------------
+-----------AIRLINE PROCEDURES ------------
 CREATE PROC Crear_Aerolinea
     (@nombre VARCHAR(100), @lema VARCHAR(MAX))
 AS
@@ -578,7 +582,7 @@ BEGIN
         FROM 
             Aerolineas
         WHERE 
-            nombre = @Name;
+            nombre LIKE @Name + '%';
     END TRY
     BEGIN CATCH
         DECLARE @ErrorMessage VARCHAR(MAX);
@@ -594,9 +598,6 @@ BEGIN
     END CATCH
 END;
 GO
-
-
-DROP PROC GetAirlineByName
 
 ---------- ObtenerAerolineas-------------
 CREATE PROCEDURE ObtenerAerolineas
@@ -659,12 +660,7 @@ BEGIN
 END;
 GO
 
-
-
------------- FIN STORED PROCEDURES AEROLINEAS ------------
-
-
------------- STORED PROCEDURES PARA AVIONES ------------
+------------ PLANE PROCEDURES ------------
 CREATE PROC Crear_Aviones
 (
     @marca VARCHAR(100),
@@ -804,16 +800,7 @@ END;
 GO
 
 
------------- STORED FIN PROCEDURES PARA AVIONES ------------
-
-
-
-
-
-
-
-
------------- STORED PROCEDURES PARA BUSQUEDAS ------------
+------------ SEARCH USER PROCEDURE ------------
 
 CREATE PROC Buscar_Usuario
 	(@idUsuario INT)
@@ -839,7 +826,8 @@ BEGIN
 END;
 GO
 
---Busca a un ´piloto segun su nombre, apellidos, cedula o nombre de aerolinea a la que pertenece
+-------------PILOTS PROCEDURES --------------------------
+--Search the pilot by the name, lastNames, airline or identity document
 CREATE PROC Search_Pilot @searchValue VARCHAR(150)
 AS
 BEGIN 
@@ -864,9 +852,7 @@ BEGIN
     END CATCH
 END;
 GO
----------------------------------------------------------------------
 
--------------STORED PROCEDURES PARA PILOTOS --------------------------}
 --Info pilotos
 CREATE PROC Get_Pilots_Data
 AS
@@ -1042,9 +1028,7 @@ BEGIN
 END;
 GO
 
---------------------FIN STORED PROCEDURES PILOTOS----------------------------------
-
---------------------Inicio STORED PROCEDURES Documentos----------------------------------
+--------------------DOCUMENT PROCEDURES----------------------------------
 
 CREATE PROCEDURE Aviones_Aerolineas
 AS
@@ -1175,6 +1159,8 @@ VALUES
 ( 2, 4, '456789', '2024-06-09 11:00:00', '2024-06-09 15:00:00', 'NYC', 'CDG', 1),
 ( 1, 5, '567890', '2024-06-10 12:00:00', '2024-06-10 16:00:00', 'MAD', 'SJO', 1);
 GO
+
+
 
 
 
