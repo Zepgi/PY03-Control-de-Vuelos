@@ -32,6 +32,7 @@ namespace Control_de_Vuelos
             loadCancelledFligths();
             columnsPassengersConfirm();
             loadPassengersConfirm();
+            pilotChartNacionality();
 
 
         }
@@ -870,6 +871,48 @@ namespace Control_de_Vuelos
                     break;
                 }
             }
+        }
+
+        private void pilotChartNacionality()
+        {
+            pilotChart.Series.Clear();
+            pilotChart.Titles.Clear();
+            pilotChart.ChartAreas.Clear();
+
+            ChartArea chartArea = new ChartArea();
+            pilotChart.ChartAreas.Add(chartArea);
+
+            Series series = new Series();
+            series.ChartType = SeriesChartType.Pie;
+            series.IsValueShownAsLabel = true;
+
+            try
+            {
+                conexion.open();
+                SqlCommand cmd = new SqlCommand("Pilots_Nacionality", conexion.ConnectDB);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    series.Points.AddXY(row["nacionalidad"].ToString(), Convert.ToInt32(row["cantidadPilotos"]));
+                }
+
+                pilotChart.Series.Add(series);
+
+                pilotChart.Titles.Add("Nacionalidades por piloto");
+
+                pilotChart.DataBind();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error al obtener los días con más pasajeros", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            conexion.close();
         }
     }
 }
