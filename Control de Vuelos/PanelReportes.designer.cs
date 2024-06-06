@@ -38,6 +38,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.dataGridViewAirPlanes_AirLines = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -70,6 +73,7 @@
             this.cancelledFligthsGrid = new Guna.UI2.WinForms.Guna2DataGridView();
             this.passengersConfirmGrid = new Guna.UI2.WinForms.Guna2DataGridView();
             this.label9 = new System.Windows.Forms.Label();
+            this.pilotChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAirPlanes_AirLines)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAire8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAir1)).BeginInit();
@@ -79,6 +83,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.fligthPerPassengerGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cancelledFligthsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.passengersConfirmGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pilotChart)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewAirPlanes_AirLines
@@ -567,7 +572,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(643, 66);
+            this.label7.Location = new System.Drawing.Point(557, 71);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(208, 27);
@@ -604,7 +609,7 @@
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.fligthPerPassengerGrid.DefaultCellStyle = dataGridViewCellStyle6;
             this.fligthPerPassengerGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.fligthPerPassengerGrid.Location = new System.Drawing.Point(648, 105);
+            this.fligthPerPassengerGrid.Location = new System.Drawing.Point(562, 110);
             this.fligthPerPassengerGrid.Name = "fligthPerPassengerGrid";
             this.fligthPerPassengerGrid.ReadOnly = true;
             this.fligthPerPassengerGrid.RowHeadersVisible = false;
@@ -640,7 +645,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(643, 513);
+            this.label8.Location = new System.Drawing.Point(557, 518);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(235, 27);
@@ -677,7 +682,7 @@
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.cancelledFligthsGrid.DefaultCellStyle = dataGridViewCellStyle9;
             this.cancelledFligthsGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.cancelledFligthsGrid.Location = new System.Drawing.Point(648, 543);
+            this.cancelledFligthsGrid.Location = new System.Drawing.Point(562, 548);
             this.cancelledFligthsGrid.Name = "cancelledFligthsGrid";
             this.cancelledFligthsGrid.ReadOnly = true;
             this.cancelledFligthsGrid.RowHeadersVisible = false;
@@ -765,6 +770,8 @@
             this.passengersConfirmGrid.ThemeStyle.RowsStyle.Height = 50;
             this.passengersConfirmGrid.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.passengersConfirmGrid.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.passengersConfirmGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.passengersConfirmGrid_CellMouseDown);
+            this.passengersConfirmGrid.SelectionChanged += new System.EventHandler(this.passengersConfirmGrid_SelectionChanged);
             // 
             // label9
             // 
@@ -778,12 +785,31 @@
             this.label9.Text = "Pasajeros confirmados";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // pilotChart
+            // 
+            chartArea2.Name = "chDays";
+            this.pilotChart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.pilotChart.Legends.Add(legend2);
+            this.pilotChart.Location = new System.Drawing.Point(1069, 695);
+            this.pilotChart.Margin = new System.Windows.Forms.Padding(2);
+            this.pilotChart.Name = "pilotChart";
+            series2.ChartArea = "chDays";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.pilotChart.Series.Add(series2);
+            this.pilotChart.Size = new System.Drawing.Size(257, 218);
+            this.pilotChart.TabIndex = 65;
+            this.pilotChart.Text = "chart1";
+            // 
             // PanelReportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1400, 773);
+            this.Controls.Add(this.pilotChart);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.passengersConfirmGrid);
             this.Controls.Add(this.cancelledFligthsGrid);
@@ -832,6 +858,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.fligthPerPassengerGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cancelledFligthsGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.passengersConfirmGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pilotChart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -870,5 +897,6 @@
         private Guna.UI2.WinForms.Guna2DataGridView cancelledFligthsGrid;
         private Guna.UI2.WinForms.Guna2DataGridView passengersConfirmGrid;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.DataVisualization.Charting.Chart pilotChart;
     }
 }
