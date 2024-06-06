@@ -24,12 +24,21 @@
 		/// </summary>
 		private void InitializeComponent() {
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonSearch = new Guna.UI2.WinForms.Guna2Button();
             this.dataGridViewAirPlanes_AirLines = new System.Windows.Forms.DataGridView();
-            this.textBoxAirLine = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dataGridViewAire8 = new System.Windows.Forms.DataGridView();
+            this.searchAirLine3 = new Guna.UI2.WinForms.Guna2TextBox();
+            this.airline3 = new Guna.UI2.WinForms.Guna2Button();
+            this.airlineLabel = new System.Windows.Forms.Label();
+            this.guna2TextBoxAir8 = new Guna.UI2.WinForms.Guna2TextBox();
+            this.guna2ButtonAir8 = new Guna.UI2.WinForms.Guna2Button();
             this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAirPlanes_AirLines)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAire8)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -43,27 +52,6 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Haz ingresado al panel de reportes\r\n";
             // 
-            // buttonSearch
-            // 
-            this.buttonSearch.AutoRoundedCorners = true;
-            this.buttonSearch.BackColor = System.Drawing.Color.Transparent;
-            this.buttonSearch.BorderColor = System.Drawing.Color.White;
-            this.buttonSearch.BorderRadius = 13;
-            this.buttonSearch.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
-            this.buttonSearch.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
-            this.buttonSearch.ForeColor = System.Drawing.Color.White;
-            this.buttonSearch.Location = new System.Drawing.Point(103, 445);
-            this.buttonSearch.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.PressedColor = System.Drawing.Color.Teal;
-            this.buttonSearch.ShadowDecoration.BorderRadius = 30;
-            this.buttonSearch.ShadowDecoration.Depth = 0;
-            this.buttonSearch.ShadowDecoration.Enabled = true;
-            this.buttonSearch.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
-            this.buttonSearch.Size = new System.Drawing.Size(49, 29);
-            this.buttonSearch.TabIndex = 9;
-            this.buttonSearch.Text = " ✔";
-            // 
             // dataGridViewAirPlanes_AirLines
             // 
             this.dataGridViewAirPlanes_AirLines.BackgroundColor = System.Drawing.Color.White;
@@ -73,13 +61,6 @@
             this.dataGridViewAirPlanes_AirLines.Size = new System.Drawing.Size(370, 214);
             this.dataGridViewAirPlanes_AirLines.TabIndex = 10;
             this.dataGridViewAirPlanes_AirLines.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAirPlanes_AirLines_CellContentClick);
-            // 
-            // textBoxAirLine
-            // 
-            this.textBoxAirLine.Location = new System.Drawing.Point(50, 420);
-            this.textBoxAirLine.Name = "textBoxAirLine";
-            this.textBoxAirLine.Size = new System.Drawing.Size(172, 20);
-            this.textBoxAirLine.TabIndex = 11;
             // 
             // label2
             // 
@@ -92,28 +73,180 @@
             this.label2.TabIndex = 12;
             this.label2.Text = "Aviones por aerolineas";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(27, 550);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(337, 26);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Informacion general de los vuelos";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(560, 834);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(370, 170);
+            this.dataGridView1.TabIndex = 14;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(644, 487);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(233, 26);
+            this.label5.TabIndex = 16;
+            this.label5.Text = "Aviones por aerolineas";
+            // 
+            // dataGridViewAire8
+            // 
+            this.dataGridViewAire8.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridViewAire8.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAire8.Location = new System.Drawing.Point(32, 600);
+            this.dataGridViewAire8.Name = "dataGridViewAire8";
+            this.dataGridViewAire8.Size = new System.Drawing.Size(370, 225);
+            this.dataGridViewAire8.TabIndex = 17;
+            this.dataGridViewAire8.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAire8_CellContentClick);
+            // 
+            // searchAirLine3
+            // 
+            this.searchAirLine3.AutoRoundedCorners = true;
+            this.searchAirLine3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+            this.searchAirLine3.BorderRadius = 17;
+            this.searchAirLine3.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.searchAirLine3.DefaultText = "";
+            this.searchAirLine3.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.searchAirLine3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.searchAirLine3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.searchAirLine3.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.searchAirLine3.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.searchAirLine3.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.searchAirLine3.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.searchAirLine3.Location = new System.Drawing.Point(74, 429);
+            this.searchAirLine3.Margin = new System.Windows.Forms.Padding(4);
+            this.searchAirLine3.Name = "searchAirLine3";
+            this.searchAirLine3.PasswordChar = '\0';
+            this.searchAirLine3.PlaceholderText = "";
+            this.searchAirLine3.SelectedText = "";
+            this.searchAirLine3.Size = new System.Drawing.Size(145, 36);
+            this.searchAirLine3.TabIndex = 27;
+
+            // 
+            // airline3
+            // 
+            this.airline3.Animated = true;
+            this.airline3.AutoRoundedCorners = true;
+            this.airline3.BackColor = System.Drawing.Color.Transparent;
+            this.airline3.BorderColor = System.Drawing.Color.White;
+            this.airline3.BorderRadius = 17;
+            this.airline3.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.airline3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.airline3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.airline3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.airline3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+            this.airline3.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
+            this.airline3.ForeColor = System.Drawing.Color.White;
+            this.airline3.Location = new System.Drawing.Point(232, 429);
+            this.airline3.Margin = new System.Windows.Forms.Padding(2);
+            this.airline3.Name = "airline3";
+            this.airline3.PressedColor = System.Drawing.Color.Teal;
+            this.airline3.Size = new System.Drawing.Size(39, 37);
+            this.airline3.TabIndex = 26;
+            this.airline3.Text = "🔍";
+            this.airline3.Click += new System.EventHandler(this.airline3_Click);
+            // 
+            // airlineLabel
+            // 
+            this.airlineLabel.AutoSize = true;
+            this.airlineLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.airlineLabel.Location = new System.Drawing.Point(71, 397);
+            this.airlineLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.airlineLabel.Name = "airlineLabel";
+            this.airlineLabel.Size = new System.Drawing.Size(157, 19);
+            this.airlineLabel.TabIndex = 25;
+            this.airlineLabel.Text = "Nombre de aerolinea";
+            // 
+            // guna2TextBoxAir8
+            // 
+            this.guna2TextBoxAir8.AutoRoundedCorners = true;
+            this.guna2TextBoxAir8.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+            this.guna2TextBoxAir8.BorderRadius = 17;
+            this.guna2TextBoxAir8.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.guna2TextBoxAir8.DefaultText = "";
+            this.guna2TextBoxAir8.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.guna2TextBoxAir8.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.guna2TextBoxAir8.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.guna2TextBoxAir8.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.guna2TextBoxAir8.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2TextBoxAir8.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.guna2TextBoxAir8.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2TextBoxAir8.Location = new System.Drawing.Point(32, 882);
+            this.guna2TextBoxAir8.Margin = new System.Windows.Forms.Padding(4);
+            this.guna2TextBoxAir8.Name = "guna2TextBoxAir8";
+            this.guna2TextBoxAir8.PasswordChar = '\0';
+            this.guna2TextBoxAir8.PlaceholderText = "";
+            this.guna2TextBoxAir8.SelectedText = "";
+            this.guna2TextBoxAir8.Size = new System.Drawing.Size(145, 36);
+            this.guna2TextBoxAir8.TabIndex = 30;
+            // 
+            // guna2ButtonAir8
+            // 
+            this.guna2ButtonAir8.Animated = true;
+            this.guna2ButtonAir8.AutoRoundedCorners = true;
+            this.guna2ButtonAir8.BackColor = System.Drawing.Color.Transparent;
+            this.guna2ButtonAir8.BorderColor = System.Drawing.Color.White;
+            this.guna2ButtonAir8.BorderRadius = 17;
+            this.guna2ButtonAir8.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2ButtonAir8.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2ButtonAir8.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2ButtonAir8.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2ButtonAir8.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+            this.guna2ButtonAir8.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
+            this.guna2ButtonAir8.ForeColor = System.Drawing.Color.White;
+            this.guna2ButtonAir8.Location = new System.Drawing.Point(190, 882);
+            this.guna2ButtonAir8.Margin = new System.Windows.Forms.Padding(2);
+            this.guna2ButtonAir8.Name = "guna2ButtonAir8";
+            this.guna2ButtonAir8.PressedColor = System.Drawing.Color.Teal;
+            this.guna2ButtonAir8.Size = new System.Drawing.Size(39, 37);
+            this.guna2ButtonAir8.TabIndex = 29;
+            this.guna2ButtonAir8.Text = "🔍";
+            this.guna2ButtonAir8.Click += new System.EventHandler(this.guna2ButtonAir8_Click);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(46, 397);
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.label3.Location = new System.Drawing.Point(29, 850);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(162, 20);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "Ingrese una matricula";
+            this.label3.Size = new System.Drawing.Size(157, 19);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "Nombre de aerolinea";
             // 
             // PanelReportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(976, 582);
+            this.ClientSize = new System.Drawing.Size(993, 582);
+            this.Controls.Add(this.guna2TextBoxAir8);
+            this.Controls.Add(this.guna2ButtonAir8);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.searchAirLine3);
+            this.Controls.Add(this.airline3);
+            this.Controls.Add(this.airlineLabel);
+            this.Controls.Add(this.dataGridViewAire8);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBoxAirLine);
             this.Controls.Add(this.dataGridViewAirPlanes_AirLines);
-            this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -123,6 +256,8 @@
             this.Text = "PanelReportes";
             this.Load += new System.EventHandler(this.PanelReportes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAirPlanes_AirLines)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAire8)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,10 +266,17 @@
 		#endregion
 
 		private System.Windows.Forms.Label label1;
-        private Guna.UI2.WinForms.Guna2Button buttonSearch;
         private System.Windows.Forms.DataGridView dataGridViewAirPlanes_AirLines;
-        private System.Windows.Forms.TextBox textBoxAirLine;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DataGridView dataGridViewAire8;
+        private Guna.UI2.WinForms.Guna2TextBox searchAirLine3;
+        private Guna.UI2.WinForms.Guna2Button airline3;
+        private System.Windows.Forms.Label airlineLabel;
+        private Guna.UI2.WinForms.Guna2TextBox guna2TextBoxAir8;
+        private Guna.UI2.WinForms.Guna2Button guna2ButtonAir8;
         private System.Windows.Forms.Label label3;
     }
 }
