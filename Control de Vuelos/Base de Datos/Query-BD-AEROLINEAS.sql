@@ -575,10 +575,10 @@ AS
 BEGIN
     BEGIN TRY
         SELECT 
-            idAerolinea AS AirlineId,
-            nombre AS Name,
-            lema AS Motto,
-            estado AS State
+            idAerolinea,
+            nombre,
+            lema,
+            estado
         FROM 
             Aerolineas
         WHERE 
