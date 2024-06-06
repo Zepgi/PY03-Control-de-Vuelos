@@ -838,31 +838,6 @@ BEGIN
 END;
 GO
 
---Busca a un ´piloto segun su nombre, apellidos, cedula o nombre de aerolinea a la que pertenece
-CREATE PROC Search_Pilot @searchValue VARCHAR(150)
-AS
-BEGIN 
-	BEGIN TRY
-		SELECT p.idPiloto, p.cedulaPiloto, CONCAT(p.nombre, ' ', p.apellidoPat, ' ', p.apellidoMat) AS nombreCompleto, p.nacionalidad, a.nombre, p.estado
-		FROM Pilotos AS p
-		INNER JOIN Aerolineas AS a ON p.idAerolinea = a.idAerolinea
-		WHERE p.nombre LIKE @searchValue OR  p.apellidoPat LIKE @searchValue OR p.apellidoMat LIKE @searchValue
-			OR p.cedulaPiloto LIKE @searchValue + '%' OR a.nombre LIKE @searchValue + '%' OR p.nombre @searchValue + '%' OR p.apellidoPat + '%' OR p.apellidoMat + '%';
-	END TRY
-	BEGIN CATCH
-        DECLARE @ErrorMessage VARCHAR(MAX);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH
-END;
-GO
 ---------------------------------------------------------------------
 
 -------------STORED PROCEDURES PARA PILOTOS --------------------------}
@@ -1041,6 +1016,31 @@ BEGIN
 END;
 GO
 
+--Busca a un piloto segun su nombre, apellidos, cedula o nombre de aerolinea a la que pertenece
+CREATE PROC Search_Pilot @searchValue VARCHAR(150)
+AS
+BEGIN 
+	BEGIN TRY
+		SELECT p.idPiloto, p.cedulaPiloto, CONCAT(p.nombre, ' ', p.apellidoPat, ' ', p.apellidoMat) AS nombreCompleto, p.nacionalidad, a.nombre, p.estado
+		FROM Pilotos AS p
+		INNER JOIN Aerolineas AS a ON p.idAerolinea = a.idAerolinea
+		WHERE p.nombre LIKE '%'+@searchValue+'%' OR  p.apellidoPat LIKE '%'+@searchValue+'%' OR p.apellidoMat LIKE '%'+@searchValue+'%'
+			OR p.cedulaPiloto LIKE '%'+@searchValue+'%' OR a.nombre LIKE '%'+@searchValue+'%';
+	END TRY
+	BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
 --------------------FIN STORED PROCEDURES PILOTOS----------------------------------
 
 --------------------Inicio STORED PROCEDURES Documentos----------------------------------
