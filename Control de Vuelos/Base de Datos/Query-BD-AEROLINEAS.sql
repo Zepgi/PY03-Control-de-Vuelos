@@ -228,6 +228,8 @@ BEGIN
 END;
 GO
 
+
+---------------FLIGTH PROCEDURES-------------------
 CREATE PROC Get_Flights
 	(@idAerolinea INT)
 AS
@@ -405,6 +407,84 @@ BEGIN
 END;
 GO
 
+
+CREATE FUNCTION dbo.isExistingPassenger
+(
+    @cedulaPasajero VARCHAR(150),
+    @nombre         VARCHAR(150),
+    @apellidoPat    VARCHAR(150),
+    @apellidoMat    VARCHAR(150),
+    @codigoCiudad   VARCHAR(150)
+)
+RETURNS BIT
+AS
+BEGIN
+    DECLARE @exists BIT;
+    
+    IF EXISTS (
+        SELECT 1 
+        FROM Pasajeros 
+        WHERE cedulaPasajero = @cedulaPasajero 
+          AND nombre = @nombre 
+          AND apellidoMat = @apellidoMat 
+          AND apellidoPat = @apellidoPat 
+          AND codigoCiudad = @codigoCiudad
+    )
+    BEGIN
+        SET @exists = 1;
+    END
+    ELSE
+    BEGIN
+        SET @exists = 0;
+    END
+    
+    RETURN @exists;
+END;
+GO
+
+
+CREATE PROC Update_Passenger
+(
+    @cedulaPasajero VARCHAR(150),
+    @nombre         VARCHAR(150),
+    @apellidoPat    VARCHAR(150),
+    @apellidoMat    VARCHAR(150),
+    @pais           VARCHAR(150),
+    @canton         VARCHAR(150),
+    @distrito       VARCHAR(150),
+    @ciudad         VARCHAR(150)
+)
+AS
+BEGIN
+    DECLARE @codigoCiudad VARCHAR(150);
+    DECLARE @passengerExists BIT;
+
+    SET @codigoCiudad = (SELECT codigoCiudad 
+                         FROM Ciudades 
+                         WHERE pais = @pais 
+                           AND canton = @canton 
+                           AND distrito = @distrito 
+                           AND ciudad = @ciudad);
+
+    SET @passengerExists = dbo.isExistingPassenger(@cedulaPasajero, @nombre, @apellidoPat, @apellidoMat, @codigoCiudad);
+
+    IF @passengerExists = 0
+    BEGIN
+        UPDATE Pasajeros
+        SET nombre = @nombre,
+            apellidoMat = @apellidoMat,
+            apellidoPat = @apellidoPat,
+            codigoCiudad = @codigoCiudad
+        WHERE cedulaPasajero = @cedulaPasajero;
+    END
+    ELSE
+    BEGIN
+        RAISERROR ('Debe modificar al menos un dato.', 16, 1);
+    END
+END;
+GO
+
+
 CREATE PROC Search_Active_Flights
 (
     @idVuelo INT
@@ -459,6 +539,21 @@ GO
 
 CREATE PROC Search_Passenger
 (
+	@cedulaPasajero INT
+)
+AS
+BEGIN
+	SELECT 	idPasajero, cedulaPasajero, CONCAT(nombre, ' ', apellidoPat, ' ', apellidoMat) nombreCompleto, C.pais, C.canton, C.distrito, C.ciudad
+	FROM Pasajeros P
+	INNER JOIN Ciudades C ON
+	P.codigoCiudad = C.codigoCiudad
+	WHERE @cedulaPasajero = cedulaPasajero
+	GROUP BY idPasajero, cedulaPasajero, CONCAT( nombre, ' ', apellidoPat, ' ', apellidoMat), C.pais, C.canton, C.distrito, C.ciudad
+END;
+GO
+
+CREATE PROC Generate_City_Code
+(
     @ciudad VARCHAR(150),
     @codigoCiudad VARCHAR(150) OUTPUT
 )
@@ -468,13 +563,8 @@ BEGIN
     DECLARE @cityCode VARCHAR(150);
 
     SET @cityCode = LEFT(@ciudad, 3);
-
-    -- Generar un número aleatorio de 4 dígitos
     SET @randomNumber = CAST(FLOOR(RAND() * 10000) AS INT);
-
-    -- Formatear el número aleatorio a 4 dígitos con ceros a la izquierda si es necesario
     SET @cityCode = @cityCode + RIGHT('0000' + CAST(@randomNumber AS VARCHAR(4)), 4);
-
     SET @codigoCiudad = @cityCode;
 END;
 GO
@@ -492,10 +582,8 @@ AS
 BEGIN
     DECLARE @codigoCiudad VARCHAR(150);
 
-    -- Llamar al procedimiento para generar el código de ciudad
-    EXEC GenerateCityCode @ciudad, @codigoCiudad OUTPUT;
+    EXEC Generate_City_Code @ciudad, @codigoCiudad OUTPUT;
 
-    -- Verificar si la ciudad ya existe
     IF EXISTS (SELECT 1 FROM Ciudades WHERE pais = @pais AND canton = @canton AND distrito = @distrito AND ciudad = @ciudad)
         RETURN;
     ELSE
@@ -1119,8 +1207,6 @@ GO
 --------------------FIN STORED PROCEDURES PILOTOS----------------------------------
 
 --------------------Inicio STORED PROCEDURES Documentos----------------------------------
-
-DROP PROC Airplanes_Airlines
 
 CREATE PROCEDURE Airplanes_Airlines
 AS
