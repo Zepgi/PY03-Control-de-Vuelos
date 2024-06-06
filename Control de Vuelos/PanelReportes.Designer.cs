@@ -26,6 +26,9 @@
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
 			this.dataGridViewAirPlanes_AirLines = new System.Windows.Forms.DataGridView();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
@@ -40,13 +43,18 @@
 			this.dataGridViewAir1 = new System.Windows.Forms.DataGridView();
 			this.dtDepartureDate1 = new Guna.UI2.WinForms.Guna2DateTimePicker();
 			this.buttonCheckFlys1 = new Guna.UI2.WinForms.Guna2Button();
-			this.tbFlights = new Guna.UI2.WinForms.Guna2DataGridView();
-			this.btPassengers = new Guna.UI2.WinForms.Guna2Button();
-			this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+			this.tbPlanes = new Guna.UI2.WinForms.Guna2DataGridView();
+			this.btPlanesByCity = new Guna.UI2.WinForms.Guna2Button();
+			this.btDifferentPlanes = new Guna.UI2.WinForms.Guna2Button();
+			this.btTopCity = new Guna.UI2.WinForms.Guna2Button();
+			this.cbAirlines = new Guna.UI2.WinForms.Guna2ComboBox();
+			this.lbAirline = new System.Windows.Forms.Label();
+			this.chartTopDays = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewAirPlanes_AirLines)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewAire8)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewAir1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.tbFlights)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.tbPlanes)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.chartTopDays)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// dataGridViewAirPlanes_AirLines
@@ -276,16 +284,15 @@
 			this.buttonCheckFlys1.Visible = false;
 			this.buttonCheckFlys1.Click += new System.EventHandler(this.buttonCheckFlys1_Click);
 			// 
-			// tbFlights
+			// tbPlanes
 			// 
-			this.tbFlights.AllowUserToAddRows = false;
-			this.tbFlights.AllowUserToDeleteRows = false;
-			this.tbFlights.AllowUserToResizeColumns = false;
+			this.tbPlanes.AllowUserToAddRows = false;
+			this.tbPlanes.AllowUserToDeleteRows = false;
+			this.tbPlanes.AllowUserToResizeColumns = false;
 			dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-			this.tbFlights.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-			this.tbFlights.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-			this.tbFlights.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Single;
-			this.tbFlights.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+			this.tbPlanes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+			this.tbPlanes.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Single;
+			this.tbPlanes.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
 			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
 			dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
 			dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -293,9 +300,9 @@
 			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
 			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.tbFlights.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-			this.tbFlights.ColumnHeadersHeight = 50;
-			this.tbFlights.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+			this.tbPlanes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+			this.tbPlanes.ColumnHeadersHeight = 50;
+			this.tbPlanes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
 			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
 			dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
 			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -303,79 +310,150 @@
 			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
 			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
 			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.tbFlights.DefaultCellStyle = dataGridViewCellStyle3;
-			this.tbFlights.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-			this.tbFlights.Location = new System.Drawing.Point(562, 1339);
-			this.tbFlights.Name = "tbFlights";
-			this.tbFlights.ReadOnly = true;
-			this.tbFlights.RowHeadersVisible = false;
-			this.tbFlights.RowHeadersWidth = 51;
-			this.tbFlights.RowTemplate.Height = 50;
-			this.tbFlights.Size = new System.Drawing.Size(625, 514);
-			this.tbFlights.TabIndex = 41;
-			this.tbFlights.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
-			this.tbFlights.ThemeStyle.AlternatingRowsStyle.Font = null;
-			this.tbFlights.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
-			this.tbFlights.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
-			this.tbFlights.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-			this.tbFlights.ThemeStyle.BackColor = System.Drawing.Color.White;
-			this.tbFlights.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-			this.tbFlights.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
-			this.tbFlights.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-			this.tbFlights.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.tbFlights.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-			this.tbFlights.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-			this.tbFlights.ThemeStyle.HeaderStyle.Height = 50;
-			this.tbFlights.ThemeStyle.ReadOnly = true;
-			this.tbFlights.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
-			this.tbFlights.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Single;
-			this.tbFlights.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.tbFlights.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-			this.tbFlights.ThemeStyle.RowsStyle.Height = 50;
-			this.tbFlights.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-			this.tbFlights.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+			this.tbPlanes.DefaultCellStyle = dataGridViewCellStyle3;
+			this.tbPlanes.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+			this.tbPlanes.Location = new System.Drawing.Point(562, 1490);
+			this.tbPlanes.Name = "tbPlanes";
+			this.tbPlanes.ReadOnly = true;
+			this.tbPlanes.RowHeadersVisible = false;
+			this.tbPlanes.RowHeadersWidth = 51;
+			this.tbPlanes.RowTemplate.Height = 50;
+			this.tbPlanes.Size = new System.Drawing.Size(625, 363);
+			this.tbPlanes.TabIndex = 41;
+			this.tbPlanes.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+			this.tbPlanes.ThemeStyle.AlternatingRowsStyle.Font = null;
+			this.tbPlanes.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+			this.tbPlanes.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+			this.tbPlanes.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+			this.tbPlanes.ThemeStyle.BackColor = System.Drawing.Color.White;
+			this.tbPlanes.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+			this.tbPlanes.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+			this.tbPlanes.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+			this.tbPlanes.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.tbPlanes.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+			this.tbPlanes.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+			this.tbPlanes.ThemeStyle.HeaderStyle.Height = 50;
+			this.tbPlanes.ThemeStyle.ReadOnly = true;
+			this.tbPlanes.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+			this.tbPlanes.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Single;
+			this.tbPlanes.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.tbPlanes.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+			this.tbPlanes.ThemeStyle.RowsStyle.Height = 50;
+			this.tbPlanes.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+			this.tbPlanes.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
 			// 
-			// btPassengers
+			// btPlanesByCity
 			// 
-			this.btPassengers.Animated = true;
-			this.btPassengers.AutoRoundedCorners = true;
-			this.btPassengers.BackColor = System.Drawing.Color.Transparent;
-			this.btPassengers.BorderColor = System.Drawing.Color.White;
-			this.btPassengers.BorderRadius = 22;
-			this.btPassengers.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
-			this.btPassengers.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
-			this.btPassengers.ForeColor = System.Drawing.Color.White;
-			this.btPassengers.Location = new System.Drawing.Point(562, 1860);
-			this.btPassengers.Name = "btPassengers";
-			this.btPassengers.PressedColor = System.Drawing.Color.Teal;
-			this.btPassengers.ShadowDecoration.BorderRadius = 0;
-			this.btPassengers.ShadowDecoration.Depth = 0;
-			this.btPassengers.ShadowDecoration.Enabled = true;
-			this.btPassengers.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
-			this.btPassengers.Size = new System.Drawing.Size(226, 46);
-			this.btPassengers.TabIndex = 42;
-			this.btPassengers.Text = "Pasajeros";
+			this.btPlanesByCity.Animated = true;
+			this.btPlanesByCity.AutoRoundedCorners = true;
+			this.btPlanesByCity.BackColor = System.Drawing.Color.Transparent;
+			this.btPlanesByCity.BorderColor = System.Drawing.Color.White;
+			this.btPlanesByCity.BorderRadius = 29;
+			this.btPlanesByCity.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+			this.btPlanesByCity.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
+			this.btPlanesByCity.ForeColor = System.Drawing.Color.White;
+			this.btPlanesByCity.Location = new System.Drawing.Point(562, 1859);
+			this.btPlanesByCity.Name = "btPlanesByCity";
+			this.btPlanesByCity.PressedColor = System.Drawing.Color.Teal;
+			this.btPlanesByCity.ShadowDecoration.BorderRadius = 0;
+			this.btPlanesByCity.ShadowDecoration.Depth = 0;
+			this.btPlanesByCity.ShadowDecoration.Enabled = true;
+			this.btPlanesByCity.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
+			this.btPlanesByCity.Size = new System.Drawing.Size(204, 61);
+			this.btPlanesByCity.TabIndex = 42;
+			this.btPlanesByCity.Text = "Cantidad de Aviones por Ciudad";
+			this.btPlanesByCity.Click += new System.EventHandler(this.button_ClickHandler);
 			// 
-			// guna2Button1
+			// btDifferentPlanes
 			// 
-			this.guna2Button1.Animated = true;
-			this.guna2Button1.AutoRoundedCorners = true;
-			this.guna2Button1.BackColor = System.Drawing.Color.Transparent;
-			this.guna2Button1.BorderColor = System.Drawing.Color.White;
-			this.guna2Button1.BorderRadius = 22;
-			this.guna2Button1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
-			this.guna2Button1.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
-			this.guna2Button1.ForeColor = System.Drawing.Color.White;
-			this.guna2Button1.Location = new System.Drawing.Point(961, 1860);
-			this.guna2Button1.Name = "guna2Button1";
-			this.guna2Button1.PressedColor = System.Drawing.Color.Teal;
-			this.guna2Button1.ShadowDecoration.BorderRadius = 0;
-			this.guna2Button1.ShadowDecoration.Depth = 0;
-			this.guna2Button1.ShadowDecoration.Enabled = true;
-			this.guna2Button1.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
-			this.guna2Button1.Size = new System.Drawing.Size(226, 46);
-			this.guna2Button1.TabIndex = 43;
-			this.guna2Button1.Text = "Pasajeros";
+			this.btDifferentPlanes.Animated = true;
+			this.btDifferentPlanes.AutoRoundedCorners = true;
+			this.btDifferentPlanes.BackColor = System.Drawing.Color.Transparent;
+			this.btDifferentPlanes.BorderColor = System.Drawing.Color.White;
+			this.btDifferentPlanes.BorderRadius = 29;
+			this.btDifferentPlanes.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+			this.btDifferentPlanes.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
+			this.btDifferentPlanes.ForeColor = System.Drawing.Color.White;
+			this.btDifferentPlanes.Location = new System.Drawing.Point(772, 1859);
+			this.btDifferentPlanes.Name = "btDifferentPlanes";
+			this.btDifferentPlanes.PressedColor = System.Drawing.Color.Teal;
+			this.btDifferentPlanes.ShadowDecoration.BorderRadius = 0;
+			this.btDifferentPlanes.ShadowDecoration.Depth = 0;
+			this.btDifferentPlanes.ShadowDecoration.Enabled = true;
+			this.btDifferentPlanes.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
+			this.btDifferentPlanes.Size = new System.Drawing.Size(204, 61);
+			this.btDifferentPlanes.TabIndex = 43;
+			this.btDifferentPlanes.Text = "Aviones Diferentes de ciudad a otra";
+			this.btDifferentPlanes.Click += new System.EventHandler(this.button_ClickHandler);
+			// 
+			// btTopCity
+			// 
+			this.btTopCity.Animated = true;
+			this.btTopCity.AutoRoundedCorners = true;
+			this.btTopCity.BackColor = System.Drawing.Color.Transparent;
+			this.btTopCity.BorderColor = System.Drawing.Color.White;
+			this.btTopCity.BorderRadius = 29;
+			this.btTopCity.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+			this.btTopCity.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
+			this.btTopCity.ForeColor = System.Drawing.Color.White;
+			this.btTopCity.Location = new System.Drawing.Point(982, 1859);
+			this.btTopCity.Name = "btTopCity";
+			this.btTopCity.PressedColor = System.Drawing.Color.Teal;
+			this.btTopCity.ShadowDecoration.BorderRadius = 0;
+			this.btTopCity.ShadowDecoration.Depth = 0;
+			this.btTopCity.ShadowDecoration.Enabled = true;
+			this.btTopCity.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
+			this.btTopCity.Size = new System.Drawing.Size(204, 61);
+			this.btTopCity.TabIndex = 44;
+			this.btTopCity.Text = "ciudad mas viajada";
+			this.btTopCity.Click += new System.EventHandler(this.button_ClickHandler);
+			// 
+			// cbAirlines
+			// 
+			this.cbAirlines.BackColor = System.Drawing.Color.Transparent;
+			this.cbAirlines.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+			this.cbAirlines.BorderRadius = 15;
+			this.cbAirlines.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+			this.cbAirlines.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cbAirlines.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+			this.cbAirlines.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+			this.cbAirlines.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbAirlines.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+			this.cbAirlines.ItemHeight = 30;
+			this.cbAirlines.Location = new System.Drawing.Point(843, 1427);
+			this.cbAirlines.Name = "cbAirlines";
+			this.cbAirlines.Size = new System.Drawing.Size(344, 36);
+			this.cbAirlines.TabIndex = 45;
+			this.cbAirlines.SelectedIndexChanged += new System.EventHandler(this.cbAirlines_IndexChanged);
+			// 
+			// lbAirline
+			// 
+			this.lbAirline.AutoSize = true;
+			this.lbAirline.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lbAirline.Location = new System.Drawing.Point(713, 1436);
+			this.lbAirline.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.lbAirline.Name = "lbAirline";
+			this.lbAirline.Size = new System.Drawing.Size(123, 27);
+			this.lbAirline.TabIndex = 46;
+			this.lbAirline.Text = "Aerolínea";
+			this.lbAirline.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// chartTopDays
+			// 
+			chartArea1.Name = "chDays";
+			this.chartTopDays.ChartAreas.Add(chartArea1);
+			legend1.Name = "Legend1";
+			this.chartTopDays.Legends.Add(legend1);
+			this.chartTopDays.Location = new System.Drawing.Point(562, 1121);
+			this.chartTopDays.Name = "chartTopDays";
+			series1.ChartArea = "chDays";
+			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+			series1.Legend = "Legend1";
+			series1.Name = "Series1";
+			this.chartTopDays.Series.Add(series1);
+			this.chartTopDays.Size = new System.Drawing.Size(366, 300);
+			this.chartTopDays.TabIndex = 47;
+			this.chartTopDays.Text = "chart1";
 			// 
 			// PanelReportes
 			// 
@@ -383,9 +461,13 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.AutoScroll = true;
 			this.ClientSize = new System.Drawing.Size(1220, 728);
-			this.Controls.Add(this.guna2Button1);
-			this.Controls.Add(this.btPassengers);
-			this.Controls.Add(this.tbFlights);
+			this.Controls.Add(this.chartTopDays);
+			this.Controls.Add(this.lbAirline);
+			this.Controls.Add(this.cbAirlines);
+			this.Controls.Add(this.btTopCity);
+			this.Controls.Add(this.btDifferentPlanes);
+			this.Controls.Add(this.btPlanesByCity);
+			this.Controls.Add(this.tbPlanes);
 			this.Controls.Add(this.buttonCheckFlys1);
 			this.Controls.Add(this.dtDepartureDate1);
 			this.Controls.Add(this.dataGridViewAir1);
@@ -410,7 +492,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewAirPlanes_AirLines)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewAire8)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewAir1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.tbFlights)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.tbPlanes)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.chartTopDays)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -431,8 +514,12 @@
         private System.Windows.Forms.DataGridView dataGridViewAir1;
         public Guna.UI2.WinForms.Guna2DateTimePicker dtDepartureDate1;
         private Guna.UI2.WinForms.Guna2Button buttonCheckFlys1;
-		private Guna.UI2.WinForms.Guna2DataGridView tbFlights;
-		private Guna.UI2.WinForms.Guna2Button btPassengers;
-		private Guna.UI2.WinForms.Guna2Button guna2Button1;
+		private Guna.UI2.WinForms.Guna2DataGridView tbPlanes;
+		private Guna.UI2.WinForms.Guna2Button btPlanesByCity;
+		private Guna.UI2.WinForms.Guna2Button btDifferentPlanes;
+		private Guna.UI2.WinForms.Guna2Button btTopCity;
+		public Guna.UI2.WinForms.Guna2ComboBox cbAirlines;
+		private System.Windows.Forms.Label lbAirline;
+		private System.Windows.Forms.DataVisualization.Charting.Chart chartTopDays;
 	}
 }

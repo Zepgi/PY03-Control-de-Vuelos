@@ -122,7 +122,7 @@ namespace Control_de_Vuelos {
 						loadPanel(new PanelAerolineas());
 						break;
 					case "btReports":
-						loadPanel(new PanelReportes());
+						loadPanel(new PanelReportes(idAirline));
 						break;
 					case "btMaintenance":
 						loadPanel(new PanelMantenimiento());

@@ -70,7 +70,12 @@ namespace Control_de_Vuelos {
 					cmdSearchPassenger.Parameters.AddWithValue("@cedulaPasajero", this.txtIdPassenger.Text);
 					using (SqlDataReader reader = cmdSearchPassenger.ExecuteReader()) {
 						if (reader.Read()) {
-							passengerExists = true;
+							if (reader["cedulaPasajero"] == DBNull.Value) {
+								passengerExists = false;
+							} else {
+								passengerExists = true;
+
+							}
 						}
 					}
 				}
