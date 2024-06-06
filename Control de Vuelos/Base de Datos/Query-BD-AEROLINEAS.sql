@@ -1274,7 +1274,6 @@ GO
 
 --------------------Inicio STORED PROCEDURES Documentos----------------------------------
 
-DROP PROC Airplanes_Airlines
 
 CREATE PROCEDURE Airplanes_Airlines
 AS
