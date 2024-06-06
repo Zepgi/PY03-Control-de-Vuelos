@@ -19,8 +19,10 @@ namespace Control_de_Vuelos
             this.cbAirlines.Visible = false;
             conexion = new DatabaseConnection();
             top3Days();
+            CargarAvionesInactivos();
 
-		}
+
+        }
 
         private void PanelReportes_Load(object sender, EventArgs e)
         {
@@ -428,6 +430,197 @@ namespace Control_de_Vuelos
 			}
             conexion.close();
 		}
-	}
+
+        private void buttonCheckFlys1_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                // Validar que el campo de fecha no esté vacío
+                if (dtDepartureDate1.Value == null)
+                {
+                    MessageBox.Show("Por favor, seleccione una fecha.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Obtener la fecha seleccionada desde el DateTimePicker
+                DateTime selectedDate = dtDepartureDate1.Value;
+
+                // Conectar y ejecutar el procedimiento almacenado
+                if (conexion.ConnectDB.State == ConnectionState.Open)
+                {
+                    conexion.close();
+                }
+
+                using (SqlCommand cmd = new SqlCommand("GetActiveFlightsByDate", conexion.ConnectDB))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Date", selectedDate);
+
+                    conexion.open();
+                    SqlDataAdapter adaptador = new SqlDataAdapter(cmd);
+                    DataTable tablaVuelos = new DataTable();
+                    adaptador.Fill(tablaVuelos);
+
+                    if (tablaVuelos.Rows.Count > 0)
+                    {
+                        // Asigna los datos al DataGridView
+                        dataGridViewAir1.DataSource = tablaVuelos;
+
+                        // Cambia el nombre de las columnas en el DataTable
+                        tablaVuelos.Columns["FlightId"].ColumnName = "ID Vuelo";
+                        tablaVuelos.Columns["AirlineName"].ColumnName = "Nombre Aerolínea";
+                        tablaVuelos.Columns["AirplaneBrand"].ColumnName = "Marca Avión";
+                        tablaVuelos.Columns["PilotName"].ColumnName = "Nombre Piloto";
+                        tablaVuelos.Columns["OriginCity"].ColumnName = "Ciudad Origen";
+                        tablaVuelos.Columns["DestinationCity"].ColumnName = "Ciudad Destino";
+                        tablaVuelos.Columns["DepartureTime"].ColumnName = "Hora Salida";
+                        tablaVuelos.Columns["ArrivalTime"].ColumnName = "Hora Llegada";
+                        tablaVuelos.Columns["FlightStatus"].ColumnName = "Estado del Vuelo";
+
+                        // Convertir el estado del vuelo a "Activo" o "Inactivo"
+                        tablaVuelos.Columns.Add("Estado", typeof(string));
+                        foreach (DataRow row in tablaVuelos.Rows)
+                        {
+                            int estado = Convert.ToInt32(row["Estado del Vuelo"]);
+                            row["Estado"] = (estado == 1) ? "Activo" : "Inactivo";
+                        }
+
+                        // Oculta la columna 'Estado del Vuelo' y cambia el encabezado de la columna 'Estado'
+                        dataGridViewAir1.Columns["Estado del Vuelo"].Visible = false;
+                        dataGridViewAir1.Columns["Estado"].HeaderText = "Estado";
+
+                        // Ajusta los encabezados de las columnas en el DataGridView si es necesario
+                        dataGridViewAir1.Columns["ID Vuelo"].HeaderText = "ID Vuelo";
+                        dataGridViewAir1.Columns["Nombre Aerolínea"].HeaderText = "Nombre Aerolínea";
+                        dataGridViewAir1.Columns["Marca Avión"].HeaderText = "Marca Avión";
+                        dataGridViewAir1.Columns["Nombre Piloto"].HeaderText = "Nombre Piloto";
+                        dataGridViewAir1.Columns["Ciudad Origen"].HeaderText = "Ciudad Origen";
+                        dataGridViewAir1.Columns["Ciudad Destino"].HeaderText = "Ciudad Destino";
+                        dataGridViewAir1.Columns["Hora Salida"].HeaderText = "Hora Salida";
+                        dataGridViewAir1.Columns["Hora Llegada"].HeaderText = "Hora Llegada";
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron vuelos activos para la fecha proporcionada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    conexion.close();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Captura y muestra cualquier error inesperado
+                MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void butonjose_Click(object sender, EventArgs e)
+        {
+
+
+            try
+            {
+                // Validar que el campo no esté vacío
+                if (string.IsNullOrWhiteSpace(textboxjose.Text))
+                {
+                    CargarAvionesInactivos();
+                    return;
+                }
+
+                // Obtener el nombre de la aerolínea desde el cuadro de texto
+                string airlineName = searchAirLine3.Text.Trim();
+
+                // Conectar y ejecutar el procedimiento almacenado
+                if (conexion.ConnectDB.State == ConnectionState.Open)
+                {
+                    conexion.close();
+                }
+
+                using (SqlCommand cmd = new SqlCommand("GetAirplanesByAirlinesInactiveState", conexion.ConnectDB))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@AirlineName", airlineName);
+
+                    conexion.open();
+                    SqlDataAdapter adaptador = new SqlDataAdapter(cmd);
+                    DataTable tablaAviones = new DataTable();
+                    adaptador.Fill(tablaAviones);
+
+                    if (tablaAviones.Rows.Count > 0)
+                    {
+                        // Cambia el nombre de las columnas en el DataTable si es necesario
+                        // Asegúrate de que los nombres coincidan exactamente con los devueltos por el procedimiento almacenado
+                        tablaAviones.Columns["AirlineName"].ColumnName = "Nombre de la Aerolínea";
+                        tablaAviones.Columns["AirplaneBrand"].ColumnName = "Marca del Avión";
+                        tablaAviones.Columns["AirplaneRegistration"].ColumnName = "Matrícula del Avión";
+                        tablaAviones.Columns["PassengerCapacity"].ColumnName = "Capacidad de Pasajeros";
+
+
+
+
+                        // Asigna los datos al DataGridView
+                        dataGridJose.DataSource = tablaAviones;
+
+
+
+                        // Limpiar el cuadro de búsqueda después de cargar los datos
+                        textboxjose.Clear();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron aviones para la aerolínea proporcionada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        searchAirLine3.Clear();
+                    }
+
+                    conexion.close();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Captura y muestra cualquier error inesperado
+                MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void CargarAvionesInactivos()
+        {
+            try
+            {
+                // Limpiar el DataGridView antes de cargar los datos
+                dataGridJose.DataSource = null;
+                dataGridJose.Columns.Clear();
+
+                using (SqlCommand cmd = new SqlCommand("AirplanesByAirlinesInactiveState", conexion.ConnectDB))
+                {
+                    // Configurar el comando para llamar al stored procedure
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    // Crear un adaptador de datos para llenar un DataTable
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    // Asignar los datos al DataGridView
+                    dataGridJose.DataSource = dataTable;
+
+                    // Opcional: Personalizar los encabezados de las columnas si es necesario
+                    dataGridJose.Columns["AirlineName"].HeaderText = "Nombre de la Aerolínea";
+                    dataGridJose.Columns["AirplaneBrand"].HeaderText = "Marca del Avión";
+                    dataGridJose.Columns["AirplaneRegistration"].HeaderText = "Matrícula del Avión";
+                    dataGridJose.Columns["PassengerCapacity"].HeaderText = "Capacidad de Pasajeros";
+
+                    // Ocultar la columna 'AirplaneStatus'
+                    dataGridJose.Columns["AirplaneStatus"].Visible = false;
+
+                    // Cerrar la conexión si fuera necesario (no se ve en el código proporcionado)
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar aviones inactivos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
 }
 
