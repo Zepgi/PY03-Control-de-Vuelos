@@ -24,7 +24,7 @@ namespace Control_de_Vuelos
         {
             InitializeComponent();
             conn = new DatabaseConnection();
-            this.windowPilot =window;
+            this.windowPilot = window;
             this.firstTime = true;
             loadAirlinesData();
         }
@@ -104,7 +104,7 @@ namespace Control_de_Vuelos
 
         }
 
-        private void airlineGrid_RowPrePaint(object sender, System.Windows.Forms.DataGridViewRowPrePaintEventArgs e)
+        private void airlineGrid_RowPrePaint_1(object sender, System.Windows.Forms.DataGridViewRowPrePaintEventArgs e)
         {
             DataGridViewRow row = airlineGrid.Rows[e.RowIndex];
 
@@ -128,7 +128,7 @@ namespace Control_de_Vuelos
             }
         }
 
-        private void airlineGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        private void airlineGrid_CellMouseDown_1(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex >= 0 && e.Button == MouseButtons.Left)
             {
@@ -159,7 +159,7 @@ namespace Control_de_Vuelos
             }
         }
 
-        private void airlineGrid_SelectionChanged(object sender, EventArgs e)
+        private void airlineGrid_SelectionChanged_1(object sender, EventArgs e)
         {
             if (airlineGrid.SelectedCells.Count == 0)
                 return;
@@ -226,7 +226,7 @@ namespace Control_de_Vuelos
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            if(this.windowPilot.getSelect())
+            if (this.windowPilot.getSelect())
             {
                 this.windowPilot.setModify(true);
             }
@@ -238,7 +238,7 @@ namespace Control_de_Vuelos
         private void bExit_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
+        } 
 
     }
 }

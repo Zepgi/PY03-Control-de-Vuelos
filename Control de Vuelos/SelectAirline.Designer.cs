@@ -29,13 +29,16 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectAirline));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bExit = new System.Windows.Forms.Button();
             this.panel = new System.Windows.Forms.Panel();
             this.searchPanel = new System.Windows.Forms.Panel();
             this.searchLabel = new System.Windows.Forms.Label();
             this.searchTB = new Guna.UI2.WinForms.Guna2TextBox();
             this.btnAccept = new Guna.UI2.WinForms.Guna2Button();
-            this.airlineGrid = new System.Windows.Forms.DataGridView();
+            this.airlineGrid = new Guna.UI2.WinForms.Guna2DataGridView();
             this.panel.SuspendLayout();
             this.searchPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.airlineGrid)).BeginInit();
@@ -59,10 +62,10 @@
             // 
             // panel
             // 
-            this.panel.BackColor = System.Drawing.SystemColors.Control;
+            this.panel.BackColor = System.Drawing.Color.White;
+            this.panel.Controls.Add(this.airlineGrid);
             this.panel.Controls.Add(this.searchPanel);
             this.panel.Controls.Add(this.btnAccept);
-            this.panel.Controls.Add(this.airlineGrid);
             this.panel.Location = new System.Drawing.Point(10, 80);
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(547, 635);
@@ -138,16 +141,65 @@
             // 
             // airlineGrid
             // 
-            this.airlineGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.airlineGrid.AllowUserToAddRows = false;
+            this.airlineGrid.AllowUserToDeleteRows = false;
+            this.airlineGrid.AllowUserToResizeColumns = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.airlineGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.airlineGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.airlineGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Single;
+            this.airlineGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.airlineGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.airlineGrid.ColumnHeadersHeight = 50;
+            this.airlineGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.airlineGrid.DefaultCellStyle = dataGridViewCellStyle3;
+            this.airlineGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.airlineGrid.Location = new System.Drawing.Point(14, 61);
             this.airlineGrid.Name = "airlineGrid";
+            this.airlineGrid.ReadOnly = true;
+            this.airlineGrid.RowHeadersVisible = false;
             this.airlineGrid.RowHeadersWidth = 51;
-            this.airlineGrid.RowTemplate.Height = 24;
-            this.airlineGrid.Size = new System.Drawing.Size(515, 514);
-            this.airlineGrid.TabIndex = 0;
-            this.airlineGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.airlineGrid_CellMouseDown);
-            this.airlineGrid.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.airlineGrid_RowPrePaint);
-            this.airlineGrid.SelectionChanged += new System.EventHandler(this.airlineGrid_SelectionChanged);
+            this.airlineGrid.RowTemplate.Height = 50;
+            this.airlineGrid.Size = new System.Drawing.Size(515, 519);
+            this.airlineGrid.TabIndex = 29;
+            this.airlineGrid.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.airlineGrid.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.airlineGrid.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.airlineGrid.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.airlineGrid.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.airlineGrid.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.airlineGrid.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.airlineGrid.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+            this.airlineGrid.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.airlineGrid.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.airlineGrid.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.airlineGrid.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.airlineGrid.ThemeStyle.HeaderStyle.Height = 50;
+            this.airlineGrid.ThemeStyle.ReadOnly = true;
+            this.airlineGrid.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.airlineGrid.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Single;
+            this.airlineGrid.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.airlineGrid.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.airlineGrid.ThemeStyle.RowsStyle.Height = 50;
+            this.airlineGrid.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.airlineGrid.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.airlineGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.airlineGrid_CellMouseDown_1);
+            this.airlineGrid.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.airlineGrid_RowPrePaint_1);
+            this.airlineGrid.SelectionChanged += new System.EventHandler(this.airlineGrid_SelectionChanged_1);
             // 
             // SelectAirline
             // 
@@ -173,10 +225,10 @@
 
         private System.Windows.Forms.Button bExit;
         private System.Windows.Forms.Panel panel;
-        private System.Windows.Forms.DataGridView airlineGrid;
         private Guna.UI2.WinForms.Guna2Button btnAccept;
         private System.Windows.Forms.Panel searchPanel;
         private System.Windows.Forms.Label searchLabel;
         private Guna.UI2.WinForms.Guna2TextBox searchTB;
+        private Guna.UI2.WinForms.Guna2DataGridView airlineGrid;
     }
 }

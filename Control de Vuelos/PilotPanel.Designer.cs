@@ -25,6 +25,9 @@ namespace Control_de_Vuelos {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnAddPilot = new Guna.UI2.WinForms.Guna2Button();
             this.btnModifyPilot = new Guna.UI2.WinForms.Guna2Button();
             this.btnDeletePilot = new Guna.UI2.WinForms.Guna2Button();
@@ -39,13 +42,13 @@ namespace Control_de_Vuelos {
             this.identityLabel = new System.Windows.Forms.Label();
             this.nameTB = new Guna.UI2.WinForms.Guna2TextBox();
             this.nameLabel = new System.Windows.Forms.Label();
-            this.pilotsGrid = new System.Windows.Forms.DataGridView();
             this.countryLabel = new System.Windows.Forms.Label();
             this.countryCB = new Guna.UI2.WinForms.Guna2ComboBox();
             this.airlineLabel = new System.Windows.Forms.Label();
             this.airlineTB = new Guna.UI2.WinForms.Guna2TextBox();
             this.airlineB = new Guna.UI2.WinForms.Guna2Button();
             this.btnReturn = new Guna.UI2.WinForms.Guna2Button();
+            this.pilotsGrid = new Guna.UI2.WinForms.Guna2DataGridView();
             this.searchPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pilotsGrid)).BeginInit();
             this.SuspendLayout();
@@ -300,20 +303,6 @@ namespace Control_de_Vuelos {
             this.nameLabel.TabIndex = 1;
             this.nameLabel.Text = "Nombre";
             // 
-            // pilotsGrid
-            // 
-            this.pilotsGrid.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.pilotsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.pilotsGrid.Location = new System.Drawing.Point(622, 134);
-            this.pilotsGrid.Name = "pilotsGrid";
-            this.pilotsGrid.RowHeadersWidth = 51;
-            this.pilotsGrid.RowTemplate.Height = 24;
-            this.pilotsGrid.Size = new System.Drawing.Size(572, 468);
-            this.pilotsGrid.TabIndex = 12;
-            this.pilotsGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.pilotsGrid_CellMouseDown_1);
-            this.pilotsGrid.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.pilotsGrid_RowPrePaint);
-            this.pilotsGrid.SelectionChanged += new System.EventHandler(this.pilotsGrid_SelectionChanged_1);
-            // 
             // countryLabel
             // 
             this.countryLabel.AutoSize = true;
@@ -421,11 +410,75 @@ namespace Control_de_Vuelos {
             this.btnReturn.Visible = false;
             this.btnReturn.Click += new System.EventHandler(this.btnReturn_Click);
             // 
+            // pilotsGrid
+            // 
+            this.pilotsGrid.AllowUserToAddRows = false;
+            this.pilotsGrid.AllowUserToDeleteRows = false;
+            this.pilotsGrid.AllowUserToResizeColumns = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.pilotsGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.pilotsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.pilotsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Single;
+            this.pilotsGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.pilotsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.pilotsGrid.ColumnHeadersHeight = 50;
+            this.pilotsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.pilotsGrid.DefaultCellStyle = dataGridViewCellStyle3;
+            this.pilotsGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.pilotsGrid.Location = new System.Drawing.Point(615, 131);
+            this.pilotsGrid.Name = "pilotsGrid";
+            this.pilotsGrid.ReadOnly = true;
+            this.pilotsGrid.RowHeadersVisible = false;
+            this.pilotsGrid.RowHeadersWidth = 51;
+            this.pilotsGrid.RowTemplate.Height = 50;
+            this.pilotsGrid.Size = new System.Drawing.Size(579, 544);
+            this.pilotsGrid.TabIndex = 28;
+            this.pilotsGrid.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.pilotsGrid.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.pilotsGrid.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.pilotsGrid.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.pilotsGrid.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.pilotsGrid.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.pilotsGrid.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.pilotsGrid.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(216)))), ((int)(((byte)(143)))));
+            this.pilotsGrid.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.pilotsGrid.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pilotsGrid.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.pilotsGrid.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.pilotsGrid.ThemeStyle.HeaderStyle.Height = 50;
+            this.pilotsGrid.ThemeStyle.ReadOnly = true;
+            this.pilotsGrid.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.pilotsGrid.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Single;
+            this.pilotsGrid.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pilotsGrid.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.pilotsGrid.ThemeStyle.RowsStyle.Height = 50;
+            this.pilotsGrid.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.pilotsGrid.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.pilotsGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.pilotsGrid_CellMouseDown);
+            this.pilotsGrid.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.pilotsGrid_RowPrePaint_1);
+            this.pilotsGrid.SelectionChanged += new System.EventHandler(this.pilotsGrid_SelectionChanged);
+            // 
             // PilotPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1220, 727);
+            this.Controls.Add(this.pilotsGrid);
             this.Controls.Add(this.btnReturn);
             this.Controls.Add(this.airlineB);
             this.Controls.Add(this.airlineTB);
@@ -434,7 +487,6 @@ namespace Control_de_Vuelos {
             this.Controls.Add(this.countryLabel);
             this.Controls.Add(this.lastName2TB);
             this.Controls.Add(this.lastName2Label);
-            this.Controls.Add(this.pilotsGrid);
             this.Controls.Add(this.lastName1TB);
             this.Controls.Add(this.lasName1Label);
             this.Controls.Add(this.identityTB);
@@ -474,12 +526,12 @@ namespace Control_de_Vuelos {
         private System.Windows.Forms.Label lasName1Label;
         private System.Windows.Forms.Label searchLabel;
         private Guna.UI2.WinForms.Guna2TextBox searchTB;
-        private System.Windows.Forms.DataGridView pilotsGrid;
         private System.Windows.Forms.Label countryLabel;
         private Guna.UI2.WinForms.Guna2ComboBox countryCB;
         private Label airlineLabel;
         private Guna.UI2.WinForms.Guna2TextBox airlineTB;
         private Guna.UI2.WinForms.Guna2Button airlineB;
         private Guna.UI2.WinForms.Guna2Button btnReturn;
+        private Guna.UI2.WinForms.Guna2DataGridView pilotsGrid;
     }
 }
