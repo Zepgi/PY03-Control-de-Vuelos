@@ -1066,32 +1066,6 @@ BEGIN
     END CATCH
 END;
 GO
-
---Busca a un ´piloto segun su nombre, apellidos, cedula o nombre de aerolinea a la que pertenece
-CREATE PROC Search_Pilot @searchValue VARCHAR(150)
-AS
-BEGIN 
-	BEGIN TRY
-		SELECT p.idPiloto, p.cedulaPiloto, CONCAT(p.nombre, ' ', p.apellidoPat, ' ', p.apellidoMat) AS nombreCompleto, p.nacionalidad, a.nombre, p.estado
-		FROM Pilotos AS p
-		INNER JOIN Aerolineas AS a ON p.idAerolinea = a.idAerolinea
-		WHERE p.nombre LIKE @searchValue OR  p.apellidoPat LIKE @searchValue OR p.apellidoMat LIKE @searchValue
-			OR p.cedulaPiloto LIKE @searchValue + '%' OR a.nombre LIKE @searchValue + '%' OR p.nombre @searchValue + '%' OR p.apellidoPat + '%' OR p.apellidoMat + '%';
-	END TRY
-	BEGIN CATCH
-        DECLARE @ErrorMessage VARCHAR(MAX);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH
-END;
-GO
 ---------------------------------------------------------------------
 
 -------------STORED PROCEDURES PARA PILOTOS --------------------------}
@@ -1254,6 +1228,32 @@ BEGIN
 		SELECT idAerolinea
 		FROM Pilotos
 		WHERE idPiloto = @idPilot;
+	END TRY
+	BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+--Busca a un piloto segun su nombre, apellidos, cedula o nombre de aerolinea a la que pertenece
+CREATE PROC Search_Pilot @searchValue VARCHAR(150)
+AS
+BEGIN 
+	BEGIN TRY
+		SELECT p.idPiloto, p.cedulaPiloto, CONCAT(p.nombre, ' ', p.apellidoPat, ' ', p.apellidoMat) AS nombreCompleto, p.nacionalidad, a.nombre, p.estado
+		FROM Pilotos AS p
+		INNER JOIN Aerolineas AS a ON p.idAerolinea = a.idAerolinea
+		WHERE p.nombre LIKE '%'+@searchValue+'%' OR  p.apellidoPat LIKE '%'+@searchValue+'%' OR p.apellidoMat LIKE '%'+@searchValue+'%'
+			OR p.cedulaPiloto LIKE '%'+@searchValue+'%' OR a.nombre LIKE '%'+@searchValue+'%';
 	END TRY
 	BEGIN CATCH
         DECLARE @ErrorMessage VARCHAR(MAX);
@@ -1506,7 +1506,162 @@ BEGIN
 END;
 GO
 
+CREATE PROC Fligth_per_Passenger
+AS
+BEGIN 
+	BEGIN TRY
+		SELECT 
+			v.idVuelo,
+			a.nombre,
+			av.matricula,
+			p.cedulaPasajero,
+			v.fechaHoraPartida,
+			v.fechaHoraLlegada,
+			v.codigoCiudadPartida,
+			v.codigoCiudadDestino
+		FROM Vuelos AS v
+		INNER JOIN ListaPasajeros AS lp ON v.idVuelo = lp.idVuelo
+		INNER JOIN Pasajeros AS p ON lp.cedulaPasajero = p.cedulaPasajero
+		INNER JOIN Aviones AS av ON v.idAvion = av.idAvion
+		INNER JOIN Aerolineas AS a ON v.idAerolinea = a.idAerolinea
+		ORDER BY  p.cedulaPasajero, v.idVuelo;
+	END TRY
+	BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
 
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+CREATE PROC Fligth_Passenger_Info @id INT, @identity VARCHAR(150)
+AS
+BEGIN 
+	BEGIN TRY
+		SELECT 
+			v.idVuelo,
+			CONCAT(p.nombre, ' ', p.apellidoPat, ' ', p.apellidoMat) AS nombrePasajero,
+			lp.asiento,
+			lp.confirmado
+		FROM ListaPasajeros AS lp
+		INNER JOIN Vuelos AS v ON lp.idVuelo = v.idVuelo
+		INNER JOIN Pasajeros AS p ON lp.cedulaPasajero = p.cedulaPasajero
+		WHERE lp.cedulaPasajero = @identity AND v.idVuelo = @id
+	END TRY
+	BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+CREATE PROC Fligth_Cancelled
+AS
+BEGIN 
+	BEGIN TRY
+		SELECT 
+			v.idVuelo,
+			a.nombre,
+			av.matricula,
+			v.fechaHoraPartida,
+			v.fechaHoraLlegada,
+			v.codigoCiudadPartida,
+			v.codigoCiudadDestino
+		FROM Vuelos AS v
+		INNER JOIN Aviones AS av ON v.idAvion = av.idAvion
+		INNER JOIN Aerolineas AS a ON v.idAerolinea = a.idAerolinea
+		WHERE v.estado = 0
+		ORDER BY  v.idVuelo;
+	END TRY
+	BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+CREATE PROC Passengers_Confirm
+AS
+BEGIN 
+	BEGIN TRY
+		SELECT 
+			lp.id,
+			p.cedulaPasajero,
+			CONCAT(p.nombre, ' ', p.apellidoPat, ' ', p.apellidoMat) AS nombrePasajero,
+			lp.asiento
+		FROM ListaPasajeros AS lp
+		INNER JOIN Pasajeros AS p ON lp.cedulaPasajero = p.cedulaPasajero
+		WHERE lp.confirmado = 1;
+	END TRY
+	BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+CREATE PROC Fligth_Passenger_Confirm @id INT, @identity VARCHAR(150)
+AS
+BEGIN 
+	BEGIN TRY
+		SELECT 
+			v.idVuelo,
+			v.fechaHoraPartida,
+			v.fechaHoraLlegada,
+			cs.ciudad,
+			cl.ciudad
+		FROM ListaPasajeros AS lp
+		INNER JOIN Vuelos AS v ON lp.idVuelo = v.idVuelo
+		INNER JOIN Ciudades AS cs ON v.codigoCiudadPartida = cs.codigoCiudad
+		INNER JOIN Ciudades AS cl ON v.codigoCiudadDestino = cs.codigoCiudad
+		WHERE lp.id = @id AND lp.cedulaPasajero = @identity
+		ORDER BY  v.idVuelo; 
+	END TRY
+	BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
 
 ---------------------------------------------------------------------
 ---------- INSERCIONES DE DATOS ----------
