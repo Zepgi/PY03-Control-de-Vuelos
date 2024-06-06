@@ -62,6 +62,12 @@
     <Compile Include="PanelReportes.Designer.cs">
       <DependentUpon>PanelReportes.cs</DependentUpon>
     </Compile>
+    <Compile Include="PassangerConfimFligth.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PassangerConfimFligth.Designer.cs">
+      <DependentUpon>PassangerConfimFligth.cs</DependentUpon>
+    </Compile>
     <Compile Include="PassangerFligthInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,6 +194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PanelReportes.resx">
       <DependentUpon>PanelReportes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PassangerConfimFligth.resx">
+      <DependentUpon>PassangerConfimFligth.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PassangerFligthInfo.resx">
       <DependentUpon>PassangerFligthInfo.cs</DependentUpon>

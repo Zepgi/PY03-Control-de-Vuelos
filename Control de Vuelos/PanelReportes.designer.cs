@@ -765,6 +765,8 @@
             this.passengersConfirmGrid.ThemeStyle.RowsStyle.Height = 50;
             this.passengersConfirmGrid.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.passengersConfirmGrid.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.passengersConfirmGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.passengersConfirmGrid_CellMouseDown);
+            this.passengersConfirmGrid.SelectionChanged += new System.EventHandler(this.passengersConfirmGrid_SelectionChanged);
             // 
             // label9
             // 

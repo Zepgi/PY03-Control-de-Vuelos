@@ -30,7 +30,7 @@ namespace Control_de_Vuelos
             loadFligthsPerPassenger();
             cloumnsCancelledFligths();
             loadCancelledFligths();
-            cloumnsPassengersConfirm();
+            columnsPassengersConfirm();
             loadPassengersConfirm();
 
 
@@ -783,16 +783,18 @@ namespace Control_de_Vuelos
 
 
         //Creates the columns for the passanger confirm report
-        private void cloumnsPassengersConfirm()
+        private void columnsPassengersConfirm()
         {
+            // Crear las columnas en el DataGrid
             passengersConfirmGrid.Columns.Add("idColumn", "ID");
-            passengersConfirmGrid.Columns.Add("identityColumn", "Cedula");
-            passengersConfirmGrid.Columns.Add("nameColumn", "Nombre");
+            passengersConfirmGrid.Columns.Add("identityColumn", "Cedula Pasajero");
+            passengersConfirmGrid.Columns.Add("nameColumn", "Nombre Pasajero");
             passengersConfirmGrid.Columns.Add("sitColumn", "Asiento");
 
             passengersConfirmGrid.AutoGenerateColumns = false;  // Deshabilitar la generación automática de columnas
             passengersConfirmGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
+
 
 
         //Load the grid for the passengers confirm report
@@ -809,13 +811,16 @@ namespace Control_de_Vuelos
                 DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);
 
-                //Maps the columns
+                // Asegúrate de que las columnas están creadas
+                columnsPassengersConfirm();
+
+                // Mapear columnas explícitamente
                 passengersConfirmGrid.Columns["idColumn"].DataPropertyName = "id";
                 passengersConfirmGrid.Columns["identityColumn"].DataPropertyName = "cedulaPasajero";
                 passengersConfirmGrid.Columns["nameColumn"].DataPropertyName = "nombrePasajero";
                 passengersConfirmGrid.Columns["sitColumn"].DataPropertyName = "asiento";
 
-                // Asignes the dat ato the grid
+                // Asignar los datos al DataGridView
                 passengersConfirmGrid.DataSource = dataTable;
             }
             catch (Exception ex)
@@ -828,12 +833,44 @@ namespace Control_de_Vuelos
             }
         }
 
+
         private void passengerConfirmInfo(int id, String identity)
         {
             PassangerConfimFligth infoFligth = new PassangerConfimFligth(id, identity);
             infoFligth.Show();
         }
 
+        private void passengersConfirmGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.Button == MouseButtons.Left)
+            {
+                passengersConfirmGrid.ClearSelection();
+                DataGridViewRow row = passengersConfirmGrid.Rows[e.RowIndex];
+                row.Selected = true;
+
+                int idV = (int)row.Cells["idColumn"].Value;
+
+                passengerConfirmInfo(idV, row.Cells["identityColumn"].Value.ToString());
+            }
+        }
+
+        private void passengersConfirmGrid_SelectionChanged(object sender, EventArgs e)
+        {
+            if (passengersConfirmGrid.SelectedCells.Count == 0)
+                return;
+
+            passengersConfirmGrid.ClearSelection();
+
+            foreach (DataGridViewCell cell in passengersConfirmGrid.SelectedCells)
+            {
+                if (cell != null && cell.OwningRow != null)
+                {
+                    DataGridViewRow row = cell.OwningRow;
+                    row.Selected = true;
+                    break;
+                }
+            }
+        }
     }
 }
 
