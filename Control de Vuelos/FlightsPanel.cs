@@ -92,10 +92,28 @@ namespace Control_de_Vuelos {
 			if (permissions.IndexOf(1) != -1) {
 				this.lbAirline.Visible = true;
 				this.cbAirlines.Visible = true;
-			}
-			if (permissions.IndexOf(3) != -1) {
-				this.btRightOption.Visible = false;
-				this.btLeftOption.Visible = false;
+				try {
+					this.conn.open();
+
+					SqlCommand cmd = new SqlCommand("GetAirlineByName", this.conn.ConnectDB);
+					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.Parameters.AddWithValue("@Name", "");
+
+					SqlDataReader reader = cmd.ExecuteReader();
+					while (reader.Read()) {
+						string idAerolinea = reader["idAerolinea"].ToString();
+						string nombre = reader["nombre"].ToString();
+						this.cbAirlines.Items.Add(idAerolinea + " - " + nombre);
+					}
+
+					reader.Close();
+				} catch (SqlException ex) {
+					MessageBox.Show("Error: " + ex.Message, "Error al cargar aerolíneas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				} finally {
+					if (this.conn.ConnectDB.State == ConnectionState.Open) {
+						this.conn.close();
+					}
+				}
 			} else {
 				this.btFlights.Visible = false;
 				this.btPassengers.Visible = false;
@@ -565,5 +583,13 @@ namespace Control_de_Vuelos {
 			}
 		}
 
+		private void cbAirlines_IndexChanged(object sender, EventArgs e) {
+			if (this.cbAirlines.SelectedIndex != -1) {
+				this.idAirline = Convert.ToInt32(this.cbAirlines.SelectedItem.ToString().Split('-')[0].Trim());
+				this.setTableData("Vuelos");
+				this.loadPanel(new ManageFlightPassengersPanel(idAirline, this));
+				this.lbSelectOpt.Visible = false;
+			}
+		}
 	}
 }
