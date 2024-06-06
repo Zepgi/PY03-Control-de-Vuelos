@@ -16,11 +16,11 @@ namespace Control_de_Vuelos
     {
         DatabaseConnection conexion;
 
-		public PanelAerolineas()
+        public PanelAerolineas()
         {
             conexion = new DatabaseConnection();
 
-			InitializeComponent();
+            InitializeComponent();
             // Vincula el evento CellClick al DataGridView
             dataGridViewAirlines.CellClick += dataGridViewAerolineas_CellClick;
             this.buttonDeleteAirline.Visible = false;
@@ -161,9 +161,9 @@ namespace Control_de_Vuelos
             }
         }
 
+        //
 
-
-
+        //
         private void buttonModifyAirline_Click(object sender, EventArgs e)
         {
             // Check if any row is selected in the DataGridView
@@ -315,9 +315,80 @@ namespace Control_de_Vuelos
             this.buttonModifyView.Visible = false;
         }
 
+        private void airlineB_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //  campo no esté vacío
+                if (string.IsNullOrWhiteSpace(searchAirLine.Text))
+                {
+                    MessageBox.Show("Por favor, llene el campo requerido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // nombre de la aerolínea desde el cuadro de texto
+                string airlineName = searchAirLine.Text.Trim();
+
+            
+                if (conexion.ConnectDB.State == ConnectionState.Open)
+                {
+                    conexion.close();
+                }
+
+                using (SqlCommand cmd = new SqlCommand("GetAirlineByName", conexion.ConnectDB))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Name", airlineName);
+
+                    conexion.open();
+                    SqlDataAdapter adaptador = new SqlDataAdapter(cmd);
+                    DataTable tablaAerolinea = new DataTable();
+                    adaptador.Fill(tablaAerolinea);
+
+                    if (tablaAerolinea.Rows.Count > 0)
+                    {
+                        // Asigna los datos al DataGridView
+                        dataGridViewAirlines.DataSource = tablaAerolinea;
+
+                        // Cambia el nombre de las columnas en el DataTable
+                        tablaAerolinea.Columns["AirlineId"].ColumnName = "ID Aerolínea";
+                        tablaAerolinea.Columns["Name"].ColumnName = "Nombre";
+                        tablaAerolinea.Columns["Motto"].ColumnName = "Lema";
+                        tablaAerolinea.Columns["State"].ColumnName = "Estado Binario";
+
+                        // Agrega una nueva columna 'Estado' al DataTable con valores 'Activo' o 'Inactivo'
+                        tablaAerolinea.Columns.Add("Estado", typeof(string));
+                        foreach (DataRow row in tablaAerolinea.Rows)
+                        {
+                            // Obtiene el valor del estado y asigna 'Activo' o 'Inactivo' a la nueva columna
+                            int estado = Convert.ToInt32(row["Estado Binario"]);
+                            row["Estado"] = (estado == 1) ? "Activo" : "Inactivo";
+                        }
+
+                        // Oculta la columna 'Estado Binario' y cambia el encabezado de la columna 'Estado'
+                        dataGridViewAirlines.Columns["Estado Binario"].Visible = false;
+                        dataGridViewAirlines.Columns["Estado"].HeaderText = "Estado";
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontró ninguna aerolínea con el nombre proporcionado.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    conexion.close();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Captura y muestra cualquier error inesperado
+                MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
     }
-
-
-
-
 }
+
+
+
+
+

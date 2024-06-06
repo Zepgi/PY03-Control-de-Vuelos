@@ -5,6 +5,7 @@ GO
 USE AEROLINEAS;
 GO
 
+--------------BEGIN TABLE------------------
 CREATE TABLE Aerolineas
 	(idAerolinea	INT	IDENTITY(1,1)	NOT NULL,
 	nombre			VARCHAR(100)		NOT NULL,
@@ -134,8 +135,11 @@ CREATE TABLE ListaPasajeros(
 	FOREIGN KEY	(idVuelo)		 REFERENCES Vuelos(idVuelo),
 	FOREIGN KEY (cedulaPasajero) REFERENCES Pasajeros(cedulaPasajero));
 GO
-------------------------------------------
+--------------------END TABLES----------------------
 
+-----------BEGIN PROCEDURES----------------------------
+
+-------------LOGIN----------------------
 CREATE PROC Permisos_Admin_General
 	(@idUsuario INT)
 AS
@@ -175,8 +179,6 @@ BEGIN
 		(@idAerolinea, @idUsuario, 2);
 END;
 GO
-
------------- STORED PROCEDURES ------------
 
 CREATE PROC Verificar_Credenciales 
     (@email VARCHAR(300), @contrasenia VARCHAR(100))
@@ -228,6 +230,8 @@ BEGIN
 END;
 GO
 
+
+---------------FLIGTH PROCEDURES-------------------
 CREATE PROC Get_Flights
 	(@idAerolinea INT)
 AS
@@ -307,7 +311,7 @@ BEGIN
             @fechaHoraPartida, 
             @fechaHoraLlegada, 
             @codigoCiudadPartida,
-            @codigoCiudadDestino,
+            @codigoCiudadDestino, 
             1
         );
     END TRY
@@ -649,7 +653,7 @@ BEGIN
 END;
 GO
 
------------- INICIO STORED PROCEDURES AEROLINEAS ------------
+-----------AIRLINE PROCEDURES ------------
 CREATE PROC Crear_Aerolinea
     (@nombre VARCHAR(100), @lema VARCHAR(MAX))
 AS
@@ -676,6 +680,36 @@ BEGIN
             @ErrorState = ERROR_STATE();
 
 	RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+---------- ObtenerAerolineasId-------------
+CREATE PROCEDURE GetAirlineByName
+    @Name VARCHAR(100)
+AS
+BEGIN
+    BEGIN TRY
+        SELECT 
+            idAerolinea,
+            nombre,
+            lema,
+            estado
+        FROM 
+            Aerolineas
+        WHERE 
+            nombre LIKE '%' + @Name + '%';
+    END TRY
+    BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH
 END;
 GO
@@ -741,12 +775,7 @@ BEGIN
 END;
 GO
 
-
-
------------- FIN STORED PROCEDURES AEROLINEAS ------------
-
-
------------- STORED PROCEDURES PARA AVIONES ------------
+------------ PLANE PROCEDURES ------------
 CREATE PROC Crear_Aviones
 (
     @marca VARCHAR(100),
@@ -886,16 +915,7 @@ END;
 GO
 
 
------------- STORED FIN PROCEDURES PARA AVIONES ------------
-
-
-
-
-
-
-
-
------------- STORED PROCEDURES PARA BUSQUEDAS ------------
+------------ SEARCH USER PROCEDURE ------------
 
 CREATE PROC Buscar_Usuario
 	(@idUsuario INT)
@@ -921,7 +941,8 @@ BEGIN
 END;
 GO
 
---Busca a un ´piloto segun su nombre, apellidos, cedula o nombre de aerolinea a la que pertenece
+-------------PILOTS PROCEDURES --------------------------
+--Search the pilot by the name, lastNames, airline or identity document
 CREATE PROC Search_Pilot @searchValue VARCHAR(150)
 AS
 BEGIN 
@@ -929,8 +950,8 @@ BEGIN
 		SELECT p.idPiloto, p.cedulaPiloto, CONCAT(p.nombre, ' ', p.apellidoPat, ' ', p.apellidoMat) AS nombreCompleto, p.nacionalidad, a.nombre, p.estado
 		FROM Pilotos AS p
 		INNER JOIN Aerolineas AS a ON p.idAerolinea = a.idAerolinea
-		WHERE p.nombre LIKE @searchValue OR  p.apellidoPat LIKE @searchValue OR p.apellidoMat LIKE @searchValue
-			OR p.cedulaPiloto LIKE @searchValue OR a.nombre LIKE @searchValue;
+		WHERE p.nombre LIKE '%'+@searchValue+'%' OR  p.apellidoPat LIKE '%'+@searchValue+'%' OR p.apellidoMat LIKE '%'+@searchValue+'%'
+			OR p.cedulaPiloto LIKE '%'+@searchValue+'%' OR a.nombre LIKE '%'+@searchValue+'%';
 	END TRY
 	BEGIN CATCH
         DECLARE @ErrorMessage VARCHAR(MAX);
@@ -946,9 +967,7 @@ BEGIN
     END CATCH
 END;
 GO
----------------------------------------------------------------------
 
--------------STORED PROCEDURES PARA PILOTOS --------------------------}
 --Info pilotos
 CREATE PROC Get_Pilots_Data
 AS
@@ -1042,7 +1061,8 @@ GO
 
 --Modifica el Piloto
 CREATE PROC Update_Pilot 
-	(@identity VARCHAR(150), 
+	(@id INT,
+	@identity VARCHAR(150), 
 	@lastName1 VARCHAR(150),
 	@lastname2 VARCHAR(150),
 	@name VARCHAR(150),
@@ -1057,7 +1077,8 @@ BEGIN
 			apellidoMat = @lastname2,
 			nombre = @name,
 			nacionalidad = @country,
-			idAerolinea = @airline;
+			idAerolinea = @airline
+		WHERE idPiloto = @id;
 	END TRY
 	BEGIN CATCH
         DECLARE @ErrorMessage VARCHAR(MAX);
@@ -1075,12 +1096,13 @@ END;
 GO
 
 --Cambia el estdo del Piloto
-CREATE PROC Delete_Pilot 
+CREATE PROC Delete_Pilot @id INT
 AS
 BEGIN 
 	BEGIN TRY
 		UPDATE Pilotos
-		SET estado = 0;
+		SET estado = 0
+		WHERE idPiloto = @id;
 	END TRY
 	BEGIN CATCH
         DECLARE @ErrorMessage VARCHAR(MAX);
@@ -1096,7 +1118,53 @@ BEGIN
     END CATCH
 END;
 GO
---------------------FIN STORED PROCEDURES PILOTOS----------------------------------
+
+--IdAerolinea del piloto actual
+CREATE PROC Get_IdAirline @idPilot INT
+AS
+BEGIN 
+	BEGIN TRY
+		SELECT idAerolinea
+		FROM Pilotos
+		WHERE idPiloto = @idPilot;
+	END TRY
+	BEGIN CATCH
+        DECLARE @ErrorMessage VARCHAR(MAX);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+--------------------DOCUMENT PROCEDURES----------------------------------
+
+CREATE PROCEDURE Aviones_Aerolineas
+AS
+BEGIN
+    -- Selecciona el nombre de la aerolínea y los datos del avión
+    SELECT 
+        a.nombre AS NombreAerolinea,
+        av.marca AS MarcaAvion,
+        av.matricula AS MatriculaAvion,
+        av.capacidadPasajeros AS CapacidadPasajeros,
+        av.estado AS EstadoAvion
+    FROM 
+        Aerolineas a
+    INNER JOIN 
+        AvionesAerolinea aa ON a.idAerolinea = aa.idAerolinea
+    INNER JOIN 
+        Aviones av ON aa.matricula = av.matricula
+    ORDER BY 
+        a.nombre, av.matricula;
+END;
+GO
 
 ---------------------------------------------------------------------
 ---------- INSERCIONES DE DATOS ----------
@@ -1178,13 +1246,13 @@ VALUES
 GO
 
 
-INSERT INTO Pilotos (cedulaPiloto, apellidoPat, apellidoMat, nombre, nacionalidad, estado, idAerolinea)
+INSERT INTO Pilotos (cedulaPiloto, nacionalidad,apellidoPat, apellidoMat, nombre, estado, idAerolinea)
 VALUES
-('123456', 'Perez', 'Lopez', 'Juan','CR', 1, 1),
-('234567', 'Garcia', 'Martinez', 'Carlos','CR', 1, 1),
-('345678', 'Rodriguez', 'Hernandez', 'Luis','CR', 1, 2),
-('456789', 'Fernandez', 'Gomez', 'Jorge','CR', 1, 2),
-('567890', 'Gonzalez', 'Diaz', 'Ana','CR', 1,2 );
+('123456','Costa Rica' ,'Perez', 'Lopez', 'Juan', 1, 1),
+('234567', 'Costa Rica' ,'Garcia', 'Martinez', 'Carlos', 1, 1),
+('345678', 'Costa Rica' ,'Rodriguez', 'Hernandez', 'Luis', 1, 2),
+('456789','Costa Rica' , 'Fernandez', 'Gomez', 'Jorge', 1, 2),
+('567890','Costa Rica' , 'Gonzalez', 'Diaz', 'Ana', 1,2 );
 GO
 
 
@@ -1206,3 +1274,8 @@ VALUES
 ( 2, 4, '456789', '2024-06-09 11:00:00', '2024-06-09 15:00:00', 'NYC', 'CDG', 1),
 ( 1, 5, '567890', '2024-06-10 12:00:00', '2024-06-10 16:00:00', 'MAD', 'SJO', 1);
 GO
+
+
+
+
+

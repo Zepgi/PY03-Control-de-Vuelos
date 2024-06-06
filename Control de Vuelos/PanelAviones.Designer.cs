@@ -23,6 +23,7 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.buttonModifyView = new System.Windows.Forms.Button();
             this.buttonDeleteAirPlane = new System.Windows.Forms.Button();
             this.buttonModifyAirPlane = new System.Windows.Forms.Button();
@@ -34,6 +35,7 @@
             this.buttonCreateAirPlane = new System.Windows.Forms.Button();
             this.textBoxCantPasajeros = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.guna2AnimateWindow1 = new Guna.UI2.WinForms.Guna2AnimateWindow(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAirPlanes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -198,5 +200,6 @@
         private System.Windows.Forms.Button buttonCreateAirPlane;
         private System.Windows.Forms.TextBox textBoxCantPasajeros;
         private System.Windows.Forms.Label label1;
+        private Guna.UI2.WinForms.Guna2AnimateWindow guna2AnimateWindow1;
     }
 }
