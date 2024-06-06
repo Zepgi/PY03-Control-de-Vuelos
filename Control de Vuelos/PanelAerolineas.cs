@@ -35,7 +35,8 @@ namespace Control_de_Vuelos
         /// <summary>
         /// Registra el nombre y el lema de una aerolinea creada
         /// </summary>
-        private void buttonCreateAirline_Click(object sender, EventArgs e)
+
+        private void buttonCreateAirline_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -164,7 +165,8 @@ namespace Control_de_Vuelos
         //
 
         //
-        private void buttonModifyAirline_Click(object sender, EventArgs e)
+
+        private void buttonModifyAirline_Click_1(object sender, EventArgs e)
         {
             // Check if any row is selected in the DataGridView
             if (dataGridViewAirlines.SelectedRows.Count > 0)
@@ -239,8 +241,7 @@ namespace Control_de_Vuelos
             }
         }
 
-
-        private void buttonDeleteAirline_Click(object sender, EventArgs e)
+        private void buttonDeleteAirline_Click_1(object sender, EventArgs e)
         {
             // Verify if any row is selected in the DataGridView
             if (dataGridViewAirlines.SelectedRows.Count > 0)
@@ -307,7 +308,7 @@ namespace Control_de_Vuelos
             this.buttonModifyView.Visible = true;
         }
 
-        private void buttonModifyView_Click(object sender, EventArgs e)
+        private void buttonModifyView_Click_1(object sender, EventArgs e)
         {
             this.buttonDeleteAirline.Visible = true;
             this.buttonModifyAirline.Visible = true;
@@ -383,7 +384,6 @@ namespace Control_de_Vuelos
                 MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
     }
 }
