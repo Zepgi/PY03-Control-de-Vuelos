@@ -408,9 +408,7 @@ BEGIN
     END
 END;
 GO
-SELECT * FROM Vuelos
 
-EXEC Update_Flight 5, 1, 'C34567', '123456', '2024-06-10 12:00:00.000', '2024-06-10 16:00:00.000', 'SJO', 'MAD'
 
 CREATE FUNCTION dbo.isExistingPassenger
 (
