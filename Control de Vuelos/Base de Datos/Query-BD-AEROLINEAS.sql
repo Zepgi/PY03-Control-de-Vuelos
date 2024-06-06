@@ -815,7 +815,7 @@ BEGIN
 		FROM Pilotos AS p
 		INNER JOIN Aerolineas AS a ON p.idAerolinea = a.idAerolinea
 		WHERE p.nombre LIKE @searchValue OR  p.apellidoPat LIKE @searchValue OR p.apellidoMat LIKE @searchValue
-			OR p.cedulaPiloto LIKE @searchValue OR a.nombre LIKE @searchValue;
+			OR p.cedulaPiloto LIKE @searchValue + '%' OR a.nombre LIKE @searchValue + '%' OR p.nombre @searchValue + '%' OR p.apellidoPat + '%' OR p.apellidoMat + '%';
 	END TRY
 	BEGIN CATCH
         DECLARE @ErrorMessage VARCHAR(MAX);
