@@ -307,7 +307,7 @@ BEGIN
             @fechaHoraPartida, 
             @fechaHoraLlegada, 
             @codigoCiudadPartida,
-            @codigoCiudadDestino,
+            @codigoCiudadDestino, 
             1
         );
     END TRY
@@ -983,6 +983,29 @@ END;
 GO
 --------------------FIN STORED PROCEDURES PILOTOS----------------------------------
 
+--------------------Inicio STORED PROCEDURES Documentos----------------------------------
+
+CREATE PROCEDURE Aviones_Aerolineas
+AS
+BEGIN
+    -- Selecciona el nombre de la aerolínea y los datos del avión
+    SELECT 
+        a.nombre AS NombreAerolinea,
+        av.marca AS MarcaAvion,
+        av.matricula AS MatriculaAvion,
+        av.capacidadPasajeros AS CapacidadPasajeros,
+        av.estado AS EstadoAvion
+    FROM 
+        Aerolineas a
+    INNER JOIN 
+        AvionesAerolinea aa ON a.idAerolinea = aa.idAerolinea
+    INNER JOIN 
+        Aviones av ON aa.matricula = av.matricula
+    ORDER BY 
+        a.nombre, av.matricula;
+END;
+GO
+
 ---------------------------------------------------------------------
 ---------- INSERCIONES DE DATOS ----------
 
@@ -1063,13 +1086,13 @@ VALUES
 GO
 
 
-INSERT INTO Pilotos (cedulaPiloto, apellidoPat, apellidoMat, nombre, nacionalidad, estado, idAerolinea)
+INSERT INTO Pilotos (cedulaPiloto, nacionalidad,apellidoPat, apellidoMat, nombre, estado, idAerolinea)
 VALUES
-('123456', 'Perez', 'Lopez', 'Juan','CR', 1, 1),
-('234567', 'Garcia', 'Martinez', 'Carlos','CR', 1, 1),
-('345678', 'Rodriguez', 'Hernandez', 'Luis','CR', 1, 2),
-('456789', 'Fernandez', 'Gomez', 'Jorge','CR', 1, 2),
-('567890', 'Gonzalez', 'Diaz', 'Ana','CR', 1,2 );
+('123456','Costa Rica' ,'Perez', 'Lopez', 'Juan', 1, 1),
+('234567', 'Costa Rica' ,'Garcia', 'Martinez', 'Carlos', 1, 1),
+('345678', 'Costa Rica' ,'Rodriguez', 'Hernandez', 'Luis', 1, 2),
+('456789','Costa Rica' , 'Fernandez', 'Gomez', 'Jorge', 1, 2),
+('567890','Costa Rica' , 'Gonzalez', 'Diaz', 'Ana', 1,2 );
 GO
 
 
@@ -1091,3 +1114,6 @@ VALUES
 ( 2, 4, '456789', '2024-06-09 11:00:00', '2024-06-09 15:00:00', 'NYC', 'CDG', 1),
 ( 1, 5, '567890', '2024-06-10 12:00:00', '2024-06-10 16:00:00', 'MAD', 'SJO', 1);
 GO
+
+
+
