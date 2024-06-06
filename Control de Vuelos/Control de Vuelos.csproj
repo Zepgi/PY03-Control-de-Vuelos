@@ -125,12 +125,6 @@
     <Compile Include="PilotPanel.Designer.cs">
       <DependentUpon>PilotPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="PanelReportes.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PanelReportes.Designer.cs">
-      <DependentUpon>PanelReportes.cs</DependentUpon>
-    </Compile>
     <Compile Include="FlightsPanel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,9 +176,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PilotPanel.resx">
       <DependentUpon>PilotPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PanelReportes.resx">
-      <DependentUpon>PanelReportes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FlightsPanel.resx">
       <DependentUpon>FlightsPanel.cs</DependentUpon>
