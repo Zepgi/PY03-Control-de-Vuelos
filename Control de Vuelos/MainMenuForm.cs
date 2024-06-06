@@ -30,7 +30,7 @@ namespace Control_de_Vuelos {
 			this.btAirlines.Enabled	 = false;
 			this.btReports.Enabled		 = false;
 			this.btFlights.Enabled		 = false;
-			loadPanel(new HomePanel(idAirline, idUser));
+			loadPanel(new HomePanel(idAirline, idUser, permissions));
 			managePermissions();
 		}
 
@@ -128,7 +128,7 @@ namespace Control_de_Vuelos {
 						loadPanel(new PanelMantenimiento());
 						break;
 					case "btHome":
-						loadPanel(new HomePanel(idAirline, idUser));
+						loadPanel(new HomePanel(idAirline, idUser, permissions));
 						break;
 					case "btPlanes":
 						loadPanel(new PanelAviones());
