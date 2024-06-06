@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Guna.Charts.WinForms, Version=1.0.9.0, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
+      <HintPath>packages\Guna.Charts.WinForms.1.0.9\lib\net472\Guna.Charts.WinForms.dll</HintPath>
+    </Reference>
     <Reference Include="Guna.UI2, Version=2.0.4.6, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
       <HintPath>packages\Guna.UI2.WinForms.2.0.4.6\lib\net472\Guna.UI2.dll</HintPath>
     </Reference>
@@ -52,6 +55,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SelectAirline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectAirline.Designer.cs">
+      <DependentUpon>SelectAirline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="System\DataGridViewRowPrePaintEventArgs.cs" />
     <Content Include="Base de Datos\Query-BD-AEROLINEAS.sql" />
     <Compile Include="DatabaseConnection.cs" />
     <Compile Include="LoginForm.cs">
@@ -90,11 +100,11 @@
     <Compile Include="PanelMantenimiento.Designer.cs">
       <DependentUpon>PanelMantenimiento.cs</DependentUpon>
     </Compile>
-    <Compile Include="PanelPilotos.cs">
+    <Compile Include="PilotPanel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PanelPilotos.Designer.cs">
-      <DependentUpon>PanelPilotos.cs</DependentUpon>
+    <Compile Include="PilotPanel.Designer.cs">
+      <DependentUpon>PilotPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="PanelReportes.cs">
       <SubType>Form</SubType>
@@ -140,8 +150,8 @@
     <EmbeddedResource Include="PanelMantenimiento.resx">
       <DependentUpon>PanelMantenimiento.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PanelPilotos.resx">
-      <DependentUpon>PanelPilotos.cs</DependentUpon>
+    <EmbeddedResource Include="PilotPanel.resx">
+      <DependentUpon>PilotPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PanelReportes.resx">
       <DependentUpon>PanelReportes.cs</DependentUpon>
@@ -159,6 +169,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SelectAirline.resx">
+      <DependentUpon>SelectAirline.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
