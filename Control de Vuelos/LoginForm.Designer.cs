@@ -30,13 +30,14 @@ namespace Control_de_Vuelos {
 		private void InitializeComponent() {
 			this.btLogin = new Guna.UI2.WinForms.Guna2Button();
 			this.lbLogin = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
 			this.pInputArea = new Guna.UI2.WinForms.Guna2ShadowPanel();
 			this.pLogin = new System.Windows.Forms.Panel();
 			this.txtAccount = new System.Windows.Forms.TextBox();
 			this.txtPassword = new System.Windows.Forms.TextBox();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.pInputArea.SuspendLayout();
 			this.pLogin.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// btLogin
@@ -51,9 +52,8 @@ namespace Control_de_Vuelos {
 			this.btLogin.Location = new System.Drawing.Point(144, 406);
 			this.btLogin.Name = "btLogin";
 			this.btLogin.PressedColor = System.Drawing.Color.Teal;
-			this.btLogin.ShadowDecoration.BorderRadius = 30;
+			this.btLogin.ShadowDecoration.BorderRadius = 0;
 			this.btLogin.ShadowDecoration.Depth = 5;
-			this.btLogin.ShadowDecoration.Enabled = true;
 			this.btLogin.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(8, 1, 8, 10);
 			this.btLogin.Size = new System.Drawing.Size(120, 46);
 			this.btLogin.TabIndex = 4;
@@ -67,30 +67,19 @@ namespace Control_de_Vuelos {
 			this.lbLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.lbLogin.Font = new System.Drawing.Font("Century Gothic", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lbLogin.ForeColor = System.Drawing.Color.Black;
-			this.lbLogin.Location = new System.Drawing.Point(55, 118);
+			this.lbLogin.Location = new System.Drawing.Point(55, 137);
 			this.lbLogin.Name = "lbLogin";
 			this.lbLogin.Size = new System.Drawing.Size(299, 44);
 			this.lbLogin.TabIndex = 0;
 			this.lbLogin.Text = "Inicio de Sesión";
 			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.BackColor = System.Drawing.Color.Transparent;
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(163, 46);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(82, 25);
-			this.label1.TabIndex = 5;
-			this.label1.Text = "[LOGO]";
-			// 
 			// pInputArea
 			// 
 			this.pInputArea.BackColor = System.Drawing.Color.Transparent;
+			this.pInputArea.Controls.Add(this.pictureBox1);
 			this.pInputArea.Controls.Add(this.btLogin);
 			this.pInputArea.Controls.Add(this.lbLogin);
 			this.pInputArea.Controls.Add(this.pLogin);
-			this.pInputArea.Controls.Add(this.label1);
 			this.pInputArea.FillColor = System.Drawing.Color.White;
 			this.pInputArea.Location = new System.Drawing.Point(420, 145);
 			this.pInputArea.Name = "pInputArea";
@@ -140,6 +129,16 @@ namespace Control_de_Vuelos {
 			this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.pressedEnter_Listener);
 			this.txtPassword.Leave += new System.EventHandler(this.txtPassword_Leave);
 			// 
+			// pictureBox1
+			// 
+			this.pictureBox1.Image = global::Control_de_Vuelos.Properties.Resources.logo;
+			this.pictureBox1.Location = new System.Drawing.Point(144, 14);
+			this.pictureBox1.Name = "pictureBox1";
+			this.pictureBox1.Size = new System.Drawing.Size(120, 120);
+			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+			this.pictureBox1.TabIndex = 5;
+			this.pictureBox1.TabStop = false;
+			// 
 			// LoginForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -157,6 +156,7 @@ namespace Control_de_Vuelos {
 			this.pInputArea.PerformLayout();
 			this.pLogin.ResumeLayout(false);
 			this.pLogin.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -164,11 +164,11 @@ namespace Control_de_Vuelos {
 		#endregion
 		private Guna2Button  btLogin;
 		private System.Windows.Forms.Label lbLogin;
-		private System.Windows.Forms.Label label1;
 		private Guna2ShadowPanel pInputArea;
 		private System.Windows.Forms.Panel pLogin;
 		private System.Windows.Forms.TextBox txtAccount;
 		private System.Windows.Forms.TextBox txtPassword;
+		private PictureBox pictureBox1;
 	}
 }
 

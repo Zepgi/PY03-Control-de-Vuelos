@@ -53,12 +53,12 @@ namespace Control_de_Vuelos {
 
 
 		private void buttonGrid(int pY) {
-			int x = 6;
-			int y = pY / 6;
+			int x = 4;
+			int y = pY / 4;
 
 			int number = 1;
-			int yPos = 40;
-			int xPos = 0;
+			int yPos = 60;
+			int xPos = 40;
 
 			List<int> occupiedSeats = getOccupiedSeats();
 
@@ -85,8 +85,8 @@ namespace Control_de_Vuelos {
 						checkBox.Enabled = false;
 					}
 					checkBox.Click += checkBox_Click;
-					if (j == 4) {
-						xPosition += 25;
+					if (j == 3) {
+						xPosition += 15;
 					}
 					checkBox.Location = new Point(xPosition + 39 * (j-1), yPos);
 
